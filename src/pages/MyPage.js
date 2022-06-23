@@ -3,8 +3,8 @@ import { withRouter } from "react-router-dom";
 import { ROOT_API } from "../utils/axios";
 import jwt from "jsonwebtoken";
 
-// import './css/main/index.css';
-// import './css/main/reset.css';
+// import './css/main/reset.module.css';
+import style from './css/main/MyPage.module.css';
 
 function MyPage() {
 
@@ -33,8 +33,8 @@ function MyPage() {
     }, []);
 
     return (
-        <div id="wrap" class="content-wrap">
-            <div class="content">
+        <div id='wrap' className={style.contentwrap}>
+            <div className={style.content}>
                 <form>
                     <div>
                         <label>ID</label>
@@ -48,19 +48,19 @@ function MyPage() {
                         <label>과학관이름</label>
                         <input type="text" value={MuseumName.MuseumName} readOnly />
                     </div>
-                    <div class="request">
+                    <div className={style.request}>
                         <a href="service02.html">서비스 신청하기</a>
                     </div>
                     <div>
                         <label>서비스신청상태</label>
-                        <input type="text" value={PaymentState.PaymentState} readOnly class="state" />
+                        <input type="text" value={PaymentState.PaymentState} readOnly className="state" />
                     </div>
-                    <div class="plan">
+                    <div className={style.plan}>
                         <label>서비스신청상태</label>
                         <input type="text" value={ServicePlan.ServicePlan} readOnly />
                         <a href="#">플랜업그레이드</a>
                     </div>
-                    <div class="go_link">
+                    <div className={style.go_link}>
                         <a href="/dashboard">관리자 시스템</a>
                     </div>
                 </form>

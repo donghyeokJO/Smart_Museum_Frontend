@@ -2,29 +2,30 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-import './css/main/reset.css';
-import './css/main/index.css';
+
+import style from './css/main/MainPage.module.css';
+// import './css/main/reset.module.css';
 
 
 class MainPage extends React.Component {
     render() {
         return (
-            <div id="wrap">
+            <div id={style.wrap}>
                 <Header></Header>
-                <div class="mainVisu clearfix">
-                    <div class="inner">
-                        <p class="t1">SEAS</p>
-                        <p class="t2">smart exhibition analysis system</p>
+                <div className={`${style.mainVisu} ${style.clearfix}`}>
+                    <div className={style.inner}>
+                        <p className={style.t1}>SEAS</p>
+                        <p className={style.t2}>smart exhibition analysis system</p>
                     </div>
-                    <div class="mvImg">
-                        <img src="./img/main_m01.png" class="img1" />
-                        <img src="./img/main_m02.png" class="img2" />
+                    <div className={style.mvImg}>
+                        <img src="./img/main_m01.png" className={style.img1} />
+                        <img src="./img/main_m02.png" className={style.img2} />
                     </div>
                 </div>
-                <div class="hightlight">
-                    <div class="inner">
+                <div className={style.hightlight}>
+                    <div className={style.inner}>
                         <h3>SEAS Hightlight</h3>
-                        <ul class="clearfix">
+                        <ul className={style.clearfix}>
                             <li>
                                 <p>관람객 방문패턴 분석</p>
                                 <img src="./img/highlight01.png" />
@@ -43,14 +44,14 @@ class MainPage extends React.Component {
                         </ul>
                     </div>
                 </div>
-                <div class="remarks">
-                    <div class="inner clearfix">
-                        <div class="text">
+                <div className={style.remarks}>
+                    <div className={`${style.inner} ${style.clearfix}`}>
+                        <div className={style.text}>
                             <h3>비컨과 모바일 앱을 통해 <br />쉽게 설치가 가능해요.</h3>
                             <p>비컨과 모바일 앱을 통해 쉽게 설치가 가능해요.<br />
                                 설치된 비컨을 통해 관람객 정보를 수집하여 관리자 시스템에서 확인가능합니다.</p>
                         </div>
-                        <div class="remarkImg">
+                        <div className={style.remarkImg}>
                             <img src="./img/remark.png" />
                         </div>
                     </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
+// import '../pages/css/main/reset.module.css';
+import style from '../pages/css/main/Header.module.css';
 class Header extends React.Component {
     state = {
         Name: "",
@@ -19,21 +21,20 @@ class Header extends React.Component {
     render() {
         // console.log(this.state)
         return (
-
-            <header>
-                <div class="inner clearfix">
+            <header id = {style.Mainheader}>
+                <div className={`${style.inner} ${style.clearfix}`}>
                     <a href="/">
                         <img src='img/logo.png' alt="seas로고" />
                     </a>
-                    <div class="utill">
+                    <div className={style.utill}>
                         <ul>
-                            {this.state.IsAuth === true ? <li>{this.state.Name}님</li> : <li><a href='/login'>Login</a></li>}
-                            {this.state.IsAuth === true ? null : <li><a href='/join'>Join</a></li>}
-                            {/* <li><a href='/join'>Join</a></li> */}
-                            {this.state.IsAuth === true ? <li><a href='/mypage'>Mypage</a></li> : null}
-                            {/* <li><a href='/mypage'>Mypage</a></li> */}
-                            {/* <li><a href='/#'>관리자시스템</a></li> */}
-                            {this.state.IsAuth === true ? <li class='li_btn' onClick={function () { localStorage.clear(); window.location.href = '/' }}>Logout</li> : null}
+                            {this.state.IsAuth === true ? <li class = {style.Mainli}>{this.state.Name}님</li> : <li class = {style.Mainli}><a class = {style.Maina} href='/login'>Login</a></li>}
+                            {this.state.IsAuth === true ? null : <li class = {style.Mainli}><a class = {style.Maina} href='/join'>Join</a></li>}
+                            {/* <li class = {style.Mainli}><a class = {style.Maina} href='/join'>Join</a></li> */}
+                            {this.state.IsAuth === true ? <li class = {style.Mainli}><a class = {style.Maina} href='/mypage'>Mypage</a></li> : null}
+                            {/* <li class = {style.Mainli}><a class = {style.Maina} href='/mypage'>Mypage</a></li> */}
+                            {/* <li class = {style.Mainli}><a class = {style.Maina} href='/#'>관리자시스템</a></li> */}
+                            {this.state.IsAuth === true ? <li class = {style.Mainli}><a class = {style.Maina} href = '#' onClick={function () { localStorage.clear(); window.location.href = '/' }}>Logout</a></li> : null}
                         </ul>
                     </div>
                 </div>

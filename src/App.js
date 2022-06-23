@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import MyPage from "./pages/MyPage";
 import Dashboard from "./pages/Dashboard";
+import Service from './pages/Service'
 
 import PrivateRoute from "./utils/private_route";
 
@@ -69,6 +70,7 @@ class App extends React.Component {
             <Route path='/join' component={JoinPage} />
             <PrivateRoute path='/mypage' component={MyPage} />
             <PrivateRoute path='/dashboard' component={Dashboard} />
+            <Route path='/service' component={Service}/>
           </Switch>
         </BrowserRouter>
       </>

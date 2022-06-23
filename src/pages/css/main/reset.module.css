@@ -48,7 +48,8 @@ select{
 select::-ms-expand{
   display:none;
 }
-h1,h2,h3,h4,h5,h6{
+/* h1,h2,h3,h4,h5,h6{ */
+h1,h2,h4,h5,h6{
   font-weight:normal;
   font-size:100%;
 }
@@ -85,7 +86,7 @@ a:hover,a:focus{
   text-decoration:none;
   outline:0;
 }
-//legend,caption,.hide{
+legend,caption,.hide{
   visibility:hidden;
   overflow:hidden;
   width:0;

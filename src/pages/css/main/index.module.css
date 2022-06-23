@@ -205,7 +205,7 @@ footer {
 }
 
 /*content*/
-.content-wrap {
+.contentwrap {
     min-height: 100vh;
     background-color: #F4F4F4;
     max-width: inherit !important;
@@ -283,12 +283,12 @@ footer {
     height: 65px;
 }
 
-.content .button-wrap {
+.content .buttonwrap {
     margin-top: 50px;
     text-align: center;
 }
 
-.content .button-wrap button {
+.content .buttonwrap button {
     width: 170px;
     margin: 0 auto;
     padding: 14px 0;
@@ -297,11 +297,11 @@ footer {
     color: #fff;
 }
 
-.content .button-wrap button.mint {
+.content .buttonwrap button.mint {
     background-color: #48A5C2;
 }
 
-.content .button-wrap button.purple {
+.content .buttonwrap button.purple {
     background-color: #535B9D;
 }
 

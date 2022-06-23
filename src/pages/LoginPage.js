@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 // import './css/main/index.css';
 // import './css/main/reset.css';
+import style from './css/main/LoginPage.module.css';
 
 class LoginPage extends React.Component {
     state = {
@@ -38,6 +39,7 @@ class LoginPage extends React.Component {
                     alert("계정 정보가 올바르지 않습니다.");
                 }
                 // console.log(res.data['access'])
+                localStorage.clear();
                 localStorage.setItem('access', res.data['access']);
                 localStorage.setItem('refresh', res.data['refresh']);
 
@@ -80,8 +82,8 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div id="wrap" class="content-wrap">
-                <div class="content">
+            <div id="wrap" className={style.contentwrap}>
+                <div className={style.content}>
                     <form onSubmit={this.onSubmitHandler}>
                         <div>
                             <input type="text"
@@ -95,8 +97,8 @@ class LoginPage extends React.Component {
                                 onChange={this.onPasswordHandler}
                                 placeholder="비밀번호를 입력해주세요." />
                         </div>
-                        <div class="button-wrap">
-                            <button type="submit" class="mint">Login</button>
+                        <div className={style.buttonwrap}>
+                            <button type="submit" className={style.mint}>Login</button>
                         </div>
                     </form>
                 </div>

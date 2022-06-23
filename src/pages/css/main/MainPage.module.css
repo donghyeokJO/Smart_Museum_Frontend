@@ -1,0 +1,369 @@
+#wrap {
+    max-width: 2000px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.inner {
+    padding: 0 16px;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+h3 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #121212;
+    margin-bottom: 50px;
+    line-height: 1.5em;
+}
+
+/*mainVisu*/
+.mainVisu {
+    padding-top: 240px;
+    background: linear-gradient(#3B4172 70%, #F9F9F9 30%);
+}
+
+.mainVisu:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.mainVisu p {
+    color: #fff;
+    font-weight: 300;
+}
+
+.mainVisu .t1 {
+    font-size: 60px;
+    margin-bottom: 24px;
+}
+
+.mainVisu .t2 {
+    font-size: 20px;
+}
+
+.mainVisu .mvImg {
+    margin-left: auto;
+    margin-top: -140px;
+    max-width: 50%;
+    text-align: right;
+}
+
+.mainVisu .mvImg>img {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.mainVisu .mvImg>.img1 {
+    width: 40%;
+}
+
+.mainVisu .mvImg>.img2 {
+    width: 59%;
+}
+
+
+/*highlight*/
+.hightlight {
+    padding: 100px 0;
+    background-color: #F9F9F9;
+}
+
+.hightlight h3 {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.hightlight h3:after {
+    content: "";
+    display: block;
+    width: 100%;
+    background: #B9BCCC;
+    position: absolute;
+    left: 0px;
+    top: 27px;
+    height: 17px;
+    z-index: -1;
+}
+
+.hightlight ul:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.hightlight li {
+    float: left;
+    width: calc((100% - 40px) / 3);
+    margin-right: 20px;
+    background-color: #fff;
+    border: 2px solid #ededed;
+    border-radius: 24px;
+    text-align: center;
+    padding: 50px;
+}
+
+.hightlight li:last-child {
+    margin-right: 0;
+}
+
+.hightlight li p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hightlight li img {
+    display: block;
+    margin: 30px auto;
+}
+
+.hightlight li span {
+    line-height: 1.5em;
+    color: #606060;
+}
+
+/*remark*/
+.remarks {
+    background-color: #F9F9F9;
+    padding-top: 50px;
+}
+
+.remarks .text {
+    float: left;
+    width: 50%;
+}
+
+.remarks .text p {
+    color: #606060;
+    line-height: 1.5em;
+}
+
+.remarks .remarkImg {
+    float: right;
+    width: 45%;
+}
+
+.remarks .remarkImg img {
+    width: 100%;
+}
+
+/********************
+    메인 반응형 시작
+********************/
+@media all and (max-width:1400px) {
+    .mainVisu {
+        padding-top: 200px;
+    }
+
+}
+
+@media all and (max-width:1200px) {
+    h3 {
+        font-size: 28px;
+    }
+
+    header {
+        padding-top: 30px;
+    }
+
+    header h1 img {
+        width: 130px;
+    }
+
+    .mainVisu {
+        padding-top: 150px;
+        background: linear-gradient(#3B4172 90%, #F9F9F9 10%);
+    }
+
+    .mainVisu .mvImg {
+        max-width: 60%;
+    }
+
+    .hightlight li {
+        padding: 50px 12px;
+        width: calc((100% - 20px) / 3);
+        margin-right: 10px;
+    }
+}
+
+@media all and (max-width:767px) {
+    h3 {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+
+    header h1 img {
+        width: 100px;
+    }
+
+    .mainVisu {
+        text-align: center;
+        padding-top: 120px;
+    }
+
+    .mainVisu .t1 {
+        margin-bottom: 8px;
+    }
+
+    .mainVisu .mvImg {
+        margin-top: 50px;
+        max-width: 90%;
+    }
+
+    .mainVisu .mvImg>.img1 {
+        width: 39%;
+    }
+
+    .hightlight h3:after {
+        top: 17px;
+    }
+
+    .hightlight li {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 12px;
+        padding: 30px 12px;
+        border-radius: 8px;
+    }
+
+    .hightlight li p {
+        font-size: 16px;
+    }
+
+    .hightlight li img {
+        margin: 10px auto;
+    }
+
+    .remarks {
+        padding-top: 0;
+    }
+}
+
+@media all and (max-width:600px) {
+    .remarks .text {
+        float: none;
+        width: 100%;
+        margin-bottom: 32px;
+    }
+
+    .remarks .remarkImg {
+        width: 70%;
+    }
+}
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+*{
+  font-family:'NanumSquare', sans-serif;
+  color: #25233a; letter-spacing: -0.75px;
+}
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder {
+  color: #999;
+}
+/* Reset */
+html,body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  font:16px/1.6;
+}
+html,body{
+  margin:0;
+  padding:0;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, input, label, textarea,video{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+section, article, aside, hgroup, header, footer, nav, figure, figcaption, time, mark, canvas, video, audio, details, summary{
+  display:block;
+}
+dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,tbody,tfoot,thead,th,td{
+  margin:0;
+  padding:0;
+}
+input,textarea,select,td,th, button{
+  font:16px;
+  vertical-align:middle;
+}
+select{
+  padding-left:20px;
+  height:50px;
+  border-radius:0;
+  border:1px solid #333;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}
+select::-ms-expand{
+  display:none;
+}
+/* h1,h2,h3,h4,h5,h6{ */
+h1,h2,h4,h5,h6{
+  font-weight:normal;
+  font-size:100%;
+}
+table{
+  width:100%;
+  table-layout:fixed;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+ol,ul,li{
+  list-style:none;
+}
+img,fieldset{
+  border:0;
+}
+img{
+  vertical-align:top;
+}
+button{
+  cursor:pointer;
+  border:0;
+}
+address{
+  font-style:normal;
+}
+a{
+  text-decoration:none;
+  outline:0;
+  display:inline-block;
+  font:16px;
+  vertical-align:top;
+}
+a:hover,a:focus{
+  text-decoration:none;
+  outline:0;
+}
+legend,caption,.hide{
+  visibility:hidden;
+  overflow:hidden;
+  width:0;
+  height:0;
+  font-size:0!important;
+  line-height:0;
+  padding:0;
+  margin:0!important;
+}
+label{
+  vertical-align:middle;
+}
+em{
+  font-style:normal;
+}

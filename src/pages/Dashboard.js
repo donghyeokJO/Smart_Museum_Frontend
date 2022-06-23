@@ -11,12 +11,12 @@ import jwt from "jsonwebtoken";
 // import './css/admin/fontawesome.min.css';
 // import './css/admin/reset.css';
 // import './css/admin/styles.css';
-
+import style from './css/admin/DashboardHeader.module.css';
 
 
 function Dashboard() {
     return (
-        <body className="clearfix">
+        <body className={style.Dashboardclearfix}>
             <DashBoardHeader></DashBoardHeader>
             {/* <div id="container">
                 <nav id="subNav" className="clearfix">

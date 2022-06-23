@@ -1,0 +1,164 @@
+.inner {
+    padding: 0 16px;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/*header*/
+#Mainheader {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 50px;
+}
+
+#Mainheader .Mainh1 {
+    float: left;
+}
+
+#Mainheader .utill {
+    float: right;
+    margin-top: 4px;
+}
+
+#Mainheader .utill .Mainli {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+}
+
+#Mainheader .utill .Mainli .Maina {
+    color: #fff;
+    font-weight: 500;
+    padding: 4px;
+    margin-left: 12px;
+}
+
+.li_btn {
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 4px;
+    font-weight: 500;
+}
+
+/*footer*/
+footer {
+    padding: 40px 0;
+    border-top: 1px solid #CECECE;
+    text-align: center;
+}
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+*{
+  font-family:'NanumSquare', sans-serif;
+  color: #25233a; letter-spacing: -0.75px;
+}
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder {
+  color: #999;
+}
+/* Reset */
+html,body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  font:16px/1.6;
+}
+html,body{
+  margin:0;
+  padding:0;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, input, label, textarea,video{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+section, article, aside, hgroup, header, footer, nav, figure, figcaption, time, mark, canvas, video, audio, details, summary{
+  display:block;
+}
+dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,tbody,tfoot,thead,th,td{
+  margin:0;
+  padding:0;
+}
+input,textarea,select,td,th, button{
+  font:16px;
+  vertical-align:middle;
+}
+select{
+  padding-left:20px;
+  height:50px;
+  border-radius:0;
+  border:1px solid #333;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}
+select::-ms-expand{
+  display:none;
+}
+/* h1,h2,h3,h4,h5,h6{ */
+h1,h2,h4,h5,h6{
+  font-weight:normal;
+  font-size:100%;
+}
+table{
+  width:100%;
+  table-layout:fixed;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+ol,ul,li{
+  list-style:none;
+}
+img,fieldset{
+  border:0;
+}
+img{
+  vertical-align:top;
+}
+button{
+  cursor:pointer;
+  border:0;
+}
+address{
+  font-style:normal;
+}
+a{
+  text-decoration:none;
+  outline:0;
+  display:inline-block;
+  font:16px;
+  vertical-align:top;
+}
+a:hover,a:focus{
+  text-decoration:none;
+  outline:0;
+}
+legend,caption,.hide{
+  visibility:hidden;
+  overflow:hidden;
+  width:0;
+  height:0;
+  font-size:0!important;
+  line-height:0;
+  padding:0;
+  margin:0!important;
+}
+label{
+  vertical-align:middle;
+}
+em{
+  font-style:normal;
+}
