@@ -14,6 +14,18 @@ function MyPage() {
     const [PaymentState, setPaymentState] = useState('');
     const [ServicePlan, setServicePlan] = useState('');
 
+    const PaymentStateMapping = {
+        '1': '정보 없음',
+        'None': '정보 없음',
+        '2': '결제 진행 중',
+        '3': '결제 완료'
+    }
+
+    const ServicePlanMapping = {
+        '1': '1M',
+        '2': '1Y',
+        '3': '3Y'
+    }
 
     useEffect(() => {
         let user_id = localStorage.getItem('user_id');
@@ -48,17 +60,21 @@ function MyPage() {
                         <label>과학관이름</label>
                         <input type="text" value={MuseumName.MuseumName} readOnly />
                     </div>
-                    <div className={style.request}>
-                        <a href="service02.html">서비스 신청하기</a>
-                    </div>
+
+                    {
+                        (ServicePlan.ServicePlan === null) ?
+                            <div className={style.request}>
+                                <a href="/service">서비스 신청하기</a>
+                            </div> : null
+                    }
                     <div>
-                        <label>서비스신청상태</label>
-                        <input type="text" value={PaymentState.PaymentState} readOnly className="state" />
+                        <label>결제진행상태</label>
+                        <input type="text" value={PaymentStateMapping[PaymentState.PaymentState]} readOnly className="state" />
                     </div>
                     <div className={style.plan}>
                         <label>서비스신청상태</label>
-                        <input type="text" value={ServicePlan.ServicePlan} readOnly />
-                        <a href="#">플랜업그레이드</a>
+                        <input type="text" value={ServicePlanMapping[ServicePlan.ServicePlan]} readOnly />
+                        <a href="/service-select">플랜업그레이드</a>
                     </div>
                     <div className={style.go_link}>
                         <a href="/dashboard">관리자 시스템</a>

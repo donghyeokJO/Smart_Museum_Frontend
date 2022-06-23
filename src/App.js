@@ -7,6 +7,7 @@ import JoinPage from "./pages/JoinPage";
 import MyPage from "./pages/MyPage";
 import Dashboard from "./pages/Dashboard";
 import Service from './pages/Service'
+import ServiceSelect from "./pages/ServiceSelect";
 
 import PrivateRoute from "./utils/private_route";
 
@@ -67,10 +68,29 @@ class App extends React.Component {
                 <Redirect to="/" />
               )}
             </Route>
-            <Route path='/join' component={JoinPage} />
+            {/* <Route exact path="/join">
+              <JoinPage
+                onSubmit={function (data) {
+                  const { user_name, museum_name, user_id, access } = data;
+                  this.setState({
+                    museumName: museum_name,
+                    userName: user_name,
+                    user_id: user_id,
+                    access: access
+                  });
+                  localStorage.setItem("museumName", museum_name);
+                  localStorage.setItem("userName", user_name);
+                  localStorage.setItem("user_id", user_id);
+                  localStorage.setItem("access", access);
+                  window.location.href = "/service";
+                }.bind(this)}
+              ></JoinPage>
+            </Route> */}
+            <Route exact path='/join' component={JoinPage} />
             <PrivateRoute path='/mypage' component={MyPage} />
             <PrivateRoute path='/dashboard' component={Dashboard} />
-            <Route path='/service' component={Service}/>
+            <PrivateRoute path='/service' component={Service} />
+            <PrivateRoute path='/service-select' component={ServiceSelect} />
           </Switch>
         </BrowserRouter>
       </>

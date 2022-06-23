@@ -1,6 +1,7 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { ROOT_API } from "../utils/axios";
+import jwt from "jsonwebtoken";
 
 // import './css/main/index.css';
 import style from './css/main/JoinPage.module.css';
@@ -40,25 +41,61 @@ class JoinPage extends React.Component {
     onSubmitHandler = (e) => {
         // console.log(this.state)
         e.preventDefault();
-        if (this.state.Password.length < 5){
+        if (this.state.Password.length < 5) {
             alert('비밀번호는 5글자 이상이어야 합니다.');
             return
         }
 
-        var token = localStorage.getItem('access')
+        // var token = localStorage.getItem('access')
 
-        ROOT_API.account(this.state.Name, this.state.Password, this.state.location, this.state.museum_name, token)
+        ROOT_API.account(this.state.Name, this.state.Password, this.state.location, this.state.museum_name)
             .then((res) => {
-                if (res.status === 200){
-                    alert('정상적으로 가입 되었습니다!');
-                    localStorage.setItem('username', res.data['username']);
-                    window.location.href = '/service';
+                if (res.status === 200) {
+                    alert('정상적으로 가입 되었습니다.');
+                    ROOT_API.token_auth(this.state.Name, this.state.Password)
+                        .then((res) => {
+                            localStorage.clear();
+                            localStorage.setItem('access', res.data['access']);
+                            localStorage.setItem('refresh', res.data['refresh']);
+
+                            let access = res.data['access'];
+                            let refresh = res.data['refresh'];
+
+                            let user_info = jwt.decode(access);
+                            let user_id = user_info['user_id'];
+
+                            ROOT_API.user_info(user_id, 'JWT ' + access)
+                                .then((res) => {
+                                    console.log(res.data)
+                                    // if (res.data === null) {
+                                    //     alert("계정 정보가 올바르지 않습니다.");
+                                    // }
+                                    let user_name = res.data['username'];
+                                    let museum_name = res.data['museum_name'];
+
+                                    localStorage.setItem("museumName", museum_name);
+                                    localStorage.setItem("userName", user_name);
+                                    localStorage.setItem("user_id", user_id);
+                                    localStorage.setItem('museumLocation', this.state.location);
+
+                                    // let data = { user_name, museum_name, user_id, access }
+                                    // console.log(data)
+                                    // this.props.onSubmit(data)
+                                    // this.props.history.push("/service");
+                                    window.location.href = '/service';
+                                })
+                                .catch((err) => {
+                                    console.log(err)
+                                })
+                        })
+
+
                 }
             })
             .catch((err) => {
                 alert('이미 사용 중인 아이디 입니다!');
                 console.log(err)
-                return 
+                return
             })
     }
 

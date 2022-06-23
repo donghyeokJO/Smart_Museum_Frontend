@@ -3,10 +3,10 @@ import { withRouter } from "react-router-dom";
 import { useScript } from "../utils/hook";
 
 import style from '../pages/css/admin/DashboardHeader.module.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faHome } from "@fortawesome/free-solid-svg-icons";
 
-import 'font-awesome/css/font-awesome.min.css';
+// import 'font-awesome/css/font-awesome.min.css';
 
 class DashboardHeader extends React.Component {
     state = {
@@ -26,7 +26,7 @@ class DashboardHeader extends React.Component {
 
     render() {
         return (
-            <header id = {style.header2}>
+            <header id={style.header2}>
                 <div id={style.header}>
                     <h1 className={style.logo}>스마트과학관</h1>
                     <div className={style.gnb}>

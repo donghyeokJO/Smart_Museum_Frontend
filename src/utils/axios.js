@@ -40,16 +40,25 @@ export const ROOT_API = {
                 }
             }),
     // sign up
-    account: (username, password, museum_location, museum_name, token) =>
+    account: (username, password, museum_location, museum_name) =>
         api.post(url.account, {
             'username': username,
             'password': password,
             'museum_location': museum_location,
             'museum_name': museum_name,
+        }),
+
+    // service
+    account_service: (user_pk, payment_state, service_plan, museum_name, museum_location, token) =>
+        api.put(url.account + user_pk + '/', {
+            'payment_state': payment_state,
+            'service_plan': service_plan,
+            'museum_name': museum_name,
+            'museum_location': museum_location,
         },
             {
                 headers: {
-                    "Authorization": token,
+                    'Authorization': token,
                 }
             }),
 

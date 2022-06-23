@@ -61,6 +61,9 @@ class LoginPage extends React.Component {
                         // console.log(res.data)
                         let user_name = res.data['username'];
                         let museum_name = res.data['museum_name'];
+                        let museum_location = res.data['museum_location'];
+
+                        localStorage.setItem('museumLocation', museum_location);
 
 
                         let data = { user_name, museum_name, user_id }
@@ -74,7 +77,7 @@ class LoginPage extends React.Component {
 
             })
             .catch((err) => {
-                // alert('올바르지 않은 정보입니다.')
+                alert('올바르지 않은 정보입니다.')
                 console.log(err)
             });
     };
