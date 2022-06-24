@@ -48,6 +48,7 @@ class LoginPage extends React.Component {
 
                 let user_info = jwt.decode(access);
                 let user_id = user_info['user_id'];
+                let is_staff= user_info['is_staff'];
                 // console.log(user_id)
 
 
@@ -64,12 +65,23 @@ class LoginPage extends React.Component {
                         let museum_location = res.data['museum_location'];
 
                         localStorage.setItem('museumLocation', museum_location);
-
-
-                        let data = { user_name, museum_name, user_id }
-                        console.log(data)
-                        this.props.onSubmit(data)
-                        this.props.history.push("/");
+                        localStorage.setItem("museumName", museum_name);
+                        localStorage.setItem("userName", user_name);
+                        localStorage.setItem("user_id", user_id);
+                        localStorage.setItem('is_staff', is_staff);
+                        
+                        alert(user_name + " 님 안녕하세요");
+                        if (localStorage.getItem('is_staff') === 'true'){
+                            window.location.href = "/system";
+                        }
+                        else {
+                            window.location.href = '/';
+                        }
+                        
+                        // let data = { user_name, museum_name, user_id }
+                        // console.log(data)
+                        // this.props.onSubmit(data)
+                        // this.props.history.push("/");
                     })
                     .catch((err) => {
                         console.log(err)

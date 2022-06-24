@@ -8,8 +8,10 @@ import MyPage from "./pages/MyPage";
 import Dashboard from "./pages/Dashboard";
 import Service from './pages/Service'
 import ServiceSelect from "./pages/ServiceSelect";
+import System from "./pages/System";
 
 import PrivateRoute from "./utils/private_route";
+import AdminRoute from "./utils/AdminRoute";
 
 class App extends React.Component {
   state = {
@@ -47,7 +49,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={MainPage} />
-            <Route exact path="/login">
+            {/* <Route exact path="/login">
               {!isAuth ? (
                 <LoginPage
                   onSubmit={function (data) {
@@ -67,7 +69,8 @@ class App extends React.Component {
               ) : (
                 <Redirect to="/" />
               )}
-            </Route>
+            </Route> */}
+            <Route exact path='/login' component={LoginPage}></Route>
             {/* <Route exact path="/join">
               <JoinPage
                 onSubmit={function (data) {
@@ -91,6 +94,7 @@ class App extends React.Component {
             <PrivateRoute path='/dashboard' component={Dashboard} />
             <PrivateRoute path='/service' component={Service} />
             <PrivateRoute path='/service-select' component={ServiceSelect} />
+            <AdminRoute path='/system' component={System}/>
           </Switch>
         </BrowserRouter>
       </>
