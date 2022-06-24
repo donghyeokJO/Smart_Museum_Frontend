@@ -8,7 +8,12 @@ import style from './css/main/MainPage.module.css';
 
 
 class MainPage extends React.Component {
+
     render() {
+        // if (localStorage.getItem('is_staff') === 'true') {
+        //     window.location.href = '/system'
+        // }
+
         return (
             <div id={style.wrap}>
                 <Header></Header>

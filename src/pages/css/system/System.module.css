@@ -1,0 +1,157 @@
+#Systemcontainer {
+    width: calc(100% - 330px);
+    transform: translate(330px, 0);
+    padding: 80px;
+    min-height: 100vh;
+}
+
+/*container*/
+#Systemcontainer h5 {
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+/*tableWrap 기본테이블*/
+.tableContent {
+    margin-top: 10px;
+}
+
+.basicTable {
+    margin-bottom: 10px;
+}
+
+.basicTable div {
+    display: table;
+    width: 100%;
+    box-shadow: 15px 15px 15px rgba(217, 217, 217, 0.1);
+}
+
+.basicTable div ul {
+    display: table-row;
+    background-color: #fff;
+    border-radius: 8px;
+    position: relative;
+}
+
+.basicTable div ul li {
+    line-height: 30px;
+    display: table-cell;
+    width: calc(100% / 4);
+    padding: 16px 12px;
+    text-align: center;
+}
+
+.basicTable div ul li.form-input {
+    width: 20px;
+}
+
+.basicTable div ul li button {
+    padding: 5px 20px;
+    background: #2D8ABF;
+    color: #fff;
+    border-radius: 20px;
+    line-height: inherit;
+}
+
+.basicTable div .inputRow {
+    position: absolute;
+    width: auto;
+    left: 20px;
+}
+
+#thead div {
+    box-shadow: none;
+}
+
+#thead div ul {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    box-shadow: none;
+}
+
+#thead div ul li {
+    font-weight: bold;
+}
+
+.utillWrap .filter {
+    float: left;
+}
+
+.utillWrap .management {
+    float: right;
+}
+
+.utillWrap:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.filter {
+    margin-bottom: 32px;
+}
+
+.filter>div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#container select {
+    width: 150px;
+    padding: 14px 0px 14px 16px;
+    border: none;
+    background: url(../img/down-arrow.png) no-repeat 90% 50%;
+    border-radius: 12px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    height: 50px;
+    border: 2px solid #5F6F78;
+}
+
+#container select::-ms-expand {
+    display: none;
+}
+
+/*search*/
+.search {
+    width: 300px;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 260px;
+    border: 2px solid #5F6F78;
+    padding: 14px;
+    height: 50px;
+    border-radius: 12px;
+    outline: none;
+    color: #153281;
+}
+
+.searchTerm:focus {
+    color: #153281;
+}
+
+.management>button {
+    display: inline-block;
+    padding: 14px 35px;
+    border-radius: 12px;
+}
+
+.management .btn01 {
+    background: #27344B;
+    color: #fff;
+}
+
+.management .btn02 {
+    background: #4e4e4e;
+    color: #fff;
+}
+
+.management .btn03 {
+    background: #2D7DC8;
+    color: #fff;
+}

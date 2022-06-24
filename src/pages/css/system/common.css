@@ -1,103 +1,267 @@
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
-*{
-  font-family:'NanumSquare', sans-serif;
-  color: #25233a; letter-spacing: -0.75px;
-}
-::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder {
-  color: #999;
-}
-/* Reset */
-html,body{
-  margin:0;
-  padding:0;
+* {
+  font-family: 'NanumSquare', sans-serif;
+  color: #25233a;
+  letter-spacing: -0.75px;
 }
 
-body{
-  font:16px/1.6;
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+:-moz-placeholder {
+  color: #999;
 }
-html,body{
-  margin:0;
-  padding:0;
+
+/* Reset */
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, input, label, textarea,video{
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
+
+body {
+  font: 16px/1.6;
 }
-section, article, aside, hgroup, header, footer, nav, figure, figcaption, time, mark, canvas, video, audio, details, summary{
-  display:block;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
-dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,tbody,tfoot,thead,th,td{
-  margin:0;
-  padding:0;
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+input,
+label,
+textarea,
+video {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
-input,textarea,select,td,th, button{
-  font:16px;
-  vertical-align:middle;
+
+section,
+article,
+aside,
+hgroup,
+header,
+footer,
+nav,
+figure,
+figcaption,
+time,
+mark,
+canvas,
+video,
+audio,
+details,
+summary {
+  display: block;
 }
-select{
-  padding-left:20px;
-  height:50px;
-  border-radius:0;
-  border:1px solid #333;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+tbody,
+tfoot,
+thead,
+th,
+td {
+  margin: 0;
+  padding: 0;
 }
-select::-ms-expand{
-  display:none;
+
+input,
+textarea,
+select,
+td,
+th,
+button {
+  font: 16px;
+  vertical-align: middle;
 }
-h1,h2,h3,h4,h5,h6{
-  font-weight:normal;
-  font-size:100%;
+
+select {
+  padding-left: 20px;
+  height: 50px;
+  border-radius: 0;
+  border: 1px solid #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
-table{
-  width:100%;
-  table-layout:fixed;
-  border-spacing:0;
-  border-collapse:collapse;
+
+select::-ms-expand {
+  display: none;
 }
-ol,ul,li{
-  list-style:none;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  font-size: 100%;
 }
-img,fieldset{
-  border:0;
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
-img{
-  vertical-align:top;
+
+ol,
+ul,
+li {
+  list-style: none;
 }
-button{
-  cursor:pointer;
-  border:0;
+
+img,
+fieldset {
+  border: 0;
 }
-address{
-  font-style:normal;
+
+img {
+  vertical-align: top;
 }
-a{
-  text-decoration:none;
-  outline:0;
-  display:inline-block;
-  font:16px;
-  vertical-align:top;
+
+button {
+  cursor: pointer;
+  border: 0;
 }
-a:hover,a:focus{
-  text-decoration:none;
-  outline:0;
+
+address {
+  font-style: normal;
 }
-//legend,caption,.hide{
-  visibility:hidden;
-  overflow:hidden;
-  width:0;
-  height:0;
-  font-size:0!important;
-  line-height:0;
-  padding:0;
-  margin:0!important;
+
+a {
+  text-decoration: none;
+  outline: 0;
+  display: inline-block;
+  font: 16px;
+  vertical-align: top;
 }
-label{
-  vertical-align:middle;
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  outline: 0;
 }
-em{
-  font-style:normal;
+
+legend,
+caption,
+.hide {
+  visibility: hidden;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  font-size: 0 !important;
+  line-height: 0;
+  padding: 0;
+  margin: 0 !important;
+}
+
+label {
+  vertical-align: middle;
+}
+
+em {
+  font-style: normal;
 }

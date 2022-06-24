@@ -15,9 +15,9 @@ function MyPage() {
     const [ServicePlan, setServicePlan] = useState('');
 
     const PaymentStateMapping = {
-        '1': '정보 없음',
-        'None': '정보 없음',
-        '2': '결제 진행 중',
+        '1': '미사용',
+        'None': '미사용',
+        '2': '결제 승인 진행 중',
         '3': '결제 완료'
     }
 

@@ -1,0 +1,211 @@
+/*#SystemHeader*/
+#SystemHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 330px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 0 20px;
+    border-right: 1px solid #ccc;
+}
+
+#SystemHeader h1 {
+    padding: 70px 0 70px 0;
+}
+
+#SystemHeader h1 a {
+    margin: 0 auto;
+    display: block;
+    background-image: url(./img/header-logo.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 90px;
+    height: 120px;
+    text-indent: -9999px;
+}
+
+#SystemHeader nav div {
+    margin-bottom: 24px;
+}
+
+#SystemHeader nav {
+    padding: 0 30px;
+}
+
+#SystemHeader nav a {
+    padding: 20px 0 20px 60px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    color: #4A4A4A;
+}
+
+#SystemHeader nav a:hover {
+    background-color: #F6F6F6;
+    color: #4a4a4a
+}
+
+#SystemHeader nav ul li {
+    margin-bottom: 16px;
+}
+
+#SystemHeader nav ul li a {
+    color: #A5A5A5;
+    position: relative;
+}
+
+#SystemHeader nav ul li a span {
+    display: inline-block;
+    padding-top: 2px;
+    border-radius: 8px;
+    background-color: #EA1A33;
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    right: 20px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+}
+
+#SystemHeader nav ul li.on a {
+    background-color: #F6F6F6;
+    color: #4a4a4a
+}
+
+#SystemHeader nav li:first-child a {
+    background-image: url(./img/nav01.png);
+}
+
+#SystemHeader nav li:first-child.on a {
+    background-image: url(./img/nav01_on.png);
+}
+
+#SystemHeader nav li:nth-child(2) a {
+    background-image: url(./img/nav02.png);
+}
+
+#SystemHeader nav li:nth-child(2).on a {
+    background-image: url(./img/nav02_on.png);
+}
+
+#SystemHeader nav li:nth-child(3) a {
+    background-image: url(./img/nav03.png);
+}
+
+#SystemHeader nav li:nth-child(3).on a {
+    background-image: url(./img/nav03_on.png);
+}
+
+#SystemHeader .open_menu,
+#SystemHeader .bgbk,
+#SystemHeader .close_menu {
+    display: none;
+}
+
+/****************************
+반응형시작
+****************************/
+@media all and (max-width:1400px) {
+    #SystemHeader {
+        padding: 0;
+        width: 240px;
+    }
+
+    #SystemHeader nav {
+        padding: 0 10px;
+    }
+
+}
+
+@media all and (max-width:1000px) {
+    #SystemHeader {
+        position: fixed;
+        width: 100%;
+        height: 60px;
+        background-color: #535B9D;
+        z-index: 100;
+    }
+
+    #SystemHeader h1 {
+        padding: 9px 0 0 0;
+        margin: 0;
+    }
+
+    #SystemHeader h1 a {
+        background-image: url(./img/header-m-logo.png);
+        background-size: 30px auto;
+        width: auto;
+        height: auto;
+    }
+
+    #SystemHeader nav {
+        position: absolute;
+        right: -9999px;
+        top: 0;
+        background-color: #525252;
+        width: 50%;
+        padding: 20px 20px 0 20px;
+        z-index: 100;
+        display: block;
+    }
+
+    #SystemHeader nav ul li a {
+        color: #fff;
+    }
+
+    #SystemHeader .bgbk {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0.85;
+    }
+
+    #SystemHeader .close_menu {
+        position: absolute;
+        top: 10px;
+        right: 50%;
+        z-index: 10;
+    }
+
+    #SystemHeader .close_menu a {
+        display: block;
+        width: 50px;
+        height: 50px;
+        text-indent: -9999px;
+        background-image: url(./img/ic_close_white_16dp.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    #SystemHeader .open_menu {
+        position: absolute;
+        top: 5px;
+        right: 0;
+        display: block;
+    }
+
+    #SystemHeader .open_menu a {
+        display: block;
+        text-indent: -9999px;
+        width: 50px;
+        height: 50px;
+        background-image: url(./img/ic_menu_white_18dp.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+}
+
+@media all and (max-width:500px) {
+    #SystemHeader nav ul li a {
+        background-image: none !important;
+        padding: 12px;
+    }
+}
