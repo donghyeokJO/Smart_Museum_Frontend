@@ -63,7 +63,7 @@ export const ROOT_API = {
             }),
 
     account_list: (token) =>
-        api.get(url.account + '/list',
+        api.get(url.account + 'list/',
             {
                 headers: {
                     "Authorization": token,

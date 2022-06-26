@@ -14,7 +14,7 @@ class SystemHeader extends React.Component {
                 <h1><a href="index.html">보통로고</a></h1>
                 <nav>
                     <ul>
-                        <li class={style.on}><a href="index.html">서비스신청<span>추가</span></a></li>
+                        <li className={style.on}><a href="index.html">서비스신청<span>추가</span></a></li>
                         <li><a href="fee.html">서비스이용료</a></li>
                         <li><a href="member.html">회원정보</a></li>
                     </ul>

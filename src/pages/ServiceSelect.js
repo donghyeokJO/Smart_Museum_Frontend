@@ -48,7 +48,7 @@ function ServiceSelect() {
                         <label className={style.boxradioinput}><input type="radio" name="cp_item" value="3" checked={service_plan.service_plan === "3"} onChange={handleChange} /><span>3Y(5,000,000원/연)</span></label>
                     </div>
                     <div className={style.buttonwrap}>
-                        <button type="button" className={style.purple} onClick={OnServiceSelect}>서비스신청</button>
+                        <button type="button" className={style.purple} onClick={() => OnServiceSelect}>서비스신청</button>
                     </div>
                 </form>
             </div>
