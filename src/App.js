@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Service from './pages/Service'
 import ServiceSelect from "./pages/ServiceSelect";
 import System from "./pages/System";
+import SystemUser from "./pages/SystemUser";
 
 import PrivateRoute from "./utils/private_route";
 import AdminRoute from "./utils/AdminRoute";
@@ -95,6 +96,7 @@ class App extends React.Component {
             <PrivateRoute path='/service' component={Service} />
             <PrivateRoute path='/service-select' component={ServiceSelect} />
             <AdminRoute path='/system' component={System}/>
+            <AdminRoute path='/system-user' component={SystemUser}/>
           </Switch>
         </BrowserRouter>
       </>

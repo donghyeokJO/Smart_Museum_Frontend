@@ -85,20 +85,20 @@
 }
 
 #SystemHeader nav li:nth-child(2) a {
-    background-image: url(./img/nav02.png);
+    background-image: url(./img/nav03.png);
 }
 
 #SystemHeader nav li:nth-child(2).on a {
-    background-image: url(./img/nav02_on.png);
+    background-image: url(./img/nav03_on.png);
 }
 
-#SystemHeader nav li:nth-child(3) a {
+/* #SystemHeader nav li:nth-child(3) a {
     background-image: url(./img/nav03.png);
 }
 
 #SystemHeader nav li:nth-child(3).on a {
-    background-image: url(./img/nav03_on.png);
-}
+    background-image: url(./img/nav03_on.png); */
+/* } */
 
 #SystemHeader .open_menu,
 #SystemHeader .bgbk,

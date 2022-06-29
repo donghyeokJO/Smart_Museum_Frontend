@@ -10,9 +10,9 @@ import SystemHeader from "../components/SystemHeader";
 import style from './css/system/System.module.css'
 // import Pagination from 'react-bootstrap/Pagination';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-function System(props) {
+function System() {
 
     const [UserList, setUserList] = useState([]);
     const [UserCount, setUserCount] = useState(0);
@@ -44,7 +44,7 @@ function System(props) {
 
     return (
         <div id='wrap'>
-            <SystemHeader></SystemHeader>
+            <SystemHeader Service={true}></SystemHeader>
             <div id={style.Systemcontainer}>
                 <section>
                     <h5>서비스신청</h5>
@@ -68,7 +68,7 @@ function System(props) {
                                         <li>아이디</li>
                                         <li>지역</li>
                                         <li>박물관 이름</li>
-                                        <li>신청상태</li>
+                                        <li>결제상태</li>
                                     </ul>
                                 </div>
                             </div>

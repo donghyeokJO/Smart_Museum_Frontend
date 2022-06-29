@@ -1,0 +1,191 @@
+#Systemcontainer {
+    width: calc(100% - 330px);
+    transform: translate(330px, 0);
+    padding: 80px;
+    min-height: 100vh;
+}
+
+/*container*/
+#Systemcontainer h5 {
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+/*tableWrap 기본테이블*/
+.SystemtableContent {
+    margin-top: 10px;
+}
+
+.SystembasicTable {
+    margin-bottom: 10px;
+}
+
+.SystembasicTable div {
+    display: table;
+    width: 100%;
+    box-shadow: 15px 15px 15px rgba(217, 217, 217, 0.1);
+}
+
+.SystembasicTable div ul {
+    display: table-row;
+    background-color: #fff;
+    border-radius: 8px;
+    position: relative;
+}
+
+.SystembasicTable div ul li {
+    line-height: 30px;
+    display: table-cell;
+    width: calc(100% / 4);
+    padding: 16px 12px;
+    text-align: center;
+}
+
+.SystembasicTable div ul li.form-input {
+    width: 20px;
+}
+
+.SystembasicTable div ul li button {
+    padding: 5px 20px;
+    background: #2D8ABF;
+    color: #fff;
+    border-radius: 20px;
+    line-height: inherit;
+}
+
+.SystembasicTable div .inputRow {
+    position: absolute;
+    width: auto;
+    left: 20px;
+}
+
+#Systemthead div {
+    box-shadow: none;
+}
+
+#Systemthead div ul {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    box-shadow: none;
+}
+
+#Systemthead div ul li {
+    font-weight: bold;
+}
+
+.Systemfilter {
+    margin-bottom: 32px;
+}
+
+.Systemfilter>div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#Systemcontainer select {
+    width: 150px;
+    padding: 14px 0px 14px 16px;
+    border: none;
+    background: url(./img/down-arrow.png) no-repeat 90% 50%;
+    border-radius: 12px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    height: 50px;
+    border: 2px solid #5F6F78;
+}
+
+#Systemcontainer select::-ms-expand {
+    display: none;
+}
+
+/*search*/
+.Systemserach {
+    width: 300px;
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.SystemserachTerm {
+    width: 260px;
+    border: 2px solid #5F6F78;
+    padding: 14px;
+    height: 50px;
+    border-radius: 12px;
+    outline: none;
+    color: #153281;
+}
+
+.SystemserachTerm:focus {
+    color: #153281;
+}
+
+/*navigation*/
+.Systemnavi {
+    text-align: center;
+}
+
+.Systemfilter .management{float: right;}
+
+.management > button{
+    display: inline-block; 
+    padding: 14px 35px; 
+    border-radius: 12px;
+    margin-bottom: 0;
+    margin-left: 3px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    font-size: 14px;
+    line-height: 1.42857143;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #fff;
+    /* background-color: #337ab7; */
+    /* border-color: #2e6da4;  */
+}
+.management .btn01{background: #27344B; color: #fff;}
+.management .btn02{background: #4e4e4e; color: #fff;}
+.management .btn03{background: #2D7DC8; color: #fff;}
+
+/*modal*/
+.modal input[type="text"]{width: 100%; padding: 16px 12px;}
+.modal select{width: 100%; border: 1px solid #ccc; height: 34px; border-radius: 4px; padding-left: 12px;}
+.modal input:focus{outline: none; box-shadow: none;}
+.modal label{display: block;}
+.modalheader .close{position: absolute; top: 20px; right: 20px;}
+.modalheader .close span{color: #121212;}
+.modal-title{font-size: 24px;}
+
+
+@media all and (max-width:500px) {
+    #Systemcontainer {
+        padding: 100px 12px;
+    }
+
+    .tableWrap {
+        overflow-x: scroll;
+    }
+}
+
+@media all and (max-width:1200px) {
+    #Systemcontainer select {
+        width: 100px
+    }
+
+    ;
+
+    .SystemsearchTerm {
+        width: 200px;
+    }
+}

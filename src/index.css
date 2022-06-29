@@ -15,3 +15,13 @@ code {
 a {
   text-decoration: None;
 }
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+*{
+  font-family:'NanumSquare', sans-serif;
+  color: #25233a; letter-spacing: -0.75px;
+}
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder {
+  color: #999;
+}
