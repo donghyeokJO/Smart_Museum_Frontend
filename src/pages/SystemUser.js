@@ -121,13 +121,6 @@ function SystemUser() {
                             <Form.Label>박물관이름</Form.Label>
                             <Form.Control type="text"/>
                         </Form.Group>
-                        {/* <Form.Group>
-                            <Form.Label>서비스사용</Form.Label>
-                            <Form.Select>
-                                <option value="" default>사용</option>
-                                <option>미사용</option>
-                            </Form.Select>
-                        </Form.Group> */}
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
