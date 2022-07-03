@@ -23,6 +23,8 @@ function InnerExhibition() {
 
     const [show, setshow] = useState([]);
 
+    // const itemlen = originalitems.length;
+
     const floors = ['1층', '2층', '지하1층'];
 
     useEffect(() => {
@@ -30,10 +32,6 @@ function InnerExhibition() {
         let access = localStorage.getItem('access');
 
         setitems(originalitems);
-
-        for (let i = 0; i < originalitems.length; i++) {
-            setshow(show.concat(1));
-        }
 
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
@@ -57,10 +55,10 @@ function InnerExhibition() {
 
     const handleshow = idx => {
         console.log(show);
-        let show_temp = show;
-        show_temp[idx] = !show_temp[idx];
+        // let show_temp = show;
+        // show_temp[idx].stat = !show_temp[idx].stat;
 
-        setshow(show_temp);
+        // setshow(show_temp);
         // console.log(show_temp);
     }
 
@@ -100,7 +98,7 @@ function InnerExhibition() {
                             {items.map((item, idx) => {
                                 let cls = item.floor === floors[0] ? `${style.division} ${style.first}` : item.floor === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
                                 let url = '/inner-exhibition-detail/' + item.id;
-                                let oncls = show[idx] === false ? style.etcGroup : `${style.tabcont} ${style.on}`;
+                                let oncls = show[idx] === true ? `${style.etcGroup} ${style.on}` : style.etcGroup;
                                 return (
                                     <div className={style.imgcont}>
                                         <a href={url} item={item}>
