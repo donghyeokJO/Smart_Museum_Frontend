@@ -111,7 +111,7 @@ function Dashboard() {
                                 <h2 className={style.h2}>날짜 선택</h2>
                                 {/* <div className={style.contbody}> */}
                                 <div>
-                                    <Calendar onChange={changeDate} value={dateval} />
+                                    <Calendar onChange={changeDate} value={dateval} nextLabel=">" prevLabel="<" />
                                 </div>
                                 {/* </div> */}
 

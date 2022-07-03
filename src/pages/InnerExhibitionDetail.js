@@ -101,13 +101,12 @@ function InnerExhibitionDetail() {
                         <div className={style.cont01}>
                             <div className={style.contbody}>
                                 <div><img src={item.src} /></div>
-                                {/* <img src={item.src} /> */}
                             </div>
                         </div>
                         <div className={style.cont02}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <div>
-                                    <Calendar onChange={changeDate} value={dateval} />
+                                    <Calendar onChange={changeDate} value={dateval} nextLabel=">" prevLabel="<" />
                                 </div>
                             </div>
                         </div>

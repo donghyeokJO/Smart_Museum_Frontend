@@ -19,8 +19,9 @@ function InnerExhibition() {
         { floor: "지하1층", num: "1", txt: "물고기 문화 예술품 전시실", src: "./img/sub/exhibition06.jpg", id: "6" }
     ];
 
-
     const [items, setitems] = useState([]);
+
+    const [show, setshow] = useState([]);
 
     const floors = ['1층', '2층', '지하1층'];
 
@@ -29,6 +30,10 @@ function InnerExhibition() {
         let access = localStorage.getItem('access');
 
         setitems(originalitems);
+
+        for (let i = 0; i < originalitems.length; i++) {
+            setshow(show.concat(1));
+        }
 
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
@@ -48,6 +53,15 @@ function InnerExhibition() {
 
         // setitems(originalitems);
         setitems(originalitems.filter(item => item.floor === floor));
+    }
+
+    const handleshow = idx => {
+        console.log(show);
+        let show_temp = show;
+        show_temp[idx] = !show_temp[idx];
+
+        setshow(show_temp);
+        // console.log(show_temp);
     }
 
     return (
@@ -83,9 +97,10 @@ function InnerExhibition() {
 
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
-                            {items.map(item => {
+                            {items.map((item, idx) => {
                                 let cls = item.floor === floors[0] ? `${style.division} ${style.first}` : item.floor === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
-                                let url = '/inner-exhibition-detail/' + item.id
+                                let url = '/inner-exhibition-detail/' + item.id;
+                                let oncls = show[idx] === false ? style.etcGroup : `${style.tabcont} ${style.on}`;
                                 return (
                                     <div className={style.imgcont}>
                                         <a href={url} item={item}>
@@ -100,9 +115,9 @@ function InnerExhibition() {
                                                         <span className={style.num}>{item.num}</span>
                                                         <span className={style.txt}>{item.txt}</span>
                                                     </div>
-                                                    <div className={style.etcBtn}>
+                                                    <div className={style.etcBtn} onClick={() => handleshow(idx)}>
                                                         <a href="#" className={style.morebtn}></a>
-                                                        <ul className={style.etcGroup}>
+                                                        <ul className={oncls}>
                                                             <li>삭제</li>
                                                         </ul>
                                                     </div>
