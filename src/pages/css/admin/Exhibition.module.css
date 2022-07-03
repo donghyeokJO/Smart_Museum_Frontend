@@ -1,0 +1,282 @@
+.Dashcontainer {
+    width: calc(100% - 350px);
+    float: right;
+    min-height: 100%;
+    height: 100%;
+    background: #F4FAFF
+}
+
+.DashsubNav {
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #D6D6D6;
+    height: 70px;
+    padding: 25px 70px;
+    box-sizing: border-box;
+}
+
+.DashsubNav .place {
+    color: #5c5c5c;
+    font-size: 17px;
+    float: left;
+}
+
+.DashsubNav .place svg {
+    margin-right: 15px
+}
+
+.DashsubNav .place span svg {
+    margin: 0 15px
+}
+
+.DashsubNav .user {
+    float: right
+}
+
+.DashsubNav .user li {
+    float: left;
+    margin-left: 60px;
+    color: #515151;
+    font-size: 14px;
+}
+
+.DashsubNav .user li:first-child {
+    margin-left: 0;
+    color: #000;
+    font-weight: 500;
+}
+
+.DashsubNav .user li svg {
+    color: #838383
+}
+
+.content {
+    padding: 35px 50px;
+    background: #F4FAFF;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.tit {
+    float: left
+}
+
+.h1 {
+    font-size: 28px;
+    color: #19264c;
+    font-weight: 500
+}
+
+.h2 {
+    font-size: 20px;
+    color: #19264c;
+    font-weight: 500;
+    margin-bottom: 20px
+}
+
+/*Page : ManageDrawing*/
+.ManageDrawing .rowgroup>div {
+    background: none;
+    padding: 30px;
+    margin: 10px 30px 30px 30px;
+}
+
+.DrawingList .cont {
+    float: left;
+    width: 32%;
+    margin-right: 2%;
+    border-radius: 10px;
+    background: #fff;
+    padding: 30px;
+    box-sizing: border-box;
+    height: 710px
+}
+
+.DrawingList .cont:nth-child(3n) {
+    margin-right: 0
+}
+
+.DrawingList .conthead .eng {
+    font-size: 18px;
+    color: #909090;
+    margin-left: 10px;
+}
+
+.DrawingList .thumb {
+    width: 100%;
+    height: 245px;
+    border-radius: 3px;
+    border: 1px solid #d8d8d8;
+    margin-bottom: 20px
+}
+
+.DrawingList .thumb img {
+    width: 100%;
+    height: 100%
+}
+
+.DrawingList .listwrap {
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.DrawingList .list li {
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px
+}
+
+.DrawingList .list li:last-child {
+    margin-bottom: 0;
+}
+
+.DrawingList .list li .num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #faa61a;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 15px
+}
+
+.DrawingList .list li .txt {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000;
+}
+
+@media all and (max-width:768px) {
+    .DrawingList .cont {
+        float: none;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        height: auto
+    }
+
+    .DrawingList .thumb {
+        height: 200px
+    }
+
+    .DrawingList .listwrap {
+        max-height: 200px
+    }
+}
+
+.pageHead .tit .badge {
+    padding: 8px 25px;
+    /* padding: 30px; */
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px
+}
+
+.pageHead .tit .first-badge {
+    background: #18BC95
+}
+
+.pageHead .tit .second-badge {
+    background: #00a0fd
+}
+
+.pageHead .tit .under-badge {
+    background: #7F34B9
+}
+
+.pageHead::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.pageHead {
+    padding: 20px 100px 10px 50px;
+}
+
+.pageHead .Headgroup {
+    float: right;
+}
+
+.pageHead .Headgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.pageHead .Headgroup button {
+    float: left;
+    /* margin-left: 15px */
+}
+
+.pageHead .Headgroup button:first-child {
+    margin-left: 0;
+}
+
+
+.etcBtn * {
+    box-sizing: border-box;
+}
+
+.etcBtn {
+    width: auto;
+    position: relative;
+    float: right;
+    margin-top: 7px
+}
+
+.etcBtn .morebtn {
+    display: block;
+    width: 25px;
+    height: 5px;
+    background: url(./img/sub/more-btn.png) no-repeat;
+    background-size: cover;
+    padding: 0;
+    position: relative
+}
+
+.etcBtn .morebtn:hover {
+    background: url(./img/sub/more-btn.png) no-repeat
+}
+
+.etcBtn .etcGroup {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 110px;
+    z-index: 10;
+    display: none
+}
+
+.etcBtn .etcGroup.on {
+    display: block
+}
+
+.etcBtn .etcGroup li {
+    cursor: pointer;
+    padding: 15px 0;
+    font-size: 17px;
+    color: #071c88;
+    background: #f2f4fa;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.etcBtn .etcGroup li:hover {
+    background: #c8d6ff;
+}

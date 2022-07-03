@@ -1,0 +1,363 @@
+.Dashcontainer {
+    width: calc(100% - 350px);
+    float: right;
+    min-height: 100%;
+    height: 100%;
+    background: #F4FAFF
+}
+
+.DashsubNav {
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #D6D6D6;
+    height: 70px;
+    padding: 25px 70px;
+    box-sizing: border-box;
+}
+
+.DashsubNav .place {
+    color: #5c5c5c;
+    font-size: 17px;
+    float: left;
+}
+
+.DashsubNav .place svg {
+    margin-right: 15px
+}
+
+.DashsubNav .place span svg {
+    margin: 0 15px
+}
+
+.DashsubNav .user {
+    float: right
+}
+
+.DashsubNav .user li {
+    float: left;
+    margin-left: 60px;
+    color: #515151;
+    font-size: 14px;
+}
+
+.DashsubNav .user li:first-child {
+    margin-left: 0;
+    color: #000;
+    font-weight: 500;
+}
+
+.DashsubNav .user li svg {
+    color: #838383
+}
+
+.content {
+    padding: 35px 50px;
+    background: #F4FAFF;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.tit {
+    float: left
+}
+
+.h1 {
+    font-size: 28px;
+    color: #19264c;
+    font-weight: 500
+}
+
+.h2 {
+    font-size: 20px;
+    color: #19264c;
+    font-weight: 500;
+    margin-bottom: 20px
+}
+
+/*Page : ManageInfo*/
+.ManageInfo .tabcont>div {
+    height: 632px
+}
+
+.imgcont {
+    float: left;
+    width: 32%;
+    margin-right: 2%;
+    margin-bottom: 20px
+}
+
+.imgcont a {
+    display: block
+}
+
+.imgcont:nth-child(3n) {
+    margin-right: 0;
+}
+
+.imgcont .thumb {
+    overflow: hidden;
+    height: 240px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.imgcont .thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.imgcont .text {
+    padding: 20px;
+    background: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative
+}
+
+.imgcont .text .division {
+    display: inline-block;
+    padding: 0 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    position: absolute;
+    top: -42px;
+    left: 15px;
+    height: 42px;
+    line-height: 42px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.imgcont .text .first {
+    background: #18BC95
+}
+
+.imgcont .text .second {
+    background: #00a0fd
+}
+
+.imgcont .text .under {
+    background: #7F34B9
+}
+
+.imgcont .text .detail::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.imgcont .text .detail .title {
+    float: left;
+    max-width: 85%;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+    word-break: break-all;
+}
+
+.imgcont .text .detail .title .num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #faa61a;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 15px
+}
+
+.imgcont .text .detail .title .txt {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000
+}
+
+@media all and (max-width:768px) {
+    .imgcont {
+        width: 49%
+    }
+
+    .imgcont:nth-child(3n) {
+        margin-right: 2%;
+    }
+
+    .imgcont:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    .imgcont .text .detail .title .txt {
+        font-size: 15px
+    }
+}
+
+@media all and (max-width:640px) {
+    .imgcont {
+        width: 100%
+    }
+
+    .imgcont:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .imgcont .thumb {
+        height: 180px
+    }
+}
+
+.pageHead .tit .badge {
+    padding: 8px 25px;
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px
+}
+
+.pageHead .tit .first-badge {
+    background: #18BC95
+}
+
+.pageHead .tit .second-badge {
+    background: #00a0fd
+}
+
+.pageHead .tit .under-badge {
+    background: #7F34B9
+}
+
+/*Page : 공통*/
+.pageHead::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.pageHead {
+    padding: 0 0 20px 10px
+}
+
+.pageHead .Headgroup {
+    float: right;
+}
+
+.pageHead .Headgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.pageHead .Headgroup button {
+    float: left;
+    margin-left: 15px
+}
+
+.pageHead .Headgroup button:first-child {
+    margin-left: 0;
+}
+
+#tabul {
+    margin-bottom: 20px
+}
+
+#tabul::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+#tabul li {
+    display: block;
+    padding: 20px 32px;
+    color: #363636;
+    font-size: 18px;
+    font-weight: 500;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid #949494;
+    box-sizing: border-box;
+    cursor: pointer;
+    float: left;
+}
+
+#tabul li.on {
+    border: 2px solid #142683;
+    border-bottom: 0;
+    border-radius: 10px;
+    color: #142683;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 2px solid transparent
+}
+
+@media all and (max-width:480px) {
+    #tabul li {
+        padding: unset;
+        width: 50%;
+        height: 50px;
+        line-height: 50px;
+        margin-bottom: 10px;
+        text-align: center
+    }
+}
+
+.etcBtn * {
+    box-sizing: border-box;
+}
+
+.etcBtn {
+    width: auto;
+    position: relative;
+    float: right;
+    margin-top: 7px
+}
+
+.etcBtn .morebtn {
+    display: block;
+    width: 25px;
+    height: 5px;
+    background: url(../admin/img/sub/more-btn.png) no-repeat;
+    background-size: cover;
+    padding: 0;
+    position: relative
+}
+
+.etcBtn .morebtn:hover {
+    background: url(../admin/img/sub/more-btn.png) no-repeat
+}
+
+.etcBtn .etcGroup {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 110px;
+    z-index: 10;
+    display: none
+}
+
+.etcBtn .etcGroup.on {
+    display: block
+}
+
+.etcBtn .etcGroup li {
+    cursor: pointer;
+    padding: 15px 0;
+    font-size: 17px;
+    color: #071c88;
+    background: #f2f4fa;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.etcBtn .etcGroup li:hover {
+    background: #c8d6ff;
+}

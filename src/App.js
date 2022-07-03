@@ -5,7 +5,13 @@ import MainPage from './pages/MainPage';
 import LoginPage from "./pages/LoginPage";
 import JoinPage from "./pages/JoinPage";
 import MyPage from "./pages/MyPage";
+
 import Dashboard from "./pages/Dashboard";
+import Exhibition from "./pages/Exhibition";
+import ExhibitionAdd from "./pages/ExhibitionAdd";
+import InnerExhibition from "./pages/InnerExhibition";
+import InnerExhibitionDetail from "./pages/InnerExhibitionDetail";
+
 import Service from './pages/Service'
 import ServiceSelect from "./pages/ServiceSelect";
 import System from "./pages/System";
@@ -50,53 +56,22 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={MainPage} />
-            {/* <Route exact path="/login">
-              {!isAuth ? (
-                <LoginPage
-                  onSubmit={function (data) {
-                    const { user_name, museum_name, user_id } = data;
-                    this.setState({
-                      museumName: museum_name,
-                      userName: user_name,
-                      user_id: user_id,
-                    });
-                    alert(user_name + " 님 안녕하세요");
-                    localStorage.setItem("museumName", museum_name);
-                    localStorage.setItem("userName", user_name);
-                    localStorage.setItem("user_id", user_id);
-                    window.location.href = "/";
-                  }.bind(this)}
-                ></LoginPage>
-              ) : (
-                <Redirect to="/" />
-              )}
-            </Route> */}
-            <Route exact path='/login' component={LoginPage}></Route>
-            {/* <Route exact path="/join">
-              <JoinPage
-                onSubmit={function (data) {
-                  const { user_name, museum_name, user_id, access } = data;
-                  this.setState({
-                    museumName: museum_name,
-                    userName: user_name,
-                    user_id: user_id,
-                    access: access
-                  });
-                  localStorage.setItem("museumName", museum_name);
-                  localStorage.setItem("userName", user_name);
-                  localStorage.setItem("user_id", user_id);
-                  localStorage.setItem("access", access);
-                  window.location.href = "/service";
-                }.bind(this)}
-              ></JoinPage>
-            </Route> */}
+            <Route exact path='/login' component={LoginPage} />
             <Route exact path='/join' component={JoinPage} />
             <PrivateRoute path='/mypage' component={MyPage} />
+
+
             <PrivateRoute path='/dashboard' component={Dashboard} />
+            <PrivateRoute path='/exhibition' component={Exhibition} />
+            <PrivateRoute path='/exhibition-add' component={ExhibitionAdd} />
+            <PrivateRoute path='/inner-exhibition' component={InnerExhibition} />
+            <PrivateRoute path='/inner-exhibition-detail' component={InnerExhibitionDetail} />
+
+
             <PrivateRoute path='/service' component={Service} />
             <PrivateRoute path='/service-select' component={ServiceSelect} />
-            <AdminRoute path='/system' component={System}/>
-            <AdminRoute path='/system-user' component={SystemUser}/>
+            <AdminRoute path='/system' component={System} />
+            <AdminRoute path='/system-user' component={SystemUser} />
           </Switch>
         </BrowserRouter>
       </>

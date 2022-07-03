@@ -31,24 +31,24 @@ class DashboardHeader extends React.Component {
                     <h1 className={style.logo}>스마트과학관</h1>
                     <div className={style.gnb}>
                         <ul className={style.menu}>
-                            <li className={`home ${style.active}`}>
-                                <a href="#" title="대시보드 메인으로 이동">
+                            <li className={`home ${this.props.main ? style.active : null}`}>
+                                <a href="/dashboard" title="대시보드 메인으로 이동">
                                     {/* <i className="fas fa-home"></i> */}
                                     {/* <FontAwesomeIcon icon={faHome} style={{color:'white'}}/> */}
                                     대시보드
                                 </a>
                             </li>
-                            <li className={style.manage}>
-                                <a href="ManageDrawing.html" title="전시관 관리 페이지로 이동">
+                            <li className={`${style.manage} ${this.props.exhibition ? style.active : null}`}>
+                                <a href="/exhibition" title="전시관 관리 페이지로 이동">
                                     {/* <i className="far fa-edit"></i> */}
                                     전시관 관리
                                 </a>
                                 <ul className={style.submenu}>
-                                    <li><a href="ManageDrawing.html" title="전시관 도면 관리 페이지로 이동">전시관 도면 관리</a></li>
-                                    <li><a href="ManageInfo.html" title="전시관 정보 관리 페이지로 이동">전시관 정보 관리</a></li>
+                                    <li><a href="/exhibition" title="전시관 도면 관리 페이지로 이동">전시관 도면 관리</a></li>
+                                    <li><a href="/inner-exhibition" title="전시관 정보 관리 페이지로 이동">전시관 정보 관리</a></li>
                                 </ul>
                             </li>
-                            <li className={style.event}>
+                            <li className={`${style.event} ${this.props.event ? style.active : null}`}>
                                 <a href="Event.html" title="이벤트 페이지로 이동">
                                     {/* <i className="fas fa-gift"></i> */}
                                     이벤트

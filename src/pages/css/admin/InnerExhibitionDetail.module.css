@@ -1,0 +1,385 @@
+.Dashcontainer {
+    width: calc(100% - 350px);
+    float: right;
+    min-height: 100%;
+    height: 100%;
+    background: #F4FAFF
+}
+
+.DashsubNav {
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #D6D6D6;
+    height: 70px;
+    padding: 25px 70px;
+    box-sizing: border-box;
+}
+
+.DashsubNav .place {
+    color: #5c5c5c;
+    font-size: 17px;
+    float: left;
+}
+
+.DashsubNav .place svg {
+    margin-right: 15px
+}
+
+.DashsubNav .place span svg {
+    margin: 0 15px
+}
+
+.DashsubNav .user {
+    float: right
+}
+
+.DashsubNav .user li {
+    float: left;
+    margin-left: 60px;
+    color: #515151;
+    font-size: 14px;
+}
+
+.DashsubNav .user li:first-child {
+    margin-left: 0;
+    color: #000;
+    font-weight: 500;
+}
+
+.DashsubNav .user li svg {
+    color: #838383
+}
+
+.content {
+    padding: 35px 50px;
+    background: #F4FAFF;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.tit {
+    float: left
+}
+
+.h1 {
+    font-size: 28px;
+    color: #19264c;
+    font-weight: 500
+}
+
+.h2 {
+    font-size: 20px;
+    color: #19264c;
+    font-weight: 500;
+    margin-bottom: 20px
+}
+
+.pageHead .tit .badge {
+    padding: 8px 25px;
+    /* padding: 30px; */
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px
+}
+
+.pageHead .tit .firstbadge {
+    background: #18BC95
+}
+
+.pageHead .tit .secondbadge {
+    background: #00a0fd
+}
+
+.pageHead .tit .underbadge {
+    background: #7F34B9
+}
+
+.pageHead::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.pageHead {
+    padding: 20px 100px 10px 50px;
+}
+
+.pageHead .Headgroup {
+    float: right;
+}
+
+.pageHead .Headgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.pageHead .Headgroup button {
+    float: left;
+    /* margin-left: 15px */
+}
+
+.pageHead .Headgroup button:first-child {
+    margin-left: 0;
+}
+
+
+.etcBtn * {
+    box-sizing: border-box;
+}
+
+.etcBtn {
+    width: auto;
+    position: relative;
+    float: right;
+    margin-top: 7px
+}
+
+.etcBtn .morebtn {
+    display: block;
+    width: 25px;
+    height: 5px;
+    background: url(./img/sub/more-btn.png) no-repeat;
+    background-size: cover;
+    padding: 0;
+    position: relative
+}
+
+.etcBtn .morebtn:hover {
+    background: url(./img/sub/more-btn.png) no-repeat
+}
+
+.etcBtn .etcGroup {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 110px;
+    z-index: 10;
+    display: none
+}
+
+.etcBtn .etcGroup.on {
+    display: block
+}
+
+.etcBtn .etcGroup li {
+    cursor: pointer;
+    padding: 15px 0;
+    font-size: 17px;
+    color: #071c88;
+    background: #f2f4fa;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.etcBtn .etcGroup li:hover {
+    background: #c8d6ff;
+}
+
+
+/*Page : ManageInfo_detail*/
+.ManageInfo_detail .rowgroup {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.ManageInfo_detail .rowgroup>div {
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    width: 31%;
+    margin-right: 3.5%;
+    float: left;
+    min-height: unset;
+    margin-bottom: 35px
+}
+
+.ManageInfo_detail .rowgroup>div:nth-child(3n) {
+    margin-right: 0
+}
+
+.ManageInfo_detail .cont01 .contbody div {
+    border: 1px solid #d8d8d8;
+    border-radius: 3px;
+    height: 368px
+}
+
+.ManageInfo_detail .cont05 .contbody {
+    min-height: 335px
+}
+
+.ManageInfo_detail .cont03 .detailtxt {
+    background: #f3f3f3;
+    border-radius: 3px;
+    padding: 15px;
+    height: 250px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.ManageInfo_detail .cont03 .detailtxt .h6 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: block;
+    font-weight: bold;
+}
+
+.ManageInfo_detail .cont03 .detailtxt .p {
+    line-height: 1.5
+}
+
+.ManageInfo_detail .cont06 .beacon {
+    background: #ECECEC;
+    padding: 40px 25px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 280px
+}
+
+.ManageInfo_detail .cont06 .beacon>div:first-child {
+    margin-bottom: 30px
+}
+
+.ManageInfo_detail .cont06 .beacon h5 {
+    color: #555;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.ManageInfo_detail .cont06 .beacon p {
+    font-size: 20px;
+    font-weight: 300;
+    color: #555;
+}
+
+
+@media all and (max-width:1000px) {
+    .ManageInfo_detail .rowgroup>div {
+        width: 48%;
+        margin-right: 4%;
+    }
+
+    .ManageInfo_detail .rowgroup>div:nth-child(3n) {
+        margin-right: 4%
+    }
+
+    .ManageInfo_detail .rowgroup>div:nth-child(2n) {
+        margin-right: 0
+    }
+}
+
+@media all and (max-width:768px) {
+    .ManageInfo_detail .rowgroup>div {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+    }
+
+    .ManageInfo_detail .rowgroup>div:last-child {
+        margin-bottom: 0
+    }
+
+    .ManageInfo_detail .rowgroup>div:nth-child(3n) {
+        margin-right: 0
+    }
+
+    .ManageInfo_detail .cont06 .beacon {
+        height: auto;
+    }
+
+    .ManageInfo_detail .cont01 .contbody div {
+        height: 240px
+    }
+
+    .ManageInfo_detail .cont05 .contbody {
+        min-height: unset
+    }
+
+}
+
+@media all and (max-width:480px) {
+    .pageHead .tit .badge {
+        padding: 0 15px
+    }
+}
+
+/*Page : ManageInfo_edit*/
+.ManageInfo_edit .cont01 .contbody div {
+    height: 240px;
+    margin-bottom: 30px
+}
+
+.ManageInfo_edit .cont03 .input1.textarea dd textarea {
+    height: 190px
+}
+
+@media all and (max-width: 1380px) {
+
+    .ManageInfo_detail .rowgroup>div:nth-child(1),
+    .ManageInfo_detail .rowgroup>div:nth-child(2),
+    .ManageInfo_detail .rowgroup>div:nth-child(3) {
+        height: 390px
+    }
+}
+
+@media all and (max-width: 1200px) {
+
+    .ManageInfo_detail .rowgroup>div:nth-child(1),
+    .ManageInfo_detail .rowgroup>div:nth-child(2),
+    .ManageInfo_detail .rowgroup>div:nth-child(3) {
+        height: auto
+    }
+}
+
+.cont05 {
+    float: right;
+    width: 30%;
+}
+
+.cont05 .contbody {
+    text-align: center;
+}
+
+.cont05 .todayAll {
+    padding: 87px 0
+}
+
+.cont05 .todayAll p {
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 10px
+}
+
+.cont05 .todayAll .iconWrap i {
+    width: 52px;
+    height: 43px;
+    background: url(../admin/img/sub/todayAll-icon.png) no-repeat;
+    background-size: cover;
+    display: inline-block
+}
+
+.cont05 .todayAll .iconWrap span {
+    font-size: 64px;
+    font-weight: 500;
+    color: #000;
+}
+
+.cont05 .todayAll .iconWrap em {
+    font-size: 17px;
+    color: #535353;
+    font-style: normal;
+    font-weight: 400;
+}

@@ -2,64 +2,130 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
-import jwt from "jsonwebtoken";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { Chart } from "react-google-charts";
+import Calendar from 'react-calendar';
 
-// import './css/admin/common.css';
-// import './css/admin/datepicker-custom.css';
-// import './css/admin/datepicker.css';
-// import './css/admin/datepicker.min.css';
-// import './css/admin/fontawesome.min.css';
-// import './css/admin/reset.css';
-// import './css/admin/styles.css';
-import style from './css/admin/DashboardHeader.module.css';
+import 'react-calendar/dist/Calendar.css';
+import style from './css/admin/Dashboard.module.css';
+import './css/admin/calender.css';
 
 
 function Dashboard() {
+    const [Name, setName] = useState('');
+    const [Location, setLocation] = useState('');
+    const [MuseumName, setMuseumName] = useState('');
+    const [imgSrc, setimgSrc] = useState('./img/sub/dashboard_img01.png');
+    const [Floor, setFloor] = useState('1층');
+
+    const [dateval, setdateval] = useState(new Date());
+    // const [datestr, setdatestr] = useState(dateval.format('YYYY-MM-DD'));
+    const [datestr, setdatestr] = useState(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
+    // console.log(dateval.format('YYYY-MM-DD'));
+
+    const changeDate = (date) => {
+        setdateval(date);
+        setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()))
+        // console.log(date);
+        // console.log(dateval);
+    }
+
+    useEffect(() => {
+        let user_id = localStorage.getItem('user_id');
+        let access = localStorage.getItem('access');
+
+        ROOT_API.user_info(user_id, 'JWT ' + access)
+            .then((res) => {
+                setName({ Name: res.data['username'] });
+                setLocation({ Location: res.data['museum_location'] });
+                setMuseumName({ MuseumName: res.data['museum_name'] });
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
+
+    const data = [
+        ["시간", "관람객수"],
+        [9, 10],
+        [10, 50],
+        [11, 70],
+        [12, 90],
+        [13, 5],
+        [14, 70],
+        [15, 128],
+        [16, 135],
+        [17, 105],
+        [18, 12]
+    ];
+
+    const options = {
+        width: '100%',
+        height: 320,
+        hAxis: {
+            title: "시간 (시)",
+            gridlines: {
+                color: 'transparent',
+                interval: [1, 2, 3, 4, 5, 6, 7]
+            },
+
+        },
+        series: {
+            0: { color: '#6219FF' }
+        },
+        legend: { position: "none" },
+    };
+
     return (
         <body className={style.Dashboardclearfix}>
-            <DashBoardHeader></DashBoardHeader>
-            {/* <div id="container">
-                <nav id="subNav" className="clearfix">
-                    <div className="place"><i className="fas fa-home"></i>대시보드</div>
-                    <div className="user">
-                        <ul className="clearfix">
-                            <li><i className="fas fa-user"></i>김홍삼님</li>
-                            <li><a href="#" title="로그아웃하기"><i className="fas fa-unlock"></i>로그아웃</a></li>
+            <DashBoardHeader main={true}></DashBoardHeader>
+            <div className={style.Dashcontainer}>
+                <nav className={`${style.DashsubNav} ${style.clearfix}`}>
+                    <div className={style.place}><i className="fas fa-home"></i>대시보드</div>
+                    <div className={style.user}>
+                        <ul className={style.clearfix}>
+                            <li><i className="fas fa-user"></i>{Name.Name}님</li>
+                            <li><a href="#" title="로그아웃하기" onClick={function () { localStorage.clear(); window.location.href = '/' }} ><i className="fas fa-unlock"></i>로그아웃</a></li>
                         </ul>
                     </div>
                 </nav>
-                <div className="content dashboard">
-                    <div className="rowgroup clearfix">
-                        <div className="cont01">
-                            <div className="cont-head clearfix">
-                                <h2 className="tit">방문객 이동 경로</h2>
-                                <div className="select">
-                                    <a href="#">1층</a>
-                                    <ul className="select-btn">
-                                        <li className="on">1층</li>
-                                        <li>2층</li>
-                                        <li>지하1층</li>
-                                    </ul>
-                                </div>
+                <div className={`${style.content} ${style.dashboard}`}>
+                    <div className={`${style.rowgroup} ${style.clearfix}`}>
+                        <div className={style.cont01}>
+                            <div className={`${style.conthead} ${style.clearfix}`}>
+                                <h2 className={`${style.h2} ${style.tit}`}>방문객 이동 경로</h2>
+                                <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={Floor} style={{ float: 'right' }}>
+                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img01.png'); setFloor('1층') }}>1층</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img02.png'); setFloor('2층') }}>2층</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img03.png'); setFloor('지하1층') }}>지하1층</Dropdown.Item>
+                                </DropdownButton>
                             </div>
-                            <div className="cont-body">
-                                <div><img src="./img/sub/dashboard_img01.png" /></div>
+                            <div className={style.contbody}>
+                                <div><img src={imgSrc} /></div>
                             </div>
                         </div>
-                        <div className="cont02">
-                            <div className="cont-head clearfix">
-                                <div id="datepicker"></div>
+                        <div className={style.cont02}>
+                            <div className={`${style.conthead} ${style.clearfix}`}>
+                                {/* <div id="datepicker"></div> */}
+                                <h2 className={style.h2}>날짜 선택</h2>
+                                {/* <div className={style.contbody}> */}
+                                <div>
+                                    <Calendar onChange={changeDate} value={dateval} />
+                                </div>
+                                {/* </div> */}
+
                             </div>
                         </div>
                     </div>
-                    <div className="rowgroup clearfix">
-                        <div className="cont03">
-                            <div className="cont-head">
+                    <div className={`${style.rowgroup} ${style.clearfix}`}>
+                        <div className={style.cont03}>
+                            <div className={style.conthead}>
                                 <h2>인기전시관</h2>
                             </div>
-                            <div className="cont-body">
-                                <div className="table-wrap">
-                                    <table className="table-detail">
+                            <div className={style.contbody}>
+                                <div className={style.tablewrap}>
+                                    <table className={style.tabledetail}>
                                         <colgroup>
                                             <col width="15%" />
                                             <col width="30%" />
@@ -110,47 +176,61 @@ function Dashboard() {
                                 </div>
                             </div>
                         </div>
-                        <div className="cont04">
-                            <div className="cont-head">
+
+                        <div className={style.cont04}>
+                            <div className={style.conthead}>
                                 <h2>관람시간</h2>
                             </div>
-                            <div className="cont-body">
+
+                            <div className={style.contbody}>
+                                <Chart
+                                    chartType="LineChart"
+                                    data={data}
+                                    options={options}
+                                // legendToggle
+                                />
                                 <div id="linechart_material"></div>
                             </div>
+
                         </div>
-                        <div className="cont05">
-                            <div className="cont-head clearfix">
-                                <h2 className="tit">Today</h2>
-                                <div className="select">
+                        <div className={style.cont05}>
+                            <div className={`${style.conthead} ${style.clearfix}`}>
+                                <h2 className={style.tit}>Today</h2>
+                                {/* <div className="select">
                                     <a href="#">전체</a>
                                     <ul>
                                         <li>전체</li>
                                         <li>연령별</li>
                                         <li>성별</li>
                                     </ul>
-                                </div>
+                                </div> */}
+                                <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title="필터 선택" style={{ float: 'right' }}>
+                                    <Dropdown.Item href="#/action-1">전체</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">연령별</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">성별</Dropdown.Item>
+                                </DropdownButton>
                             </div>
-                            <div className="cont-body">
-                                <div className="todayAll">
+                            <div className={style.contbody}>
+                                <div className={style.todayAll}>
                                     <p>관람객</p>
-                                    <div className="iconWrap">
+                                    <div className={style.iconWrap}>
                                         <i></i>
                                         <span>19<em>명</em></span>
                                     </div>
                                 </div>
-                                <div className="todayAge" style={{ display: 'none' }}>
+                                <div className={style.todayAge} style={{ display: 'none' }}>
                                     <div id="piechart" style={{ width: '100%', height: 'auto' }}></div>
                                 </div>
-                                <div className="todayGender" style={{ display: 'none' }}>
+                                <div className={style.todayGender} style={{ display: 'none' }}>
                                     <div id="piechart2" style={{ width: '100%', height: 'auto' }}></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> */}
-        </body>
+            </div>
+        </body >
     );
 }
 
-export default withRouter(Dashboard)
+export default withRouter(Dashboard);
