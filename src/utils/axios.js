@@ -88,6 +88,22 @@ export const ROOT_API = {
                 'Authorization': token,
             }
         }),
+
+    museum_list: (token, user_id) =>
+        api.get(url.museum + user_id + '/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }
+        ),
+
+    exhibition_list: (token, museum_id) =>
+        api.get(url.exhibition + museum_id + '/' + url.inner_exhibition, {
+            headers: {
+                "Authorization": token,
+            }
+        })
 }
 
 

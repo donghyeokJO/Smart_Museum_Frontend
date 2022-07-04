@@ -2,24 +2,39 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import { baseURL } from "../config";
 
 import style from './css/admin/Exhibition.module.css'
 
 function Exhibition() {
     const [Name, setName] = useState('');
 
-    useEffect(() => {
-        let user_id = localStorage.getItem('user_id');
-        let access = localStorage.getItem('access');
+    const [ExhibitionList, setExhibitionList] = useState([]);
+    const [innerList, setinnerList] = useState([]);
 
+    const user_id = localStorage.getItem('user_id');
+    const access = localStorage.getItem('access');
+
+    // const innerList = [];
+
+    useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
                 setName({ Name: res.data['username'] });
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
+            });
+
+        ROOT_API.museum_list('JWT ' + access, user_id)
+            .then((res) => {
+                // console.log(res.data);
+                setExhibitionList(res.data);
             })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
 
@@ -50,144 +65,48 @@ function Exhibition() {
                     </div>
                     <div className={style.rowgroup}>
                         <div className={`${style.DrawingList} ${style.clearfix}`}>
-                            <div className={style.cont}>
-                                <div className={`${style.conthead} ${style.clearfix}`}>
-                                    <h2 className={`${style.h2} ${style.tit}`}>1층<span className={style.eng}>1F</span></h2>
-                                    <div className={style.etcBtn}>
-                                        <a href="#" className={style.morebtn}></a>
-                                        <ul className={style.etcGroup}>
-                                            <li>삭제</li>
-                                        </ul>
+                            {ExhibitionList.map((exhibition, idx) => {
+                                const result = [];
+                                ROOT_API.exhibition_list('JWT ' + access, exhibition['pk'])
+                                    .then((res) => {
+                                        // console.log(res.data);
+                                        // setinnerList(res.data);
+                                        res.data.map((dat) => {
+                                            result.push(dat);
+                                        })
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                                return (
+                                    <div className={style.cont}>
+                                        <div className={`${style.conthead} ${style.clearfix}`}>
+                                            <h2 className={`${style.h2} ${style.tit}`}>{exhibition['floor_ko']}<span className={style.eng}>{exhibition['floor_en']}</span></h2>
+                                            <div className={style.etcBtn}>
+                                                <a href="#" className={style.morebtn}></a>
+                                                <ul className={style.etcGroup}>
+                                                    <li>삭제</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className={style.contbody}>
+                                            <div className={style.thumb}><img src={baseURL + exhibition['drawing_image']} /></div>
+                                            <div className={style.listwrap}>
+                                                <ul className={style.list}>
+                                                    {result.map((inn) => {
+                                                        return (
+                                                            <li>
+                                                                <span className={style.num}>{inn['order']}</span>
+                                                                <span className={style.txt}>{inn['name']}</span>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className={style.contbody}>
-                                    <div className={style.thumb}><img src="./img/sub/dashboard_img01.png" /></div>
-                                    <div className={style.listwrap}>
-                                        <ul className={style.list}>
-                                            <li>
-                                                <span className={style.num}>1</span>
-                                                <span className={style.txt}>고래와 바다이야기</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>2</span>
-                                                <span className={style.txt}>고래와 바다이야기</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>3</span>
-                                                <span className={style.txt}>수산생물의 진화로 보는 바다의 시간</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>4</span>
-                                                <span className={style.txt}>우리나라 수산생물</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>5</span>
-                                                <span className={style.txt}>수족관</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>6</span>
-                                                <span className={style.txt}>참여의 장</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>7</span>
-                                                <span className={style.txt}>돔영상관</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={style.cont}>
-                                <div className={`${style.conthead} ${style.clearfix}`}>
-                                    <h2 className={`${style.h2} ${style.tit}`}>2층<span className={style.eng}>2F</span></h2>
-                                    <div className={style.etcBtn}>
-                                        <a href="#" className={style.morebtn}></a>
-                                        <ul className={style.etcGroup}>
-                                            <li>삭제</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className={style.contbody}>
-                                    <div className={style.thumb}><img src="./img/sub/dashboard_img01.png" /></div>
-                                    <div className={style.listwrap}>
-                                        <ul className={style.list}>
-                                            <li>
-                                                <span className={style.num}>1</span>
-                                                <span className={style.txt}>고래와 바다이야기</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>2</span>
-                                                <span className={style.txt}>고래와 바다이야기</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>3</span>
-                                                <span className={style.txt}>수산생물의 진화로 보는 바다의 시간</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>4</span>
-                                                <span className={style.txt}>우리나라 수산생물</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>5</span>
-                                                <span className={style.txt}>수족관</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>6</span>
-                                                <span className={style.txt}>참여의 장</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>7</span>
-                                                <span className={style.txt}>돔영상관</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={style.cont}>
-                                <div className={`${style.conthead} ${style.clearfix}`}>
-                                    <h2 className={`${style.h2} ${style.tit}`}>3층<span className={style.eng}>3F</span></h2>
-                                    <div className={style.etcBtn}>
-                                        <a href="#" className={style.morebtn}></a>
-                                        <ul className={style.etcGroup}>
-                                            <li>삭제</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className={style.contbody}>
-                                    <div className={style.thumb}><img src="./img/sub/dashboard_img01.png" /></div>
-                                    <div className={style.listwrap}>
-                                        <ul className={style.list}>
-                                            <li>
-                                                <span className={style.num}>1</span>
-                                                <span className={style.txt}>고래와 바다이야기</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>2</span>
-                                                <span className={style.txt}>고래와 바다이야기</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>3</span>
-                                                <span className={style.txt}>수산생물의 진화로 보는 바다의 시간</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>4</span>
-                                                <span className={style.txt}>우리나라 수산생물</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>5</span>
-                                                <span className={style.txt}>수족관</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>6</span>
-                                                <span className={style.txt}>참여의 장</span>
-                                            </li>
-                                            <li>
-                                                <span className={style.num}>7</span>
-                                                <span className={style.txt}>돔영상관</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                                )
+                            })}
                         </div>
                     </div>
                     {/* pagenation */}
