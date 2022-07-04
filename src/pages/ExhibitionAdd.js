@@ -16,8 +16,8 @@ function ExhibitionAdd() {
 
     const [tmpName, settmpName] = useState('');
     const [tmpNum, settmpNum] = useState('');
-    const [tmpX, settmpX] = useState('');
-    const [tmpY, settmpY] = useState('');
+    // const [tmpX, settmpX] = useState('');
+    // const [tmpY, settmpY] = useState('');
 
     const [inner, setinner] = useState([]);
 
@@ -41,7 +41,7 @@ function ExhibitionAdd() {
 
     const addinner = () => {
 
-        if (tmpNum === "" || tmpName === "" || tmpX === "" || tmpY === "") {
+        if (tmpNum === "" || tmpName === "") {
             alert('모든 항목을 입력해주세요');
             return;
         }
@@ -54,16 +54,16 @@ function ExhibitionAdd() {
         let temp = {
             id: tmpNum,
             name: tmpName,
-            x: tmpX,
-            y: tmpY
+            // x: tmpX,
+            // y: tmpY
         };
 
         setinner(inner.concat(temp));
 
         settmpName('');
         settmpNum('');
-        settmpX('');
-        settmpY('');
+        // settmpX('');
+        // settmpY('');
 
         // console.log(temp);
     }
@@ -77,12 +77,49 @@ function ExhibitionAdd() {
         // console.log(inn)
         settmpName(inn.name);
         settmpNum(inn.id);
-        settmpX(inn.x);
-        settmpY(inn.y);
+        // settmpX(inn.x);
+        // settmpY(inn.y);
 
         setinner(inner.filter(inn => inn.id !== key));
     }
 
+
+    const addExhibition = () => {
+        console.log('sss');
+        let access = 'JWT ' + localStorage.getItem('access');
+        let user_id = localStorage.getItem('user_id');
+
+        let formdata = new FormData();
+
+        formdata.append('floor_ko', floorko);
+        formdata.append('floor_en', flooren);
+        formdata.append('drawing_image', imgFile);
+
+        // console.log(formdata);
+
+        ROOT_API.museum_add(user_id, formdata, access)
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log('전시관 추가');
+                    console.log('내부 전시관 추가 시작');
+                    // console.log(res.data)
+                    let museum_id = res.data['pk']
+                    for (let i = 0; i < inner.length; i++) {
+                        let inn = inner[i];
+                        ROOT_API.exhibition_add(inn.name, inn.id, access, museum_id)
+                            .then((res) => {
+                                console.log('내부 전시관 ' + String(i) + ' 추가완료');
+                            })
+                    }
+                    alert('등록이 완료되었습니다.');
+                    window.location.href = '/exhibition';
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('모든 항목을 입력하여 주세요.')
+            })
+    }
 
 
     useEffect(() => {
@@ -121,7 +158,7 @@ function ExhibitionAdd() {
                         <h1 className={`${style.tit} ${style.h1}`}>새 도면 등록</h1>
                         <div className={style.Headgroup}>
                             <Button variant="secondary">취소</Button>
-                            <Button variant="primary">등록</Button>
+                            <Button variant="primary" onClick={() => addExhibition()}>등록</Button>
                             {/* <button className="btn btn-gray" onclick="location.href='ManageDrawing.html'">취소</button>
                             <button className="btn btn-blue" onclick="location.href='ManageDrawing.html'">등록</button> */}
                         </div>
@@ -177,7 +214,7 @@ function ExhibitionAdd() {
                                         </dd>
                                     </dl>
                                 </div>
-                                <div className={style.input3}>
+                                {/* <div className={style.input3}>
                                     <p className={style.title}>전시관 포인트 좌표<span>(도면 위를 클릭해 주세요.)</span></p>
                                     <dl className={style.inputgroup}>
                                         <dt>X축</dt>
@@ -191,7 +228,7 @@ function ExhibitionAdd() {
                                             <input type="num" placeholder="예) 450, 320" value={tmpY} onChange={(e) => settmpY(e.target.value)} />
                                         </dd>
                                     </dl>
-                                </div>
+                                </div> */}
                                 <div className={style.textcenter}>
                                     <Button variant="success" onClick={addinner}>등록하기</Button>
                                     {/* <button className="btn btn-green">등록하기</button> */}

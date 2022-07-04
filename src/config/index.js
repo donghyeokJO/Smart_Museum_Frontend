@@ -5,7 +5,10 @@
 //     : "http://118.38.16.167:8080";
 const baseURL =
     window.location.origin === "http://localhost:3000"
-        ? "http://127.0.0.1:8000"
+        // ? "http://127.0.0.1:8000"
+        ? "http://59.19.102.174:8888"
         : "http://118.38.16.167:8080";
+
+export const mediaURL = "http://59.19.102.174:8888/media/";
 
 export { baseURL };
