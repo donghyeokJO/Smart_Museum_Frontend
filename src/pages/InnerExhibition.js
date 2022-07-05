@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
+import { baseURL } from "../config";
 import Button from 'react-bootstrap/Button'
 
 import style from './css/admin/InnerExhibition.module.css'
@@ -9,6 +10,24 @@ import style from './css/admin/InnerExhibition.module.css'
 function InnerExhibition() {
     const [Name, setName] = useState('');
     const [floor, setfloor] = useState('전체');
+
+    const [innerList, setinnerList] = useState([]);
+    const [ExhibitionList, setExhibitionList] = useState([]);
+
+    const user_id = localStorage.getItem('user_id');
+    const access = localStorage.getItem('access');
+
+    const [Active, setActive] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(3);
+
+    const indexOfLast = Active * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+
+    const currentInnerList = (posts) => {
+        let currentUser = 0;
+        currentUser = posts.slice(indexOfFirst, indexOfLast);
+        return currentUser;
+    };
 
     const originalitems = [
         { floor: "1층", num: "1", txt: "고래와 바다이야기", src: "./img/sub/exhibition01.jpg", id: "1" },
@@ -21,18 +40,11 @@ function InnerExhibition() {
 
     const [items, setitems] = useState([]);
 
-    const [show, setshow] = useState([]);
-
     // const itemlen = originalitems.length;
 
-    const floors = ['1층', '2층', '지하1층'];
+    // const floors = ['1층', '2층', '지하1층'];
 
     useEffect(() => {
-        let user_id = localStorage.getItem('user_id');
-        let access = localStorage.getItem('access');
-
-        setitems(originalitems);
-
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
                 setName({ Name: res.data['username'] });
@@ -42,24 +54,43 @@ function InnerExhibition() {
             })
     }, []);
 
+    useEffect(() => {
+        ROOT_API.inner_exhibition_user('JWT ' + access, user_id)
+            .then((res) => {
+                // console.log(res.data[0]['exhibition']['floor_ko']);
+                setinnerList(res.data);
+                setitems(res.data);
+            })
+    }, []);
+
+    useEffect(() => {
+        // console.log('ss');
+        ROOT_API.museum_list('JWT ' + access, user_id)
+            .then((res) => {
+                setExhibitionList(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    const floors = ExhibitionList.map((exhibition) => {
+        return exhibition['floor_ko'];
+    })
+
+    // const floors_idx = floors.map((floor, idx) => {
+    //     return { [floor]: idx }
+    // })
+
     const currentFloor = floor => {
         if (floor === "전체") {
             // console.log('sex')
-            setitems(originalitems);
+            setitems(innerList);
             return
         }
 
         // setitems(originalitems);
-        setitems(originalitems.filter(item => item.floor === floor));
-    }
-
-    const handleshow = idx => {
-        console.log(show);
-        // let show_temp = show;
-        // show_temp[idx].stat = !show_temp[idx].stat;
-
-        // setshow(show_temp);
-        // console.log(show_temp);
+        setitems(innerList.filter(item => item['exhibition']['floor_ko'] === floor));
     }
 
     return (
@@ -82,40 +113,47 @@ function InnerExhibition() {
                     <div className={style.pageHead}>
                         <h1 className={`${style.h1} ${style.tit}`}>전시관 정보 관리</h1>
                         <div className={style.Headgroup}>
-                            <Button variant="primary" onClick={() => window.location.href = '#'}>새 전시관 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
+                            <Button variant="primary" onClick={() => window.location.href = '/inner-exhibition-add'}>새 전시관 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
                         </div>
                     </div>
                     <ul id={style.tabul}>
                         <li className={floor === "전체" ? style.on : null} onClick={() => { setfloor('전체'); currentFloor("전체") }}>전체</li>
-                        <li className={floor === "1층" ? style.on : null} onClick={() => { setfloor('1층'); currentFloor("1층") }}>1층</li>
+                        {floors.map((f) => {
+                            return (
+                                <li className={floor === f ? style.on : null} onClick={() => { setfloor(f); currentFloor(f) }}>{f}</li>
+                            )
+                        })}
+                        {/* <li className={floor === "1층" ? style.on : null} onClick={() => { setfloor('1층'); currentFloor("1층") }}>1층</li>
                         <li className={floor === "2층" ? style.on : null} onClick={() => { setfloor('2층'); currentFloor("2층") }}>2층</li>
-                        <li className={floor === "지하1층" ? style.on : null} onClick={() => { setfloor('지하1층'); currentFloor("지하1층") }}>지하1층</li>
+                        <li className={floor === "지하1층" ? style.on : null} onClick={() => { setfloor('지하1층'); currentFloor("지하1층") }}>지하1층</li> */}
                     </ul>
 
 
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
                             {items.map((item, idx) => {
-                                let cls = item.floor === floors[0] ? `${style.division} ${style.first}` : item.floor === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
-                                let url = '/inner-exhibition-detail/' + item.id;
-                                let oncls = show[idx] === true ? `${style.etcGroup} ${style.on}` : style.etcGroup;
+                                // console.log(floors_idx);
+                                // console.log(floors_idx.item['exhibition']['floor_ko'][0]);
+                                // console.log(floors[[item['exhibition']['floor_ko']]]);
+                                // let color = [floors[item['exhibition']['floor_ko']]] % 3 === 0 ? `${style.division} ${style.first}` : [floors[item['exhibition']['floor_ko']]] % 3 === 1 ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
+                                let color = item['exhibition']['floor_ko'] === floors[0] ? `${style.division} ${style.first}` : item['exhibition']['floor_ko'] === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
+                                let url = '/inner-exhibition-detail/' + item['pk'];
                                 return (
                                     <div className={style.imgcont}>
                                         <a href={url} item={item}>
-
                                             <div className={style.thumb}>
-                                                <img src={item.src} alt="전시관1" />
+                                                <img src={baseURL + item['image']} alt={item['name']} />
                                             </div>
                                             <div className={style.text}>
-                                                <span className={cls}>{item.floor}</span>
+                                                <span className={color}>{item['exhibition']['floor_ko']}</span>
                                                 <div className={style.detail}>
                                                     <div className={style.title}>
-                                                        <span className={style.num}>{item.num}</span>
-                                                        <span className={style.txt}>{item.txt}</span>
+                                                        <span className={style.num}>{item['order']}</span>
+                                                        <span className={style.txt}>{item['name']}</span>
                                                     </div>
-                                                    <div className={style.etcBtn} onClick={() => handleshow(idx)}>
+                                                    <div className={style.etcBtn}>
                                                         <a href="#" className={style.morebtn}></a>
-                                                        <ul className={oncls}>
+                                                        <ul className={style.etcGroup}>
                                                             <li>삭제</li>
                                                         </ul>
                                                     </div>

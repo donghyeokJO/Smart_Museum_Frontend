@@ -4,20 +4,31 @@ import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import Button from 'react-bootstrap/Button';
 import { baseURL } from "../config";
+import ExhibitionInner from "../components/ExhibitionInner";
+import ExhibitionPost from "../utils/ExhibitionPost";
+import Pagination from "../utils/pagination";
 
-import style from './css/admin/Exhibition.module.css'
+import style from './css/admin/Exhibition.module.css';
 
 function ExhibitionNew() {
     const [Name, setName] = useState('');
 
     const [ExhibitionList, setExhibitionList] = useState([]);
-    const [innerList, setinnerList] = useState([]);
-    const [temp, setTemp] = useState([]);
+
+    const [Active, setActive] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(3);
+
+    const indexOfLast = Active * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+
+    const currentExhibitionList = (posts) => {
+        let currentUser = 0;
+        currentUser = posts.slice(indexOfFirst, indexOfLast);
+        return currentUser;
+    };
 
     const user_id = localStorage.getItem('user_id');
     const access = localStorage.getItem('access');
-
-    // const innerList = [];
 
     useEffect(() => {
         console.log('dd');
@@ -35,33 +46,6 @@ function ExhibitionNew() {
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
-
-    useEffect(() => {
-        console.log('kk');
-        // let items = [];
-        ROOT_API.museum_list('JWT ' + access, user_id)
-            .then((res) => {
-                res.data.map((exhibition) => {
-                    let pk = exhibition['pk'];
-                    // console.log(pk)
-                    ROOT_API.exhibition_list('JWT ' + access, pk)
-                        .then((res) => {
-                            // this.setState({ innerList: this.state.innerList.concat(res.data) })
-                            // setTemp(res.data);
-                            // items.concat(res.data)
-                            console.log(res.data)
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-
-                    // console.log(items);
-                })
             })
             .catch((err) => {
                 console.log(err);
@@ -95,53 +79,14 @@ function ExhibitionNew() {
                     </div>
                     <div className={style.rowgroup}>
                         <div className={`${style.DrawingList} ${style.clearfix}`}>
-                            {ExhibitionList.map((exhibition, idx) => {
-                                console.log('a')
-                                let pk = exhibition['pk'];
-                                // ROOT_API.exhibition_list('JWT ' + access, pk)
-                                //     .then((res) => {
-                                //         setinnerList(innerList.concat(res.data))
-                                //     })
-                                //     .catch((err) => {
-                                //         console.log(err);
-                                //     });
-
-                                // console.log(innerList);
-                                // console.log(innerList);
-                                // let inner = innerList[idx + 1];
-                                // console.log(inner);
-                                return (
-                                    <div className={style.cont}>
-                                        <div className={`${style.conthead} ${style.clearfix}`}>
-                                            <h2 className={`${style.h2} ${style.tit}`}>{exhibition['floor_ko']}<span className={style.eng}>{exhibition['floor_en']}</span></h2>
-                                            <div className={style.etcBtn}>
-                                                <a href="#" className={style.morebtn}></a>
-                                                <ul className={style.etcGroup}>
-                                                    <li>삭제</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className={style.contbody}>
-                                            <div className={style.thumb}><img src={baseURL + exhibition['drawing_image']} /></div>
-                                            <div className={style.listwrap}>
-                                                <ul className={style.list}>
-                                                    {/* {inner.map((inn) => {
-                                                        return (
-                                                            <li>
-                                                                <span className={style.num}>{inn['order']}</span>
-                                                                <span className={style.txt}>{inn['name']}</span>
-                                                            </li>
-                                                        )
-                                                    })} */}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                            <ExhibitionPost exhibitions={currentExhibitionList(ExhibitionList)}></ExhibitionPost>
                         </div>
                     </div>
-                    {/* pagenation */}
+                    <Pagination
+                        postsPerPage={postsPerPage}
+                        totalPosts={ExhibitionList.length}
+                        paginate={setActive}
+                    ></Pagination>
                 </div>
             </div>
         </body>

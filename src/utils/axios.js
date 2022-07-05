@@ -13,9 +13,10 @@ const url = {
     token_auth: 'token-auth/',
     refresh: 'refresh/',
     account: 'account/',
-    museum: 'musuem/',
-    exhibition: 'musuem/exhibition/',
-    inner_exhibition: 'inner_exhibition/'
+    museum: 'museum/',
+    exhibition: 'museum/exhibition/',
+    inner_exhibition: 'inner_exhibition/',
+    inner_exhibition_user: 'museum/inner_exhibition/user/'
 }
 
 export const ROOT_API = {
@@ -103,7 +104,23 @@ export const ROOT_API = {
             headers: {
                 "Authorization": token,
             }
-        })
+        }),
+
+    inner_exhibition_user: (token, user_id) =>
+        api.get(url.inner_exhibition_user + user_id + '/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }),
+
+    inner_exhibition_add: (token, formdata, museum_id) =>
+        api.post(url.exhibition + museum_id + '/' + url.inner_exhibition, formdata, {
+            headers: {
+                'Authorization': token,
+                'content-type': 'multipart/form-data'
+            }
+        }),
 }
 
 

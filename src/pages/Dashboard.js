@@ -6,6 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Chart } from "react-google-charts";
 import Calendar from 'react-calendar';
+import { baseURL } from "../config";
 
 import 'react-calendar/dist/Calendar.css';
 import style from './css/admin/Dashboard.module.css';
@@ -31,10 +32,12 @@ function Dashboard() {
         // console.log(dateval);
     }
 
-    useEffect(() => {
-        let user_id = localStorage.getItem('user_id');
-        let access = localStorage.getItem('access');
+    const [ExhibitionList, setExhibitionList] = useState([]);
 
+    const user_id = localStorage.getItem('user_id');
+    const access = localStorage.getItem('access');
+
+    useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
                 setName({ Name: res.data['username'] });
@@ -44,6 +47,17 @@ function Dashboard() {
             .catch((err) => {
                 console.log(err)
             })
+    }, []);
+
+    useEffect(() => {
+        console.log('ss');
+        ROOT_API.museum_list('JWT ' + access, user_id)
+            .then((res) => {
+                setExhibitionList(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     const data = [
@@ -96,9 +110,15 @@ function Dashboard() {
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <h2 className={`${style.h2} ${style.tit}`}>방문객 이동 경로</h2>
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={Floor} style={{ float: 'right' }}>
-                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img01.png'); setFloor('1층') }}>1층</Dropdown.Item>
+                                    {ExhibitionList.map((exhibition) => {
+                                        console.log(exhibition);
+                                        return (
+                                            <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
+                                        )
+                                    })}
+                                    {/* <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img01.png'); setFloor('1층') }}>1층</Dropdown.Item>
                                     <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img02.png'); setFloor('2층') }}>2층</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img03.png'); setFloor('지하1층') }}>지하1층</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img03.png'); setFloor('지하1층') }}>지하1층</Dropdown.Item> */}
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>

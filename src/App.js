@@ -12,6 +12,7 @@ import ExhibitionNew from "./pages/ExhibitionNew";
 import ExhibitionAdd from "./pages/ExhibitionAdd";
 import InnerExhibition from "./pages/InnerExhibition";
 import InnerExhibitionDetail from "./pages/InnerExhibitionDetail";
+import InnerExhibitionAdd from "./pages/InnerExhibitionAdd";
 
 import Service from './pages/Service'
 import ServiceSelect from "./pages/ServiceSelect";
@@ -68,6 +69,7 @@ class App extends React.Component {
             <PrivateRoute path='/exhibition-add' component={ExhibitionAdd} />
             <PrivateRoute path='/inner-exhibition' component={InnerExhibition} />
             <PrivateRoute path='/inner-exhibition-detail' component={InnerExhibitionDetail} />
+            <PrivateRoute path='/inner-exhibition-add' component={InnerExhibitionAdd} />
 
 
             <PrivateRoute path='/service' component={Service} />
