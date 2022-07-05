@@ -11,7 +11,7 @@ function ExhibitionNew() {
     const [Name, setName] = useState('');
 
     const [ExhibitionList, setExhibitionList] = useState([]);
-    const [innerList, setinnerList] = useState([]);
+    const [innerList, setinnerList] = useState({});
     const [temp, setTemp] = useState([]);
 
     const user_id = localStorage.getItem('user_id');
@@ -51,10 +51,10 @@ function ExhibitionNew() {
                     // console.log(pk)
                     ROOT_API.exhibition_list('JWT ' + access, pk)
                         .then((res) => {
-                            // this.setState({ innerList: this.state.innerList.concat(res.data) })
-                            // setTemp(res.data);
-                            // items.concat(res.data)
-                            console.log(res.data)
+                            // console.log(res.data);
+                            // console.log(innerList);
+                            setinnerList({...innerList, [pk]: res.data})
+                            // console.log(innerList);
                         })
                         .catch((err) => {
                             console.log(err);
@@ -96,7 +96,8 @@ function ExhibitionNew() {
                     <div className={style.rowgroup}>
                         <div className={`${style.DrawingList} ${style.clearfix}`}>
                             {ExhibitionList.map((exhibition, idx) => {
-                                console.log('a')
+                                // console.log('a')
+                                // console.log(innerList);
                                 let pk = exhibition['pk'];
                                 // ROOT_API.exhibition_list('JWT ' + access, pk)
                                 //     .then((res) => {
