@@ -182,14 +182,14 @@ function InnerExhibitionAdd() {
                                     </dd>
                                 </dl>
                             </div>
-                            <div className={style.input1}>
+                            {/* <div className={style.input1}>
                                 <dl className={style.inputgroup}>
                                     <dt>비컨 ID</dt>
                                     <dd className="fix-width">
                                         <input type="text" placeholder="비컨ID를 입력하세요." value={beacon} onChange={(e) => setBeacon(e.target.value)} />
                                     </dd>
                                 </dl>
-                            </div>
+                            </div> */}
                             <div className={`${style.input1} ${style.textarea}`}>
                                 <dl className={style.inputgroup}>
                                     <dt>상세 설명</dt>

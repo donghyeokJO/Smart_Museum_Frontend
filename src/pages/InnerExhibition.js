@@ -137,7 +137,7 @@ function InnerExhibition() {
                                 // console.log(floors[[item['exhibition']['floor_ko']]]);
                                 // let color = [floors[item['exhibition']['floor_ko']]] % 3 === 0 ? `${style.division} ${style.first}` : [floors[item['exhibition']['floor_ko']]] % 3 === 1 ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
                                 let color = item['exhibition']['floor_ko'] === floors[0] ? `${style.division} ${style.first}` : item['exhibition']['floor_ko'] === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
-                                let url = '/inner-exhibition-detail/' + item['pk'];
+                                let url = '/inner-exhibition-detail?id=' + item['pk'];
                                 return (
                                     <div className={style.imgcont}>
                                         <a href={url} item={item}>

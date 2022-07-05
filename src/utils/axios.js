@@ -121,6 +121,22 @@ export const ROOT_API = {
                 'content-type': 'multipart/form-data'
             }
         }),
+
+    inner_exhibition_get: (token, pk) =>
+        api.get(url.museum + url.inner_exhibition + pk + '/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }),
+
+    inner_exhibition_put: (token, formdata, pk) =>
+        api.put(url.museum + url.inner_exhibition + pk + '/', formdata, {
+            headers: {
+                'Authorization': token,
+                'content-type': 'multipart/form-data'
+            }
+        }),
 }
 
 

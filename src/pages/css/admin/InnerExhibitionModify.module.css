@@ -79,6 +79,20 @@
     margin-bottom: 20px
 }
 
+/* .h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #161616;
+    margin-bottom: 20px
+}
+
+.h4 {
+    font-size: 20px;
+    color: #2C458D;
+    font-weight: 500;
+    margin-bottom: 10px
+} */
+
 .pageHead .tit .badge {
     padding: 8px 25px;
     /* padding: 30px; */
@@ -227,7 +241,7 @@
 
 .cont01 img {
     width: 100%;
-    margin-top: 80px;
+    margin-top: 15px;
     /* transform: translateY(-50%); */
 }
 
@@ -398,4 +412,134 @@
     color: #535353;
     font-style: normal;
     font-weight: 400;
+}
+
+.filebox::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.filebox {
+    margin-bottom: 10px
+}
+
+.filebox .uploadname {
+    display: block;
+    height: 38x;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    width: calc(100% - 100px);
+    color: #999999;
+    border-radius: 3px;
+    box-sizing: border-box;
+    float: left;
+    background: #f1f1f1;
+    font-family: 'Nanumsquare';
+}
+
+.filebox label {
+    display: block;
+    padding: 10px 15px;
+    color: #fff;
+    background: #0c85fa;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+    font-weight: 500;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0
+}
+
+.caution {
+    color: #5B5B5B;
+}
+
+.inputgroup {
+    max-width: 50%;
+    margin-bottom: 10px
+}
+
+.inputgroup:last-child {
+    margin-bottom: 0
+}
+
+.inputgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.inputgroup dt {
+    float: left;
+    width: 35%;
+    font-size: 17px;
+    color: #161616;
+    line-height: 38px;
+    font-weight: 500;
+}
+
+.inputgroup dd {
+    float: right;
+    width: 65%;
+}
+
+.inputgroup dd input[type=text],
+.inputgroup dd input[type=num] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 15px;
+    height: 38px;
+    font-size: 14px;
+    font-family: 'Nanumsquare';
+    color: #161616;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}
+
+.inputgroup p {
+    color: #000;
+    font-size: 16px;
+    line-height: 2
+}
+
+.input1 {
+    margin-bottom: 10px
+}
+
+.input1 .inputgroup {
+    max-width: unset;
+    width: 100%;
+}
+
+.input1 .inputgroup .select {
+    float: left
+}
+
+.input1.textarea dt {
+    width: 100%;
+    float: none
+}
+
+.input1.textarea dd {
+    width: 100%;
+    float: none
+}
+
+.input1.textarea dd textarea {
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-family: 'Nanumsquare';
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    font-size: 17px
 }
