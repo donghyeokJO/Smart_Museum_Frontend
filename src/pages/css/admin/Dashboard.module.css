@@ -115,6 +115,16 @@
     overflow: hidden;
 }
 
+.dashboard .cont01 .img {
+    /* width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%); */
+    object-fit: fill;
+}
+
 .dashboard .cont02 {
     float: right;
     width: 47%;
