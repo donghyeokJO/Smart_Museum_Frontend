@@ -12,7 +12,7 @@ function ExhibitionModify() {
     const [Name, setName] = useState('');
     const [imgpath, setimgpath] = useState(img);
     const [fileName, setFileName] = useState('');
-    const [imgFile, setimgFile] = useState();
+    const [imgFile, setimgFile] = useState(null);
 
     const [inner, setinner] = useState([]);
 
@@ -45,7 +45,7 @@ function ExhibitionModify() {
     useEffect(() => {
         ROOT_API.inner_exhibition_by_exhibition(access, pk)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setinner(res.data);
             })
     }, []);
@@ -53,7 +53,7 @@ function ExhibitionModify() {
     useEffect(() => {
         ROOT_API.exhibition_get(access, pk)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setExhibition(res.data);
                 setimgpath(baseURL + res.data['drawing_image']);
                 setfloorko(res.data['floor_ko']);
@@ -80,20 +80,21 @@ function ExhibitionModify() {
         formdata.append('floor_ko', floorko);
         formdata.append('floor_en', flooren);
 
+        console.log(imgFile);
+
         if (imgFile !== null) {
+            console.log('s');
             formdata.append('drawing_image', imgFile);
         }
 
         ROOT_API.exhibition_put(access, formdata, pk)
             .then((res) => {
                 if (res.status === 200) {
-                    // console.log(res.data)
                     window.location.href = '/exhibition';
                 }
             })
             .catch((err) => {
                 console.log(err);
-                // alert('모든 항목을 입력하여 주세요.')
             })
     }
 
@@ -118,8 +119,8 @@ function ExhibitionModify() {
                     <div className={style.pageHead}>
                         <h1 className={`${style.tit} ${style.h1}`}>도면 수정</h1>
                         <div className={style.Headgroup}>
-                            <Button variant="secondary">취소</Button>
-                            <Button variant="primary" onClick={() => ModifyExhibition()}>수정</Button>
+                            <Button variant="secondary" onClick={() => window.location.href = '/exhibition'}>취소</Button>
+                            <Button variant="primary" onClick={() => ModifyExhibition()}>저장</Button>
                         </div>
                     </div>
                     <div className={`${style.rowgroup} ${style.clearfix}`}>
