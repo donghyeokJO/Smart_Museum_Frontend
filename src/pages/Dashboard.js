@@ -54,8 +54,9 @@ function Dashboard() {
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
-                setFloor(res.data[0]['floor']);
-                setimgSrc(res.data[0]['drawing_image']);
+                // console.log(res.data)
+                setFloor(res.data[0]['floor_ko']);
+                setimgSrc(baseURL + res.data[0]['drawing_image']);
             })
             .catch((err) => {
                 console.log(err);
