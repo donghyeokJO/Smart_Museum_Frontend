@@ -76,7 +76,7 @@ function InnerExhibitionDetail({ match }) {
         [11, 100],
         [12, 90],
         [13, 40],
-        [14, 600],
+        [14, 200],
         [15, 18],
         [16, 13],
         [17, 10],
@@ -126,7 +126,7 @@ function InnerExhibitionDetail({ match }) {
         settabledata(table[dateidx]);
     }, []);
 
-    const [visitor, setvisitor] = useState(19);
+    const [visitor, setvisitor] = useState(600);
     const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
     const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
@@ -199,7 +199,7 @@ function InnerExhibitionDetail({ match }) {
         setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
         setshowdata(dateidx === 2 ? data[0] : data[dateidx + 1]);
         settabledata(dateidx === 2 ? table[0] : table[dateidx + 1]);
-        setvisitor(getRandom(1, 100));
+        setvisitor(getRandom(600, 700));
 
         setdateidx(dateidx === 2 ? 0 : dateidx + 1);
 
