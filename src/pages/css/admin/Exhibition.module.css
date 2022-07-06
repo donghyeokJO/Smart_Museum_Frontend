@@ -204,7 +204,7 @@
 }
 
 .pageHead {
-    padding: 20px 100px 10px 50px;
+    padding: 20px 60px 10px 50px;
 }
 
 .pageHead .Headgroup {
@@ -218,13 +218,13 @@
 }
 
 .pageHead .Headgroup button {
-    float: left;
-    /* margin-left: 15px */
+    float: right;
+    margin-left: 100px
 }
 
-.pageHead .Headgroup button:first-child {
+/* .pageHead .Headgroup button:first-child {
     margin-left: 0;
-}
+} */
 
 
 .etcBtn * {
