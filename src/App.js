@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Exhibition from "./pages/Exhibition";
 import ExhibitionNew from "./pages/ExhibitionNew";
 import ExhibitionAdd from "./pages/ExhibitionAdd";
+import ExhibitionModify from "./pages/ExhibitionModify";
 import InnerExhibition from "./pages/InnerExhibition";
 import InnerExhibitionDetail from "./pages/InnerExhibitionDetail";
 import InnerExhibitionAdd from "./pages/InnerExhibitionAdd";
@@ -70,6 +71,7 @@ class App extends React.Component {
             {/* <PrivateRoute path='/exhibition' component={Exhibition} /> */}
             <PrivateRoute path='/exhibition' component={ExhibitionNew} />
             <PrivateRoute path='/exhibition-add' component={ExhibitionAdd} />
+            <PrivateRoute path='/exhibition-modify' component={ExhibitionModify} />
             <PrivateRoute path='/inner-exhibition' component={InnerExhibition} />
             <PrivateRoute path='/inner-exhibition-detail' component={InnerExhibitionDetail} />
             <PrivateRoute path='/inner-exhibition-add' component={InnerExhibitionAdd} />

@@ -107,6 +107,20 @@ export const ROOT_API = {
             }
         }),
 
+    exhibition_get: (token, pk) =>
+        api.get(url.exhibition + pk + '/', {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
+    exhibition_put: (token, formdata, pk) =>
+        api.put(url.exhibition + pk + '/', formdata, {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
     inner_exhibition_user: (token, user_id) =>
         api.get(url.inner_exhibition_user + user_id + '/',
             {
@@ -120,6 +134,13 @@ export const ROOT_API = {
             headers: {
                 'Authorization': token,
                 'content-type': 'multipart/form-data'
+            }
+        }),
+
+    inner_exhibition_by_exhibition: (token, museum_id) =>
+        api.get(url.exhibition + museum_id + '/' + url.inner_exhibition, {
+            headers: {
+                "Authorization": token,
             }
         }),
 
