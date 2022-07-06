@@ -109,7 +109,7 @@
 }
 
 .pageHead {
-    padding: 20px 100px 10px 50px;
+    padding: 20px 0px 10px 50px;
 }
 
 .pageHead .Headgroup {
@@ -227,7 +227,7 @@
 
 .cont01 img {
     width: 100%;
-    margin-top: 80px;
+    margin-top: 40px;
     /* transform: translateY(-50%); */
 }
 

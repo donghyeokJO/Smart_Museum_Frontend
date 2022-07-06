@@ -139,6 +139,14 @@ export const ROOT_API = {
             }
         }),
 
+    inner_exhibition_del: (token, pk) =>
+        api.delete(url.museum + url.inner_exhibition + pk + '/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }),
+
     event_get: (token) =>
         api.get(url.event, {
             headers: {
