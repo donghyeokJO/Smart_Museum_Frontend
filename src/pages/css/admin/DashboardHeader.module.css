@@ -1,8 +1,20 @@
 @charset "utf-8";
 
-*{margin:0; padding:0}
-ul,li,ol{list-style: none;}
-a{text-decoration: none; color:#222}
+* {
+    margin: 0;
+    padding: 0
+}
+
+ul,
+li,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #222
+}
 
 
 /*font 선언*/
@@ -55,7 +67,7 @@ a{text-decoration: none; color:#222}
 
 /*header*/
 #header2 {
-    width: 350px;
+    width: 300px;
     /* float: left; */
     height: 100%;
     background: #191E38;
@@ -380,4 +392,3 @@ a{text-decoration: none; color:#222}
         bottom: 5px
     }
 }
-
