@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Chart } from "react-google-charts";
 import Calendar from 'react-calendar';
 import { baseURL } from "../config";
+import { PieChart } from "react-minimal-pie-chart";
 
 import 'react-calendar/dist/Calendar.css';
 import style from './css/admin/Dashboard.module.css';
@@ -25,14 +26,9 @@ function Dashboard() {
     const [datestr, setdatestr] = useState(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
     // console.log(dateval.format('YYYY-MM-DD'));
 
-    const changeDate = (date) => {
-        setdateval(date);
-        setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()))
-        // console.log(date);
-        // console.log(dateval);
-    }
-
     const [ExhibitionList, setExhibitionList] = useState([]);
+    const [showdata, setshowdata] = useState([]);
+    const [dateidx, setdateidx] = useState(0);
 
     const user_id = localStorage.getItem('user_id');
     const access = localStorage.getItem('access');
@@ -63,7 +59,7 @@ function Dashboard() {
             });
     }, []);
 
-    const data = [
+    const data = [[
         ["시간", "관람객수"],
         [9, 10],
         [10, 50],
@@ -75,7 +71,141 @@ function Dashboard() {
         [16, 135],
         [17, 105],
         [18, 12]
-    ];
+    ], [
+        ["시간", "관람객수"],
+        [9, 80],
+        [10, 70],
+        [11, 100],
+        [12, 90],
+        [13, 40],
+        [14, 600],
+        [15, 18],
+        [16, 13],
+        [17, 10],
+        [18, 120]
+    ], [
+        ["시간", "관람객수"],
+        [9, 100],
+        [10, 120],
+        [11, 60],
+        [12, 90],
+        [13, 50],
+        [14, 7],
+        [15, 28],
+        [16, 35],
+        [17, 5],
+        [18, 20]
+    ]];
+
+    useEffect(() => {
+        setshowdata(data[dateidx]);
+    }, []);
+
+    const [tabledata, settabledata] = useState([]);
+
+    const table = [[
+        [1, "참여의 장", "10대", "3,880명"],
+        [2, "동영상관", "10대", "3,580명"],
+        [3, "수족관", "10대", "3,380명"],
+        [4, "고래와 바다이야기", "10대", "3,180명"],
+        [5, "수산식품이용가공", "10대", "2,980명"]
+    ], [
+        [1, "수족관", "10대", "4,380명"],
+        [2, "고래와 바다이야기", "10대", "4,180명"],
+        [3, "참여의 장", "10대", "2,880명"],
+        [4, "동영상관", "10대", "2,580명"],
+        [5, "수산식품이용가공", "10대", "1,980명"]
+    ], [
+        [1, "참여의 장", "10대", "2,880명"],
+        [2, "수족관", "10대", "2,380명"],
+        [3, "수산식품이용가공", "10대", "1,980명"],
+        [4, "동영상관", "10대", "1,580명"],
+        [5, "고래와 바다이야기", "10대", "1,180명"],
+    ]
+    ]
+
+    useEffect(() => {
+        settabledata(table[dateidx]);
+    }, []);
+
+    const [visitor, setvisitor] = useState(19);
+    const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+
+    const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
+    const [chartfilter, setchartfilter] = useState('number');
+
+    const NumberChart = () => {
+        return (
+            <div className={style.todayAll}>
+                <p>관람객</p>
+                <div className={style.iconWrap}>
+                    <i></i>
+                    <span>{visitor}<em>명</em></span>
+                </div>
+            </div>
+        )
+    }
+
+    const Agechart = () => {
+        let max = Math.floor(visitor / 5);
+        let val1 = getRandom(1, max);
+        let val2 = getRandom(1, max);
+        let val3 = getRandom(1, max);
+        let val4 = getRandom(1, max);
+        let val5 = visitor - (val1 + val2 + val3 + val4);
+
+        const data = [
+            ["연령대", "방문객"],
+            ["10대", val5],
+            ["20대", val4],
+            ["30대", val3],
+            ["40대", val2],
+            ["50대 이상", val1]
+        ];
+
+        return (
+            <Chart
+                chartType="PieChart"
+                data={data}
+                width={"100%"}
+                height={"320px"}
+            />
+        );
+    }
+
+    const Sexchart = () => {
+        let max = Math.floor(visitor / 2);
+        let val1 = getRandom(1, max);
+        let val2 = visitor - val1
+
+        const data = [
+            ["성별", "방문객"],
+            ["남성", val2],
+            ["여성", val1],
+        ];
+
+
+        return (
+            <Chart
+                chartType="PieChart"
+                data={data}
+                width={"100%"}
+                height={"320px"}
+            />
+        );
+    }
+
+
+    const changeDate = (date) => {
+        setdateval(date);
+        setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
+        setshowdata(dateidx === 2 ? data[0] : data[dateidx + 1]);
+        settabledata(dateidx === 2 ? table[0] : table[dateidx + 1]);
+        setvisitor(getRandom(1, 100));
+
+        setdateidx(dateidx === 2 ? 0 : dateidx + 1);
+
+    }
 
     const options = {
         width: '100%',
@@ -164,36 +294,16 @@ function Dashboard() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>참여의 장</td>
-                                                <td>10대</td>
-                                                <td>3,880명</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>돔영상관</td>
-                                                <td>10대</td>
-                                                <td>3,580명</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>수족관</td>
-                                                <td>10대</td>
-                                                <td>3,380명</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>고래와 바다이야기</td>
-                                                <td>10대</td>
-                                                <td>3,180명</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>수산식품이용가공</td>
-                                                <td>10대</td>
-                                                <td>2,980명</td>
-                                            </tr>
+                                            {tabledata.map((table) => {
+                                                return (
+                                                    <tr>
+                                                        <td>{table[0]}</td>
+                                                        <td>{table[1]}</td>
+                                                        <td>{table[2]}</td>
+                                                        <td>{table[3]}</td>
+                                                    </tr>
+                                                )
+                                            })}
                                         </tbody>
                                     </table>
                                 </div>
@@ -208,7 +318,7 @@ function Dashboard() {
                             <div className={style.contbody}>
                                 <Chart
                                     chartType="LineChart"
-                                    data={data}
+                                    data={showdata}
                                     options={options}
                                 // legendToggle
                                 />
@@ -228,25 +338,13 @@ function Dashboard() {
                                     </ul>
                                 </div> */}
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title="필터 선택" style={{ float: 'right' }}>
-                                    <Dropdown.Item href="#/action-1">전체</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">연령별</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">성별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setchartfilter('number')}>전체</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setchartfilter('age')}>연령별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setchartfilter('sex')}>성별</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>
-                                <div className={style.todayAll}>
-                                    <p>관람객</p>
-                                    <div className={style.iconWrap}>
-                                        <i></i>
-                                        <span>19<em>명</em></span>
-                                    </div>
-                                </div>
-                                <div className={style.todayAge} style={{ display: 'none' }}>
-                                    <div id="piechart" style={{ width: '100%', height: 'auto' }}></div>
-                                </div>
-                                <div className={style.todayGender} style={{ display: 'none' }}>
-                                    <div id="piechart2" style={{ width: '100%', height: 'auto' }}></div>
-                                </div>
+                                {chartfilter === "number" ? NumberChart() : chartfilter === "age" ? Agechart() : Sexchart()}
                             </div>
                         </div>
                     </div>
