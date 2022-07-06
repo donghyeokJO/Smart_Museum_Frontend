@@ -17,8 +17,8 @@ function Dashboard() {
     const [Name, setName] = useState('');
     const [Location, setLocation] = useState('');
     const [MuseumName, setMuseumName] = useState('');
-    const [imgSrc, setimgSrc] = useState('./img/sub/dashboard_img01.png');
-    const [Floor, setFloor] = useState('1층');
+    const [imgSrc, setimgSrc] = useState('');
+    const [Floor, setFloor] = useState('');
 
     const [dateval, setdateval] = useState(new Date());
     // const [datestr, setdatestr] = useState(dateval.format('YYYY-MM-DD'));
@@ -54,6 +54,8 @@ function Dashboard() {
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
+                setFloor(res.data[0]['floor']);
+                setimgSrc(res.data[0]['drawing_image']);
             })
             .catch((err) => {
                 console.log(err);
@@ -111,7 +113,7 @@ function Dashboard() {
                                 <h2 className={`${style.h2} ${style.tit}`}>방문객 이동 경로</h2>
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={Floor} style={{ float: 'right' }}>
                                     {ExhibitionList.map((exhibition) => {
-                                        console.log(exhibition);
+                                        // console.log(exhibition);
                                         return (
                                             <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                         )
