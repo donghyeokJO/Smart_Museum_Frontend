@@ -246,15 +246,10 @@ function Dashboard() {
                                 <h2 className={`${style.h2} ${style.tit}`}>방문객 이동 경로</h2>
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={Floor} style={{ float: 'right' }}>
                                     {ExhibitionList.map((exhibition, idx) => {
-                                        // console.log(exhibition);
                                         return (
-                                            // <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                             <Dropdown.Item onClick={() => { setimgSrc(root_img_path[idx]); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                         )
                                     })}
-                                    {/* <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img01.png'); setFloor('1층') }}>1층</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img02.png'); setFloor('2층') }}>2층</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => { setimgSrc('./img/sub/dashboard_img03.png'); setFloor('지하1층') }}>지하1층</Dropdown.Item> */}
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>
