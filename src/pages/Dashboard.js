@@ -7,7 +7,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Chart } from "react-google-charts";
 import Calendar from 'react-calendar';
 import { baseURL } from "../config";
-import { PieChart } from "react-minimal-pie-chart";
 
 import 'react-calendar/dist/Calendar.css';
 import style from './css/admin/Dashboard.module.css';
