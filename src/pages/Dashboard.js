@@ -227,7 +227,7 @@ function Dashboard() {
     };
 
     return (
-        <body className={style.Dashboardclearfix}>
+        <body className={style.body}>
             <DashBoardHeader main={true}></DashBoardHeader>
             <div className={style.Dashcontainer}>
                 <nav className={`${style.DashsubNav} ${style.clearfix}`}>

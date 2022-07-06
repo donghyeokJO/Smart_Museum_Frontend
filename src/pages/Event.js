@@ -46,7 +46,7 @@ function Event() {
     }
 
     return (
-        <body className={style.Dashboardclearfix}>
+        <body className={style.body}>
             <DashBoardHeader event={true}></DashBoardHeader>
             <div className={style.Dashcontainer}>
                 <nav className={`${style.DashsubNav} ${style.clearfix}`}>

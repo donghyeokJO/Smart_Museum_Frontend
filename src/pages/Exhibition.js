@@ -55,7 +55,7 @@
 //     })
 
 //     return (
-//         <body className={style.Dashboardclearfix}>
+//         <body className={style.body}>
 //             <DashBoardHeader exhibition={true}></DashBoardHeader>
 //             <div className={style.Dashcontainer}>
 //                 <nav className={`${style.DashsubNav} ${style.clearfix}`}>

@@ -88,7 +88,7 @@ function InnerExhibition() {
     }
 
     return (
-        <body className={style.Dashboardclearfix}>
+        <body className={style.body}>
             <DashBoardHeader exhibition={true} ex2={true}></DashBoardHeader>
             <div className={style.Dashcontainer}>
                 <nav className={`${style.DashsubNav} ${style.clearfix}`}>
@@ -117,50 +117,14 @@ function InnerExhibition() {
                                 <li className={floor === f ? style.on : null} onClick={() => { setfloor(f); currentFloor(f); setActive(1); }}>{f}</li>
                             )
                         })}
-                        {/* <li className={floor === "1층" ? style.on : null} onClick={() => { setfloor('1층'); currentFloor("1층") }}>1층</li>
-                        <li className={floor === "2층" ? style.on : null} onClick={() => { setfloor('2층'); currentFloor("2층") }}>2층</li>
-                        <li className={floor === "지하1층" ? style.on : null} onClick={() => { setfloor('지하1층'); currentFloor("지하1층") }}>지하1층</li> */}
                     </ul>
 
 
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
                             <InnerExhibitionPost innerExhibition={currentInnerList(items)} floors={floors}></InnerExhibitionPost>
-                            {/* {items.map((item, idx) => {
-                                // console.log(floors_idx);
-                                // console.log(floors_idx.item['exhibition']['floor_ko'][0]);
-                                // console.log(floors[[item['exhibition']['floor_ko']]]);
-                                // let color = [floors[item['exhibition']['floor_ko']]] % 3 === 0 ? `${style.division} ${style.first}` : [floors[item['exhibition']['floor_ko']]] % 3 === 1 ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
-                                let color = item['exhibition']['floor_ko'] === floors[0] ? `${style.division} ${style.first}` : item['exhibition']['floor_ko'] === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
-                                let url = '/inner-exhibition-detail?id=' + item['pk'];
-                                return (
-                                    <div className={style.imgcont}>
-                                        <a href={url} item={item}>
-                                            <div className={style.thumb}>
-                                                <img src={baseURL + item['image']} alt={item['name']} />
-                                            </div>
-                                            <div className={style.text}>
-                                                <span className={color}>{item['exhibition']['floor_ko']}</span>
-                                                <div className={style.detail}>
-                                                    <div className={style.title}>
-                                                        <span className={style.num}>{item['order']}</span>
-                                                        <span className={style.txt}>{item['name']}</span>
-                                                    </div>
-                                                    <div className={style.etcBtn}>
-                                                        <a href="#" className={style.morebtn}></a>
-                                                        <ul className={style.etcGroup}>
-                                                            <li>삭제</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                );
-                            })} */}
                         </div>
                     </div>
-                    {/* pagenation */}
                     <Pagination
                         postsPerPage={postsPerPage}
                         totalPosts={items.length}

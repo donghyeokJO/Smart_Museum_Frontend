@@ -143,7 +143,7 @@ function InnerExhibitionModify({ match }) {
     }
 
     return (
-        <body className={style.Dashboardclearfix}>
+        <body className={style.body}>
             <DashBoardHeader exhibition={true} ex2={true}></DashBoardHeader>
             <div className={style.Dashcontainer}>
                 <nav className={`${style.DashsubNav} ${style.clearfix}`}>
