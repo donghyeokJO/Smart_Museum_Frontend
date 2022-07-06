@@ -114,11 +114,12 @@ class JoinPage extends React.Component {
                         </div>
                         <div>
                             <label>지역</label>
-                            <select value={this.state.location} onChange={this.onLocationHandler}>
+                            <input type="text" value={this.state.location} onChange={this.onLocationHandler} placeholder="지역을 입력해주세요" />
+                            {/* <select value={this.state.location} onChange={this.onLocationHandler}>
                                 <option hidden>지역을 선택해주세요.</option>
                                 <option>서울</option>
                                 <option>부산</option>
-                            </select>
+                            </select> */}
                         </div>
                         <div>
                             <label>과학관이름</label>

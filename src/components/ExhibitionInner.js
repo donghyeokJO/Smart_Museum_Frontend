@@ -11,7 +11,7 @@ const ExhibitionInner = ({ pk }) => {
     const access = localStorage.getItem('access');
 
     useEffect(() => {
-        console.log(pk);
+        // console.log(pk);
         ROOT_API.exhibition_list('JWT ' + access, pk)
             .then((res) => {
                 setinnerList(res.data);

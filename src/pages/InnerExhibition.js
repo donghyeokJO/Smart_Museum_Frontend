@@ -111,10 +111,10 @@ function InnerExhibition() {
                         </div>
                     </div>
                     <ul id={style.tabul}>
-                        <li className={floor === "전체" ? style.on : null} onClick={() => { setfloor('전체'); currentFloor("전체") }}>전체</li>
+                        <li className={floor === "전체" ? style.on : null} onClick={() => { setfloor('전체'); currentFloor("전체"); setActive(1); }}>전체</li>
                         {floors.map((f) => {
                             return (
-                                <li className={floor === f ? style.on : null} onClick={() => { setfloor(f); currentFloor(f) }}>{f}</li>
+                                <li className={floor === f ? style.on : null} onClick={() => { setfloor(f); currentFloor(f); setActive(1); }}>{f}</li>
                             )
                         })}
                         {/* <li className={floor === "1층" ? style.on : null} onClick={() => { setfloor('1층'); currentFloor("1층") }}>1층</li>
@@ -125,7 +125,7 @@ function InnerExhibition() {
 
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
-                            <InnerExhibitionPost innerExhibition={items} floors={floors}></InnerExhibitionPost>
+                            <InnerExhibitionPost innerExhibition={currentInnerList(items)} floors={floors}></InnerExhibitionPost>
                             {/* {items.map((item, idx) => {
                                 // console.log(floors_idx);
                                 // console.log(floors_idx.item['exhibition']['floor_ko'][0]);

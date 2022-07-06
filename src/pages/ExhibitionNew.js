@@ -22,8 +22,11 @@ function ExhibitionNew() {
     const indexOfFirst = indexOfLast - postsPerPage;
 
     const currentExhibitionList = (posts) => {
+        // console.log(Active);
+        // console.log(indexOfLast);
         let currentUser = 0;
         currentUser = posts.slice(indexOfFirst, indexOfLast);
+        // console.log(currentUser);
         return currentUser;
     };
 

@@ -9,17 +9,21 @@ const ExhibitionPost = ({ exhibitions }) => {
     return (
         <>
             {exhibitions.map((exhibition) => {
-                let pk = exhibition['pk'];
-                console.log(exhibition);
+                const pk = exhibition['pk'];
+                let show = false;
+                // console.log(pk);
                 return (
                     <div className={style.cont}>
                         <div className={`${style.conthead} ${style.clearfix}`}>
                             <h2 className={`${style.h2} ${style.tit}`}>{exhibition['floor_ko']}<span className={style.eng}>{exhibition['floor_en']}</span></h2>
                             <div className={style.etcBtn}>
-                                <a href="#" className={style.morebtn}></a>
-                                <ul className={style.etcGroup}>
+                                <a href="#" className={style.morebtn} onClick={() => show}></a>
+                                {/* <ul className={`${style.etcGroup} ${style.on}`}>
                                     <li>삭제</li>
                                 </ul>
+                                <ul className={`${style.etcGroup} ${style.on}`}>
+                                    <li>수정</li>
+                                </ul> */}
                             </div>
                         </div>
                         <div className={style.contbody}>
