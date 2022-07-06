@@ -15,7 +15,7 @@ function ExhibitionAdd() {
     const [imgFile, setimgFile] = useState();
 
     const [tmpName, settmpName] = useState('');
-    const [tmpNum, settmpNum] = useState('');
+    const [tmpNum, settmpNum] = useState(0);
     // const [tmpX, settmpX] = useState('');
     // const [tmpY, settmpY] = useState('');
 

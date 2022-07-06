@@ -3,7 +3,10 @@ import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import { baseURL } from "../config";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import InnerExhibitionPost from "../utils/InnerExhibitionPost";
+import Pagination from "../utils/pagination";
+
 
 import style from './css/admin/InnerExhibition.module.css'
 
@@ -18,7 +21,7 @@ function InnerExhibition() {
     const access = localStorage.getItem('access');
 
     const [Active, setActive] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(3);
+    const [postsPerPage, setPostsPerPage] = useState(6);
 
     const indexOfLast = Active * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
@@ -39,10 +42,6 @@ function InnerExhibition() {
     ];
 
     const [items, setitems] = useState([]);
-
-    // const itemlen = originalitems.length;
-
-    // const floors = ['1층', '2층', '지하1층'];
 
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
@@ -78,13 +77,8 @@ function InnerExhibition() {
         return exhibition['floor_ko'];
     })
 
-    // const floors_idx = floors.map((floor, idx) => {
-    //     return { [floor]: idx }
-    // })
-
     const currentFloor = floor => {
         if (floor === "전체") {
-            // console.log('sex')
             setitems(innerList);
             return
         }
@@ -131,7 +125,8 @@ function InnerExhibition() {
 
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
-                            {items.map((item, idx) => {
+                            <InnerExhibitionPost innerExhibition={items} floors={floors}></InnerExhibitionPost>
+                            {/* {items.map((item, idx) => {
                                 // console.log(floors_idx);
                                 // console.log(floors_idx.item['exhibition']['floor_ko'][0]);
                                 // console.log(floors[[item['exhibition']['floor_ko']]]);
@@ -162,10 +157,15 @@ function InnerExhibition() {
                                         </a>
                                     </div>
                                 );
-                            })}
+                            })} */}
                         </div>
                     </div>
                     {/* pagenation */}
+                    <Pagination
+                        postsPerPage={postsPerPage}
+                        totalPosts={items.length}
+                        paginate={setActive}
+                    ></Pagination>
                 </div>
             </div>
         </body>
