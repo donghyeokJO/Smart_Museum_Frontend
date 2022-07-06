@@ -66,7 +66,7 @@ a {
 }
 
 /*header*/
-#header2 {
+.header2 {
     width: 300px;
     /* float: left; */
     height: 100%;
@@ -182,6 +182,19 @@ a {
     cursor: pointer
 }
 
+.bgshadowon {
+    /* display: none; */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(0, 0, 0, .7);
+    cursor: pointer
+}
+
+
 .mobileMenu {
     display: none
 }
@@ -244,12 +257,12 @@ a {
 }
 
 @media all and (max-width: 1200px) {
-    #header2 {
+    .header2 {
         width: 100%;
         float: none;
         height: 81px;
         position: relative;
-        min-height: unset
+        min-height: unset;
     }
 
     #header {
@@ -258,10 +271,23 @@ a {
         position: fixed;
         z-index: 11;
         width: 100%;
+        margin-top: -30px;
     }
 
     #header .gnb {
         display: none
+    }
+
+    #header .mopen {
+        display: block;
+        float: right;
+        margin-right: 20px
+    }
+
+    #header .mclose {
+        display: block;
+        float: right;
+        margin-right: 20px;
     }
 
     .mobileMenu {
@@ -292,18 +318,6 @@ a {
         display: block;
         content: '';
         clear: both;
-    }
-
-    #header .m-open {
-        display: block;
-        float: right;
-        margin-right: 20px
-    }
-
-    #header .m-close {
-        display: block;
-        float: right;
-        margin-right: 20px;
     }
 
     #header .logo {
@@ -338,7 +352,8 @@ a {
         background: #15182a;
         height: 50px;
         padding: 15px 30px;
-        border-bottom: 0
+        border-bottom: 0;
+        margin-top: 20px;
     }
 
     #subNav .user li:first-child {

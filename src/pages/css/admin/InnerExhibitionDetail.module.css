@@ -371,6 +371,41 @@
     }
 }
 
+@media all and (max-width: 1200px) {
+    .Dashcontainer {
+        width: 100%;
+        float: none;
+        position: unset;
+        height: calc(100vh -81px)
+    }
+
+    .Dashcontainer .content {
+        padding: 25px;
+    }
+
+    .Dashcontainer .DashsubNav {
+        display: none;
+    }
+
+    /*모바일 #subNav*/
+    .DashsubNav {
+        background: #15182a;
+        height: 50px;
+        padding: 15px 30px;
+        border-bottom: 0
+    }
+
+    .DashsubNav .user li:first-child {
+        color: #fff;
+        font-size: 17px
+    }
+
+    .DashsubNav .user li a {
+        color: #fff;
+        font-size: 17px
+    }
+}
+
 .cont05 {
     float: right;
     width: 30%;
