@@ -45,7 +45,7 @@ const InnerExhibitionPost = ({ innerExhibition, floors }) => {
                 return (
                     <div className={style.imgcont}>
                         {/* <a href={url} item={item}> */}
-                        <div className={style.thumb} onClick={() => window.location.href = { url }}>
+                        <div className={style.thumb} onClick={() => window.location.href = url}>
                             <img src={imgsrc} alt={item['name']} />
                         </div>
                         <div className={style.text}>
