@@ -16,7 +16,8 @@ const url = {
     museum: 'museum/',
     exhibition: 'museum/exhibition/',
     inner_exhibition: 'inner_exhibition/',
-    inner_exhibition_user: 'museum/inner_exhibition/user/'
+    inner_exhibition_user: 'museum/inner_exhibition/user/',
+    event: 'event/'
 }
 
 export const ROOT_API = {
@@ -137,6 +138,31 @@ export const ROOT_API = {
                 'content-type': 'multipart/form-data'
             }
         }),
+
+    event_get: (token) =>
+        api.get(url.event, {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
+    event_get_by_id: (token, pk) =>
+        api.get(url.event + pk + '/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }
+        ),
+
+    event_mission_exhibition: (token, pk) =>
+        api.get(url.event + 'mission' + pk + '/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }
+        )
 }
 
 

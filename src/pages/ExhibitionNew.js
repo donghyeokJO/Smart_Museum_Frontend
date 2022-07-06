@@ -54,7 +54,7 @@ function ExhibitionNew() {
 
     return (
         <body className={style.Dashboardclearfix}>
-            <DashBoardHeader exhibition={true}></DashBoardHeader>
+            <DashBoardHeader exhibition={true} ex1={true}></DashBoardHeader>
             <div className={style.Dashcontainer}>
                 <nav className={`${style.DashsubNav} ${style.clearfix}`}>
                     <div className={style.place}>

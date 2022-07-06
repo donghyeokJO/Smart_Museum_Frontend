@@ -44,12 +44,12 @@ class DashboardHeader extends React.Component {
                                     전시관 관리
                                 </a>
                                 <ul className={style.submenu}>
-                                    <li><a href="/exhibition" title="전시관 도면 관리 페이지로 이동">전시관 도면 관리</a></li>
-                                    <li><a href="/inner-exhibition" title="전시관 정보 관리 페이지로 이동">전시관 정보 관리</a></li>
+                                    <li className={this.props.ex1 ? style.active : null}><a href="/exhibition" title="전시관 도면 관리 페이지로 이동">전시관 도면 관리</a></li>
+                                    <li className={this.props.ex2 ? style.active : null}><a href="/inner-exhibition" title="전시관 정보 관리 페이지로 이동">전시관 정보 관리</a></li>
                                 </ul>
                             </li>
                             <li className={`${style.event} ${this.props.event ? style.active : null}`}>
-                                <a href="Event.html" title="이벤트 페이지로 이동">
+                                <a href="/event" title="이벤트 페이지로 이동">
                                     {/* <i className="fas fa-gift"></i> */}
                                     이벤트
                                 </a>

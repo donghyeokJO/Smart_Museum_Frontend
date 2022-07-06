@@ -1,0 +1,731 @@
+.Dashcontainer {
+    width: calc(100% - 350px);
+    float: right;
+    min-height: 100%;
+    height: 100%;
+    background: #F4FAFF
+}
+
+.DashsubNav {
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #D6D6D6;
+    height: 70px;
+    padding: 25px 70px;
+    box-sizing: border-box;
+}
+
+.DashsubNav .place {
+    color: #5c5c5c;
+    font-size: 17px;
+    float: left;
+}
+
+.DashsubNav .place svg {
+    margin-right: 15px
+}
+
+.DashsubNav .place span svg {
+    margin: 0 15px
+}
+
+.DashsubNav .user {
+    float: right
+}
+
+.DashsubNav .user li {
+    float: left;
+    margin-left: 60px;
+    color: #515151;
+    font-size: 14px;
+}
+
+.DashsubNav .user li:first-child {
+    margin-left: 0;
+    color: #000;
+    font-weight: 500;
+}
+
+.DashsubNav .user li svg {
+    color: #838383
+}
+
+#container .content {
+    padding: 35px 50px;
+    background: #F4FAFF;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.tit {
+    float: left
+}
+
+.h1 {
+    font-size: 28px;
+    color: #19264c;
+    font-weight: 500
+}
+
+.h2 {
+    font-size: 20px;
+    color: #19264c;
+    font-weight: 500;
+    margin-bottom: 20px
+}
+
+/*Page : Event*/
+.Event .tabcont {
+    min-height: 654px
+}
+
+.Event .imgcont .text .division {
+    position: unset;
+    font-size: 16px;
+    line-height: 32px;
+    height: auto;
+    margin-top: -5px;
+    margin-right: 10px;
+    background: #FA372D;
+    display: block;
+    float: left;
+    border-radius: 20px;
+}
+
+.Event .imgcont .text .division.mission {
+    background: #FF7F0A
+}
+
+.Event .imgcont .text .detail .title {
+    max-width: 65%
+}
+
+@media all and (max-width:1650px) {
+    .Event .imgcont .text .division {
+        position: absolute;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, .5);
+    }
+
+    .Event .imgcont .text .detail .title {
+        max-width: 85%
+    }
+}
+
+.pageHead .tit .badge {
+    padding: 8px 25px;
+    /* padding: 30px; */
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px
+}
+
+.pageHead .tit .first-badge {
+    background: #18BC95
+}
+
+.pageHead .tit .second-badge {
+    background: #00a0fd
+}
+
+.pageHead .tit .under-badge {
+    background: #7F34B9
+}
+
+.pageHead::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.pageHead {
+    padding: 20px 100px 10px 50px;
+}
+
+.pageHead .Headgroup {
+    float: right;
+}
+
+.pageHead .Headgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.pageHead .Headgroup button {
+    float: left;
+    /* margin-left: 15px */
+}
+
+.pageHead .Headgroup button:first-child {
+    margin-left: 0;
+}
+
+#tabul {
+    margin-bottom: 20px
+}
+
+#tabul::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+#tabul li {
+    display: block;
+    padding: 20px 32px;
+    color: #363636;
+    font-size: 18px;
+    font-weight: 500;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid #949494;
+    box-sizing: border-box;
+    cursor: pointer;
+    float: left;
+}
+
+#tabul li.on {
+    border: 2px solid #142683;
+    border-bottom: 0;
+    border-radius: 10px;
+    color: #142683;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 2px solid transparent
+}
+
+@media all and (max-width:480px) {
+    #tabul li {
+        padding: unset;
+        width: 50%;
+        height: 50px;
+        line-height: 50px;
+        margin-bottom: 10px;
+        text-align: center
+    }
+}
+
+.content {
+    padding: 35px 50px;
+    background: #F4FAFF;
+    box-sizing: border-box;
+}
+
+.imgcont {
+    float: left;
+    width: 32%;
+    margin-right: 2%;
+    margin-bottom: 20px
+}
+
+.imgcont a {
+    display: block
+}
+
+.imgcont:nth-child(3n) {
+    margin-right: 0;
+}
+
+.imgcont .thumb {
+    overflow: hidden;
+    height: 240px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.imgcont .thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.imgcont .text {
+    padding: 20px;
+    background: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative
+}
+
+.imgcont .text .division {
+    display: inline-block;
+    padding: 0 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    position: absolute;
+    top: -42px;
+    left: 15px;
+    height: 42px;
+    line-height: 42px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.imgcont .text .first {
+    background: #18BC95
+}
+
+.imgcont .text .second {
+    background: #00a0fd
+}
+
+.imgcont .text .under {
+    background: #7F34B9
+}
+
+.imgcont .text .detail::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.imgcont .text .detail .title {
+    float: left;
+    max-width: 85%;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+    word-break: break-all;
+}
+
+.imgcont .text .detail .title .num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #faa61a;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 15px
+}
+
+.imgcont .text .detail .title .txt {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000
+}
+
+@media all and (max-width:768px) {
+    .imgcont {
+        width: 49%
+    }
+
+    .imgcont:nth-child(3n) {
+        margin-right: 2%;
+    }
+
+    .imgcont:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    .imgcont .text .detail .title .txt {
+        font-size: 15px
+    }
+}
+
+@media all and (max-width:640px) {
+    .imgcont {
+        width: 100%
+    }
+
+    .imgcont:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .imgcont .thumb {
+        height: 180px
+    }
+}
+
+.etcBtn * {
+    box-sizing: border-box;
+}
+
+.etcBtn {
+    width: auto;
+    position: relative;
+    float: right;
+    margin-top: 7px
+}
+
+.etcBtn .morebtn {
+    display: block;
+    width: 25px;
+    height: 5px;
+    background: url(../admin/img/sub/more-btn.png) no-repeat;
+    background-size: cover;
+    padding: 0;
+    position: relative
+}
+
+.etcBtn .morebtn:hover {
+    background: url(../admin/img/sub/more-btn.png) no-repeat
+}
+
+.etcBtn .etcGroup {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 110px;
+    z-index: 10;
+    display: none
+}
+
+.etcBtn .etcGroup.on {
+    display: block
+}
+
+.etcBtn .etcGroup li {
+    cursor: pointer;
+    padding: 15px 0;
+    font-size: 17px;
+    color: #071c88;
+    background: #f2f4fa;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.etcBtn .etcGroup li:hover {
+    background: #c8d6ff;
+}
+
+/*Page : mEvent_write*/
+.mEvent_write .select_exhi {
+    width: calc(100% - 125px);
+    margin-left: 15px
+}
+
+.mEvent_write .Form1 .thumb {
+    height: 540px;
+}
+
+@media all and (max-width:768px) {
+    .mEvent_write .Form1 .thumb {
+        height: 270px
+    }
+
+    .mEvent_write .input1.textarea dd textarea {
+        max-height: unset;
+        height: 270px
+    }
+
+    .mEvent_write .select_exhi {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+.down-icon span {
+    width: 32px;
+    height: 32px;
+    background: #e3e3e3;
+    border-radius: 50%;
+    line-height: 32px;
+    text-align: center;
+    display: inline-block
+}
+
+.down-icon span svg {
+    margin-right: 0
+}
+
+/*Page : mEvent_detail*/
+.mEvent_detail .Form1 .thumb {
+    height: 630px
+}
+
+@media all and (max-width:768px) {
+    .mEvent_detail .Form1 .thumb {
+        height: 270px
+    }
+}
+
+/*Page : ManageDrawing_write*/
+.WRITEFORM .Form>div {
+    margin-bottom: 20px
+}
+
+.WRITEFORM .Form1 {
+    float: left;
+    width: 49%;
+}
+
+.ManageDrawing_write .Form1 .thumb {
+    line-height: 370px
+}
+
+.WRITEFORM .Form1 .thumb {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #d8d8d8;
+    height: 370px;
+    position: relative;
+    overflow: hidden;
+}
+
+.WRITEFORM .Form1 .thumb img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.WRITEFORM .Form .foot-btn-group {
+    margin-bottom: 0
+}
+
+.emptyimg {
+    /* background: url(../admin/../admin/img/sub/emptyimg.jpg) no-repeat; */
+    background-size: auto 100%;
+    background-position: center;
+}
+
+.rowgroup>div {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-bottom: 35px
+}
+
+.rowgroup:last-child>div {
+    margin-bottom: 0
+}
+
+.WRITEFORM .Form2 {
+    float: right;
+    width: 49%;
+}
+
+@media all and (max-width:768px) {
+    .WRITEFORM .Form1 {
+        float: none;
+        width: 100%;
+        padding-bottom: 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .WRITEFORM .Form2 {
+        float: none;
+        width: 100%;
+        padding-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .WRITEFORM .Form1 .thumb {
+        height: 270px
+    }
+}
+
+.input1 {
+    margin-bottom: 10px
+}
+
+.input1 .inputgroup {
+    max-width: unset;
+    width: 100%;
+}
+
+.input1 .inputgroup .select {
+    float: left
+}
+
+.input1.textarea dt {
+    width: 100%;
+    float: none
+}
+
+.input1.textarea dd {
+    width: 100%;
+    float: none
+}
+
+.input1.textarea dd textarea {
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-family: 'Nanumsquare';
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    font-size: 17px
+}
+
+.inputgroup {
+    max-width: 50%;
+    margin-bottom: 10px
+}
+
+.inputgroup:last-child {
+    margin-bottom: 0
+}
+
+.inputgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.inputgroup dt {
+    float: left;
+    width: 35%;
+    font-size: 17px;
+    color: #161616;
+    line-height: 38px;
+    font-weight: 500;
+}
+
+.inputgroup dd {
+    float: right;
+    width: 65%;
+}
+
+.inputgroup dd input[type=text],
+.inputgroup dd input[type=num] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 15px;
+    height: 38px;
+    font-size: 14px;
+    font-family: 'Nanumsquare';
+    color: #161616;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}
+
+.inputgroup p {
+    color: #000;
+    font-size: 16px;
+    line-height: 2
+}
+
+/*전시관 등록현황 공통*/
+.ListExhibition {
+    padding: 30px 20px;
+    background: #f8f8f8;
+    height: 456px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.ListExhibition>li {
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fff
+}
+
+.ListExhibition>li:last-child {
+    margin-bottom: 0
+}
+
+.ListExhibition>li .info .num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #faa61a;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 15px
+}
+
+.ListExhibition>li .info .txt {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000;
+}
+
+.ListExhibition .edit::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.ListExhibition .edit .info {
+    float: left;
+}
+
+.ListExhibition .edit .perform {
+    float: right;
+}
+
+.ListExhibition .edit .perform::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.ListExhibition .edit .perform li {
+    float: left;
+    margin-right: 10px
+}
+
+.ListExhibition .edit .perform li:last-child {
+    margin-right: 0
+}
+
+.ListExhibition .edit .perform a {
+    font-size: 14px;
+    color: #333;
+}
+
+.ListExhibition .edit .perform a span {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    line-height: 21px;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 10px
+}
+
+.ListExhibition .edit .perform a .editbtn {
+    background: #2D7FFA;
+}
+
+.ListExhibition .edit .perform a .delbtn {
+    background: #FA372D;
+}
+
+.ListExhibition .edit .perform a span svg {
+    color: #fff;
+    font-size: 12px;
+    margin-right: 0
+}
+
+@media all and (max-width:1450px) {
+    .ListExhibition {
+        height: 345px
+    }
+}
+
+@media all and (max-width:1200px) {
+    .ListExhibition>li .info .num {
+        margin-right: 5px
+    }
+
+    .ListExhibition>li .info .txt {
+        font-size: 15px
+    }
+}
