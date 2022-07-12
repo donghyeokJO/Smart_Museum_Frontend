@@ -108,7 +108,7 @@ export const ROOT_API = {
         }),
     
     exhibition_pagination: (token, user_id, page, floor) =>
-        api.get(url.inner_exhibition_user + user_id + '/' + (floor != null ? '?floor=' + floor : '') + (page !== null ? '&page=' + page : '') , {
+        api.get(url.inner_exhibition_user + user_id + '/' + (floor !== null ? '?floor=' + floor : '') + (page !== null && floor !== null  ? '&page=' + page :  page !== null && floor === null ? '?page=' + page : '') , {
             headers: {
                 "Authorization": token,
             }

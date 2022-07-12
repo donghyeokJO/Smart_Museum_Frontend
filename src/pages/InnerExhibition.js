@@ -38,7 +38,6 @@ function InnerExhibition() {
     const [TotalLength, setTotalLength] = useState(0);
 
     useEffect(() => {
-        console.log(page);
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
                 setName({ Name: res.data['username'] });
