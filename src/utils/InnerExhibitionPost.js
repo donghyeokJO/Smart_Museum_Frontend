@@ -37,7 +37,7 @@ const InnerExhibitionPost = ({ innerExhibition, floors }) => {
             {innerExhibition.sort((a, b) => a.pk > b.pk ? 1 : -1).map((item, idx) => {
                 let color = item['exhibition']['floor_ko'] === floors[0] ? `${style.division} ${style.first}` : item['exhibition']['floor_ko'] === floors[1] ? `${style.division} ${style.second}` : `${style.division} ${style.under}`;
                 let url = '/inner-exhibition-detail?id=' + item['pk'];
-                let imgsrc = item['image'] === null ? './img/noimage.png' : baseURL + item['image'];
+                let imgsrc = item['image'] === null ? baseURL + '/img/noimage.png' : item['image'];
                 const show = idx === 0 ? show1 : idx === 1 ? show2 : idx === 2 ? show3 : idx === 3 ? show4 : idx === 4 ? show5 : show6;
                 const setshow = idx === 0 ? setshow1 : idx === 1 ? setshow2 : idx === 2 ? setshow3 : idx === 3 ? setshow4 : idx === 4 ? setshow5 : setshow6;
                 let cls = show ? `${style.etcGroup} ${style.on}` : style.etcGroup;

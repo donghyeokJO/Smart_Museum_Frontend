@@ -13,9 +13,17 @@ import style from './css/admin/InnerExhibition.module.css'
 function InnerExhibition() {
     const params = new URLSearchParams(window.location.search);
     const page = params.get("page");
+    const Floor = params.get("floor");
 
     const [Name, setName] = useState('');
-    const [floor, setfloor] = useState('전체');
+    const [floor, setfloor] = useState('');
+
+    useEffect(() => {
+        if(Floor === null){
+            setfloor('전체');
+        }
+        else setfloor(params.get('floor'));
+    }, [])
 
     const [innerList, setinnerList] = useState([]);
     const [ExhibitionList, setExhibitionList] = useState([]);
@@ -23,19 +31,11 @@ function InnerExhibition() {
     const user_id = localStorage.getItem('user_id');
     const access = localStorage.getItem('access');
 
-    const [Active, setActive] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(6);
 
-    const indexOfLast = Active * postsPerPage;
-    const indexOfFirst = indexOfLast - postsPerPage;
-
-    const currentInnerList = (posts) => {
-        let currentUser = 0;
-        currentUser = posts.slice(indexOfFirst, indexOfLast);
-        return currentUser;
-    };
-
     const [items, setitems] = useState([]);
+    const [currentList, setcurrentList] = useState([]);
+    const [TotalLength, setTotalLength] = useState(0);
 
     useEffect(() => {
         console.log(page);
@@ -49,16 +49,6 @@ function InnerExhibition() {
     }, []);
 
     useEffect(() => {
-        ROOT_API.inner_exhibition_user('JWT ' + access, user_id)
-            .then((res) => {
-                // console.log(res.data[0]['exhibition']['floor_ko']);
-                setinnerList(res.data);
-                setitems(res.data);
-            })
-    }, []);
-
-    useEffect(() => {
-        // console.log('ss');
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
@@ -68,18 +58,33 @@ function InnerExhibition() {
             });
     }, []);
 
+    useEffect(() => {
+        ROOT_API.exhibition_pagination('JWT ' + access, user_id, page, Floor)
+            .then((res) => {
+                setcurrentList(res.data['results']);
+                setTotalLength(res.data['count']);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
     const floors = ExhibitionList.map((exhibition) => {
         return exhibition['floor_ko'];
-    })
+    });
+
+    const floors_en = ExhibitionList.map((exhibition) => {
+        return exhibition['floor_en'];
+    });
 
     const currentFloor = floor => {
         if (floor === "전체") {
-            setitems(innerList);
-            return
+            window.location.href = '/inner-exhibition';
+            return;
         }
 
         // setitems(originalitems);
-        setitems(innerList.filter(item => item['exhibition']['floor_ko'] === floor));
+        window.location.href = '/inner-exhibition/?floor='+floor;
     }
 
     return (
@@ -106,10 +111,10 @@ function InnerExhibition() {
                         </div>
                     </div>
                     <ul id={style.tabul}>
-                        <li className={floor === "전체" ? style.on : null} onClick={() => { setfloor('전체'); currentFloor("전체"); setActive(1); }}>전체</li>
-                        {floors.map((f) => {
+                        <li className={Floor === null ? style.on : null} onClick={() => { currentFloor("전체");}}>전체</li>
+                        {floors.map((f, idx) => {
                             return (
-                                <li className={floor === f ? style.on : null} onClick={() => { setfloor(f); currentFloor(f); setActive(1); }}>{f}</li>
+                                <li className={Floor === floors_en[idx] ? style.on : null} onClick={() => {currentFloor(floors_en[idx]);}}>{f}</li>
                             )
                         })}
                     </ul>
@@ -117,13 +122,13 @@ function InnerExhibition() {
 
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
-                            <InnerExhibitionPost innerExhibition={currentInnerList(items)} floors={floors}></InnerExhibitionPost>
+                            <InnerExhibitionPost innerExhibition={currentList} floors={floors}></InnerExhibitionPost>
                         </div>
                     </div>
                     <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={items.length}
-                        paginate={setActive}
+                        totalPosts={TotalLength}
+                        link={Floor !== null ? '/inner-exhibition?floor=' + Floor + '&page=' : '/inner-exhibition?page='}
                     ></Pagination>
                 </div>
             </div>
