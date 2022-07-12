@@ -7,7 +7,6 @@ import JoinPage from "./pages/JoinPage";
 import MyPage from "./pages/MyPage";
 
 import Dashboard from "./pages/Dashboard";
-import Exhibition from "./pages/Exhibition";
 import ExhibitionNew from "./pages/ExhibitionNew";
 import ExhibitionAdd from "./pages/ExhibitionAdd";
 import ExhibitionModify from "./pages/ExhibitionModify";

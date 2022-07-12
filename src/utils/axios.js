@@ -100,6 +100,13 @@ export const ROOT_API = {
             }
         ),
 
+    museum_pagination: (token, user_id, page) =>
+        api.get(page !== null ? url.exhibition + user_id + '/list/' + '?page=' + page : url.exhibition + user_id + '/list', {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
     exhibition_list: (token, museum_id) =>
         api.get(url.exhibition + museum_id + '/' + url.inner_exhibition, {
             headers: {

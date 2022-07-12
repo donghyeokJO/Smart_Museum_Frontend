@@ -15,11 +15,9 @@ const ExhibitionPost = ({ exhibitions }) => {
         <>
             {exhibitions.map((exhibition, idx) => {
                 const pk = exhibition['pk'];
-                // let show = false;
                 const show = idx === 0 ? show1 : idx === 1 ? show2 : show3;
                 const setshow = idx === 0 ? setshow1 : idx === 1 ? setshow2 : setshow3;
                 let cls = show ? `${style.etcGroup} ${style.on}` : style.etcGroup;
-                // console.log(pk);
                 return (
                     <div className={style.cont}>
                         <div className={`${style.conthead} ${style.clearfix}`}>
@@ -32,12 +30,8 @@ const ExhibitionPost = ({ exhibitions }) => {
                             </div>
                         </div>
                         <div className={style.contbody}>
-                            <div className={style.thumb}><img src={baseURL + exhibition['drawing_image']} /></div>
-                            {/* <div className={style.listwrap}>
-                                <ul className={style.list}> */}
+                            <div className={style.thumb}><img src={exhibition['drawing_image']} /></div>
                             <ExhibitionInner pk={pk}></ExhibitionInner>
-                            {/* </ul>
-                            </div> */}
                         </div>
                     </div>
                 )

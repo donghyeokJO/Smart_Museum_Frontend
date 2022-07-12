@@ -11,6 +11,9 @@ import Pagination from "../utils/pagination";
 import style from './css/admin/InnerExhibition.module.css'
 
 function InnerExhibition() {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+
     const [Name, setName] = useState('');
     const [floor, setfloor] = useState('전체');
 
@@ -32,18 +35,10 @@ function InnerExhibition() {
         return currentUser;
     };
 
-    const originalitems = [
-        { floor: "1층", num: "1", txt: "고래와 바다이야기", src: "./img/sub/exhibition01.jpg", id: "1" },
-        { floor: "1층", num: "2", txt: "고래와 바다이야기2", src: "./img/sub/exhibition02.jpg", id: "2" },
-        { floor: "1층", num: "3", txt: "수산생물의 진화로 보는 바다의 시간", src: "./img/sub/exhibition03.jpg", id: "3" },
-        { floor: "2층", num: "1", txt: "수산과학과 수산자원", src: "./img/sub/exhibition04.jpg", id: "4" },
-        { floor: "2층", num: "2", txt: "어업기술의 발전", src: "./img/sub/exhibition05.jpg", id: "5" },
-        { floor: "지하1층", num: "1", txt: "물고기 문화 예술품 전시실", src: "./img/sub/exhibition06.jpg", id: "6" }
-    ];
-
     const [items, setitems] = useState([]);
 
     useEffect(() => {
+        console.log(page);
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
                 setName({ Name: res.data['username'] });

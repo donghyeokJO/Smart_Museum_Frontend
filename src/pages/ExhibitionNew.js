@@ -11,24 +11,15 @@ import Pagination from "../utils/pagination";
 import style from './css/admin/Exhibition.module.css';
 
 function ExhibitionNew() {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+
     const [Name, setName] = useState('');
 
-    const [ExhibitionList, setExhibitionList] = useState([]);
-
-    const [Active, setActive] = useState(1);
+    const [currentList, setcurrentList] = useState([]);
+    const [TotalLength, setTotalLength] = useState(0);
+    
     const [postsPerPage, setPostsPerPage] = useState(3);
-
-    const indexOfLast = Active * postsPerPage;
-    const indexOfFirst = indexOfLast - postsPerPage;
-
-    const currentExhibitionList = (posts) => {
-        // console.log(Active);
-        // console.log(indexOfLast);
-        let currentUser = 0;
-        currentUser = posts.slice(indexOfFirst, indexOfLast);
-        // console.log(currentUser);
-        return currentUser;
-    };
 
     const user_id = localStorage.getItem('user_id');
     const access = localStorage.getItem('access');
@@ -45,14 +36,15 @@ function ExhibitionNew() {
     }, []);
 
     useEffect(() => {
-        console.log('ss');
-        ROOT_API.museum_list('JWT ' + access, user_id)
+        ROOT_API.museum_pagination('JWT ' + access, user_id, page)
             .then((res) => {
-                setExhibitionList(res.data);
+                setcurrentList(res.data['results'])
+                setTotalLength(res.data['count'])
+                console.log(res.data)
             })
             .catch((err) => {
-                console.log(err);
-            });
+                console.log(err)
+            })
     }, []);
 
     return (
@@ -64,7 +56,6 @@ function ExhibitionNew() {
                         <i className="far fa-edit"></i>전시관 관리
                         <span><i className="fas fa-angle-right"></i>전시관 도면 관리</span>
                     </div>
-                    {/* <div className={style.place}><i className="fas fa-home"></i>대시보드</div> */}
                     <div className={style.user}>
                         <ul className={style.clearfix}>
                             <li><i className="fas fa-user"></i>{Name.Name}님</li>
@@ -77,18 +68,17 @@ function ExhibitionNew() {
                         <h1 className={`${style.h1} ${style.tit}`}>전시관 도면 관리</h1>
                         <div className={style.Headgroup}>
                             <Button variant="primary" onClick={() => window.location.href = '/exhibition-add'}>새 도면 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
-                            {/* <button onclick="location.href='ManageDrawing_write.html'" className="btn btn-blue">새 도면 등록<i className="fas fa-plus"></i></button> */}
                         </div>
                     </div>
                     <div className={style.rowgroup}>
                         <div className={`${style.DrawingList} ${style.clearfix}`}>
-                            <ExhibitionPost exhibitions={currentExhibitionList(ExhibitionList)}></ExhibitionPost>
+                            <ExhibitionPost exhibitions={currentList}></ExhibitionPost>
                         </div>
                     </div>
                     <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={ExhibitionList.length}
-                        paginate={setActive}
+                        totalPosts={TotalLength}
+                        link='/exhibition?page='
                     ></Pagination>
                 </div>
             </div>

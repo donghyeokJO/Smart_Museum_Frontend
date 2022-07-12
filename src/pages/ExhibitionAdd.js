@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button'
 
 import style from './css/admin/ExhibitionAdd.module.css'
 import img from './css/admin/img/sub/emptyimg.jpg';
-import imageCompression from 'browser-image-compression';
 
 function ExhibitionAdd() {
     const [Name, setName] = useState('');
@@ -27,34 +26,6 @@ function ExhibitionAdd() {
     const onchangeFile = async (e) => {
         const file = e.target.files[0];
         setFileName(file['name']);
-
-        // const options = {
-        //     maxSizeMB: 2,
-        //     maxWidthOrHeight: 100,
-        //     fileType: 'image/png',
-        // }
-
-        // try {
-        //     const compressedFile = await imageCompression(file, options);
-        //     console.log(compressedFile);
-        //     setimgFile(compressedFile);
-
-        //     const promise = imageCompression.getDataUrlFromFile(compressedFile);
-        //     promise.then(result => {
-        //         console.log(result)
-        //         setimgpath(result);
-        //     })
-
-        //     // let rendor = new FileReader();
-
-        //     // rendor.readAsDataURL(compressedFile);
-
-        //     // rendor.onload = () => {
-        //     //     setimgpath(rendor.result)
-        //     // }
-        // } catch (error) {
-        //     console.log(error);
-        // }
         setimgFile(file);
 
         let rendor = new FileReader();
