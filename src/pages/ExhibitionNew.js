@@ -25,7 +25,6 @@ function ExhibitionNew() {
     const access = localStorage.getItem('access');
 
     useEffect(() => {
-        console.log('dd');
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
                 setName({ Name: res.data['username'] });
@@ -40,7 +39,6 @@ function ExhibitionNew() {
             .then((res) => {
                 setcurrentList(res.data['results'])
                 setTotalLength(res.data['count'])
-                console.log(res.data)
             })
             .catch((err) => {
                 console.log(err)

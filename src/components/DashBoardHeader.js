@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { useScript } from "../utils/hook";
 
 import style from '../pages/css/admin/DashboardHeader.module.css';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 // import 'font-awesome/css/font-awesome.min.css';
@@ -39,8 +38,7 @@ class DashboardHeader extends React.Component {
                         <ul className={style.menu}>
                             <li className={`home ${this.props.main ? style.active : null}`}>
                                 <a href="/dashboard" title="대시보드 메인으로 이동">
-                                    {/* <i className="fas fa-home"></i> */}
-                                    {/* <FontAwesomeIcon icon={faHome} style={{color:'white'}}/> */}
+                                    {/* <i className="fas fa-home" style={{color:"#fff"}}></i> */}
                                     대시보드
                                 </a>
                             </li>

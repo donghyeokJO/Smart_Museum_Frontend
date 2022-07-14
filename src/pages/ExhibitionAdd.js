@@ -3,8 +3,9 @@ import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import Button from 'react-bootstrap/Button'
+import ImageMarker, {Marker} from 'react-image-marker';
 
-import style from './css/admin/ExhibitionAdd.module.css'
+import style from './css/admin/ExhibitionAdd.module.css';
 import img from './css/admin/img/sub/emptyimg.jpg';
 
 function ExhibitionAdd() {
@@ -15,18 +16,21 @@ function ExhibitionAdd() {
 
     const [tmpName, settmpName] = useState('');
     const [tmpNum, settmpNum] = useState('');
-    // const [tmpX, settmpX] = useState('');
-    // const [tmpY, settmpY] = useState('');
+    const [tmpX, settmpX] = useState('');
+    const [tmpY, settmpY] = useState('');
 
     const [inner, setinner] = useState([]);
 
     const [floorko, setfloorko] = useState('');
     const [flooren, setflooren] = useState('');
 
+    const [markers, setMarkers] = useState([]);
+
     const onchangeFile = async (e) => {
         const file = e.target.files[0];
         setFileName(file['name']);
         setimgFile(file);
+        setMarkers([]);
 
         let rendor = new FileReader();
         rendor.readAsDataURL(file);
@@ -51,16 +55,16 @@ function ExhibitionAdd() {
         let temp = {
             id: tmpNum,
             name: tmpName,
-            // x: tmpX,
-            // y: tmpY
+            x: tmpX,
+            y: tmpY
         };
 
         setinner(inner.concat(temp));
 
         settmpName('');
         settmpNum('');
-        // settmpX('');
-        // settmpY('');
+        settmpX('');
+        settmpY('');
 
         // console.log(temp);
     }
@@ -74,8 +78,8 @@ function ExhibitionAdd() {
         // console.log(inn)
         settmpName(inn.name);
         settmpNum(inn.id);
-        // settmpX(inn.x);
-        // settmpY(inn.y);
+        settmpX(inn.x);
+        settmpY(inn.y);
 
         setinner(inner.filter(inn => inn.id !== key));
     }
@@ -132,7 +136,6 @@ function ExhibitionAdd() {
             })
     }, []);
 
-
     return (
         <body className={style.body}>
             <DashBoardHeader exhibition={true} ex1={true}></DashBoardHeader>
@@ -142,7 +145,6 @@ function ExhibitionAdd() {
                         <i className="far fa-edit"></i>전시관 관리
                         <span><i className="fas fa-angle-right"></i>전시관 도면 관리</span>
                     </div>
-                    {/* <div className={style.place}><i className="fas fa-home"></i>대시보드</div> */}
                     <div className={style.user}>
                         <ul className={style.clearfix}>
                             <li><i className="fas fa-user"></i>{Name.Name}님</li>
@@ -156,16 +158,17 @@ function ExhibitionAdd() {
                         <div className={style.Headgroup}>
                             <Button variant="secondary">취소</Button>
                             <Button variant="primary" onClick={() => addExhibition()}>등록</Button>
-                            {/* <button className="btn btn-gray" onclick="location.href='ManageDrawing.html'">취소</button>
-                            <button className="btn btn-blue" onclick="location.href='ManageDrawing.html'">등록</button> */}
                         </div>
                     </div>
                     <div className={`${style.rowgroup} ${style.clearfix}`}>
                         <div className={`${style.Form} ${style.Form1}`}>
-                            {/* <div className={`${style.thumb} ${style.emptyimg}`}> */}
-                            <div className={style.thumb}>
-                                <img src={imgpath}></img>
-                            </div>
+                            {imgpath === img ? 
+                            <div className={style.thumb}><img src={imgpath}></img></div> : 
+                            <>
+                            <Button  disabled={!markers.length > 0} onClick={() => setMarkers((prev) => prev.slice(0, -1))}>표시 제거</Button>
+                            <ImageMarker className = {style.thumb} src={imgpath} markers={markers} onAddMarker={(marker: Marker) => {setMarkers([...markers, marker]); settmpX(marker.left); settmpY(marker.top)}} />
+                            </>
+                            }                          
                             <div>
                                 <h4 className={style.h4}>도면업로드</h4>
                                 <div className={style.filebox}>
@@ -190,9 +193,6 @@ function ExhibitionAdd() {
                                     </dd>
                                 </dl>
                             </div>
-                            {/* <div className={style.textright}>
-                                <Button variant="primary">반영</Button>
-                            </div> */}
                         </div>
                         <div className={`${style.Form} ${style.Form2}`}>
                             <div>
@@ -211,24 +211,23 @@ function ExhibitionAdd() {
                                         </dd>
                                     </dl>
                                 </div>
-                                {/* <div className={style.input3}>
+                                <div className={style.input3}>
                                     <p className={style.title}>전시관 포인트 좌표<span>(도면 위를 클릭해 주세요.)</span></p>
                                     <dl className={style.inputgroup}>
                                         <dt>X축</dt>
                                         <dd>
-                                            <input type="num" placeholder="예) 3, 147" value={tmpX} onChange={(e) => settmpX(e.target.value)} />
+                                            <input type="num" placeholder="예) 3, 147" value={tmpX} onChange={(e) => settmpX(e.target.value)} readOnly/>
                                         </dd>
                                     </dl>
                                     <dl className={style.inputgroup}>
                                         <dt>Y축</dt>
                                         <dd>
-                                            <input type="num" placeholder="예) 450, 320" value={tmpY} onChange={(e) => settmpY(e.target.value)} />
+                                            <input type="num" placeholder="예) 450, 320" value={tmpY} onChange={(e) => settmpY(e.target.value)} readOnly/>
                                         </dd>
                                     </dl>
-                                </div> */}
+                                </div>
                                 <div className={style.textcenter}>
                                     <Button variant="success" onClick={addinner}>등록하기</Button>
-                                    {/* <button className="btn btn-green">등록하기</button> */}
                                 </div>
                             </div>
                             <div>
@@ -248,16 +247,6 @@ function ExhibitionAdd() {
                                             </li>
                                         )
                                     })}
-                                    {/* <li className={style.edit}>
-                                        <div className={style.info}>
-                                            <span className={style.num}>1</span>
-                                            <span className={style.txt}>고래와 바다이야기</span>
-                                        </div>
-                                        <ul className={style.perform}>
-                                            <li><a href="#" title="수정하기">수정<span className="edit-btn"><i className="fas fa-pen"></i></span></a></li>
-                                            <li><a href="#" title="삭제하기">삭제<span className="del-btn"><i className="fas fa-times"></i></span></a></li>
-                                        </ul>
-                                    </li> */}
                                 </ul>
                             </div>
                         </div>

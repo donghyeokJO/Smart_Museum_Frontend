@@ -147,17 +147,8 @@ function InnerExhibitionAdd() {
                                 <dl className={style.inputgroup}>
                                     <dt>구분</dt>
                                     <dd className="fix-width">
-                                        {/* <div className="select">
-                                            <a href="#">선택</a>
-                                            <ul className="select-btn">
-                                                <li>1층</li>
-                                                <li>2층</li>
-                                                <li>지하1층</li>
-                                            </ul>
-                                        </div> */}
                                         <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={floor}>
                                             {ExhibitionList.map((exhibition) => {
-                                                // console.log(exhibition);
                                                 return (
                                                     <Dropdown.Item onClick={() => { setfloor(exhibition['floor_ko']); setfloorpk(exhibition['pk']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                                 )
