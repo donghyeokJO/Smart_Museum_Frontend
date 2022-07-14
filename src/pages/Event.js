@@ -64,7 +64,7 @@ function Event() {
                     <div className={style.pageHead}>
                         <h1 className={`${style.h1} ${style.tit}`}>이벤트</h1>
                         <div className={style.Headgroup}>
-                            <Button variant="primary" onClick={() => window.location.href = '#'}>미션이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
+                            <Button variant="primary" onClick={() => window.location.href = '/event-mission-add'}>미션이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
                             <Button variant="primary" onClick={() => window.location.href = '/event-add'}>새 이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
                         </div>
                     </div>

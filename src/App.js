@@ -16,6 +16,7 @@ import InnerExhibitionAdd from "./pages/InnerExhibitionAdd";
 import InnerExhibitionModify from "./pages/InnerExhibitionModify";
 import Event from './pages/Event';
 import EventAdd from './pages/EventAdd';
+import EventMissionAdd from "./pages/EventMissionAdd";
 import EventMissionDetail from "./pages/EventMissionDetail";
 
 import Service from './pages/Service'
@@ -76,6 +77,7 @@ class App extends React.Component {
             <PrivateRoute path='/inner-exhibition-modify' component={InnerExhibitionModify} />
             <PrivateRoute path='/event' component={Event} />
             <PrivateRoute path='/event-add' component={EventAdd}/>
+            <PrivateRoute path='/event-mission-add' component={EventMissionAdd}/>
             <PrivateRoute path='/event-mission-detail' component={EventMissionDetail} />
 
             <PrivateRoute path='/service' component={Service} />
