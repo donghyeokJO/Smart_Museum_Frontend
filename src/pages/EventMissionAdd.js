@@ -114,7 +114,7 @@ function EventMissionAdd(){
                                 <dl className={style.inputgroup}>
                                     <dt>이벤트 이름</dt>
                                     <dd className="fix-width">
-                                        <input type="text" placeholder="이벤트 이름을 입력하세요."/>
+                                        <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value) } placeholder="이벤트 이름을 입력하세요."/>
                                     </dd>
                                 </dl>
                             </div>
