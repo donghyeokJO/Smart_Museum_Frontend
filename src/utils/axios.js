@@ -205,7 +205,15 @@ export const ROOT_API = {
                     "Authorization": token,
                 }
             }
-        )
+        ),
+    
+    event_add: (token, formdata) => 
+        api.post(url.event, formdata, {
+            headers: {
+                'Authorization': token,
+                'content-type': 'multipart/form-data'
+            }
+        }),
 }
 
 

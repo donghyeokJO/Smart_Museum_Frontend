@@ -62,10 +62,10 @@ function Event() {
                 </nav>
                 <div className={`${style.content} ${style.Event}`}>
                     <div className={style.pageHead}>
-                        <h1 className={`${style.tit} ${style.h1}`}>이벤트</h1>
+                        <h1 className={`${style.h1} ${style.tit}`}>이벤트</h1>
                         <div className={style.Headgroup}>
                             <Button variant="primary" onClick={() => window.location.href = '#'}>미션이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
-                            <Button variant="primary" onClick={() => window.location.href = '#'}>새 이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
+                            <Button variant="primary" onClick={() => window.location.href = '/event-add'}>새 이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
                         </div>
                     </div>
                     <ul id={style.tabul}>
@@ -77,10 +77,10 @@ function Event() {
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
                             {items.map((item) => {
-                                let cls = item['type'] === "Mission" ? `${style.division} ${style.mission}` : `${style.division} ${style.normal}`;
-                                let evt_txt = item['type'] === "Mission" ? "미션 이벤트" : "이벤트";
+                                let cls = item['type'] === "2" ? `${style.division} ${style.mission}` : `${style.division} ${style.normal}`;
+                                let evt_txt = item['type'] === "2" ? "미션 이벤트" : "이벤트";
                                 let img_src = baseURL + item['image'];
-                                let url = item['type'] === "Mission" ? "/event-mission-detail?id=" + item['pk'] : "/event-detail?id=" + item['pk'];
+                                let url = item['type'] === "2" ? "/event-mission-detail?id=" + item['pk'] : "/event-detail?id=" + item['pk'];
                                 return (
                                     <div className={style.imgcont}>
                                         <a href={url}>

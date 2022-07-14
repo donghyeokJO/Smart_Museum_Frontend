@@ -15,6 +15,7 @@ import InnerExhibitionDetail from "./pages/InnerExhibitionDetail";
 import InnerExhibitionAdd from "./pages/InnerExhibitionAdd";
 import InnerExhibitionModify from "./pages/InnerExhibitionModify";
 import Event from './pages/Event';
+import EventAdd from './pages/EventAdd';
 import EventMissionDetail from "./pages/EventMissionDetail";
 
 import Service from './pages/Service'
@@ -65,9 +66,7 @@ class App extends React.Component {
             <Route exact path='/join' component={JoinPage} />
             <PrivateRoute path='/mypage' component={MyPage} />
 
-
             <PrivateRoute path='/dashboard' component={Dashboard} />
-            {/* <PrivateRoute path='/exhibition' component={Exhibition} /> */}
             <PrivateRoute path='/exhibition' component={ExhibitionNew} />
             <PrivateRoute path='/exhibition-add' component={ExhibitionAdd} />
             <PrivateRoute path='/exhibition-modify' component={ExhibitionModify} />
@@ -76,8 +75,8 @@ class App extends React.Component {
             <PrivateRoute path='/inner-exhibition-add' component={InnerExhibitionAdd} />
             <PrivateRoute path='/inner-exhibition-modify' component={InnerExhibitionModify} />
             <PrivateRoute path='/event' component={Event} />
+            <PrivateRoute path='/event-add' component={EventAdd}/>
             <PrivateRoute path='/event-mission-detail' component={EventMissionDetail} />
-
 
             <PrivateRoute path='/service' component={Service} />
             <PrivateRoute path='/service-select' component={ServiceSelect} />
