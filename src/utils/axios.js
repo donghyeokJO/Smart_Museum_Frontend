@@ -80,11 +80,13 @@ export const ROOT_API = {
             }
         }),
 
-    exhibition_add: (name, order, token, museum_id) =>
+    exhibition_add: (name, order, token, museum_id, x, y) =>
         api.post(url.exhibition + museum_id + '/' + url.inner_exhibition, {
             'name': name,
             'order': order,
-            'explantion': ''
+            'explantion': '',
+            'x_coordinate': x,
+            'y_coordinate': y,
         }, {
             headers: {
                 'Authorization': token,
@@ -106,9 +108,9 @@ export const ROOT_API = {
                 "Authorization": token,
             }
         }),
-    
+
     exhibition_pagination: (token, user_id, page, floor) =>
-        api.get(url.inner_exhibition_user + user_id + '/' + (floor !== null ? '?floor=' + floor : '') + (page !== null && floor !== null  ? '&page=' + page :  page !== null && floor === null ? '?page=' + page : '') , {
+        api.get(url.inner_exhibition_user + user_id + '/' + (floor !== null ? '?floor=' + floor : '') + (page !== null && floor !== null ? '&page=' + page : page !== null && floor === null ? '?page=' + page : ''), {
             headers: {
                 "Authorization": token,
             }
@@ -136,7 +138,7 @@ export const ROOT_API = {
         }),
 
     inner_exhibition_user: (token, user_id) =>
-        api.get(url.inner_exhibition_user + user_id + '/',
+        api.get(url.museum + url.inner_exhibition + 'list/',
             {
                 headers: {
                     "Authorization": token,
@@ -206,9 +208,19 @@ export const ROOT_API = {
                 }
             }
         ),
-    
-    event_add: (token, formdata) => 
+
+    event_add: (token, formdata) =>
         api.post(url.event, formdata, {
+            headers: {
+                'Authorization': token,
+                'content-type': 'multipart/form-data'
+            }
+        }),
+
+    event_mission_add: (token, inner_exhibition_pk, event_pk) =>
+        api.post(url.event + 'mission/' + inner_exhibition_pk + '/', {
+            pk: event_pk
+        }, {
             headers: {
                 'Authorization': token,
                 'content-type': 'multipart/form-data'

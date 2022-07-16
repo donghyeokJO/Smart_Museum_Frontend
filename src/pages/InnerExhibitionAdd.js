@@ -84,6 +84,8 @@ function InnerExhibitionAdd() {
         formdata.append('order', order);
         formdata.append('explanation', detail);
         formdata.append('image', imgFile);
+        formdata.append('x_coordinate', '');
+        formdata.append('y_coordinate', '');
 
         // console.log(formdata);
 

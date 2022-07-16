@@ -9,7 +9,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import img from './css/admin/img/sub/emptyimg.jpg';
 import style from './css/admin/EventMissionAdd.module.css';
 
-function EventMissionAdd(){
+function EventMissionAdd() {
     const [Name, setName] = useState('');
     const user_id = localStorage.getItem('user_id');
     const access = localStorage.getItem('access');
@@ -21,9 +21,14 @@ function EventMissionAdd(){
     const [eventName, setEventName] = useState('');
     const [innerList, setinnerList] = useState([]);
     const [currentInner, setcurrentInner] = useState('');
+    const [currentList, setCurrentList] = useState([]);
+    const [currentpk, setCurrentPk] = useState('');
 
     const [ExhibitionList, setExhibitionList] = useState([]);
     const [Floor, setFloor] = useState('');
+
+    const [addList, setAddList] = useState([]);
+    const [addcnt, setaddcnt] = useState(1);
 
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
@@ -34,7 +39,7 @@ function EventMissionAdd(){
                 console.log(err)
             })
     }, []);
-    
+
     useEffect(() => {
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
@@ -49,8 +54,10 @@ function EventMissionAdd(){
     useEffect(() => {
         ROOT_API.inner_exhibition_user('JWT ' + access, user_id)
             .then((res) => {
-                setinnerList(res.data['results']);
-                setcurrentInner(res.data['results'][0]['name']);
+                setinnerList(res.data);
+                setcurrentInner(res.data[0]['name']);
+                setCurrentPk(res.data[0]['pk']);
+                setCurrentList(res.data.filter(item => item['exhibition']['floor_ko'] === res.data[0]['exhibition']['floor_ko']))
             })
             .catch((err) => {
                 console.log(err);
@@ -70,6 +77,73 @@ function EventMissionAdd(){
             setimgpath(rendor.result)
         }
     };
+
+    const onchangeFloor = floor => {
+        setCurrentList(innerList.filter(inner => inner['exhibition']['floor_ko'] === floor));
+        setcurrentInner(innerList.filter(inner => inner['exhibition']['floor_ko'] === floor)[0]['name']);
+        setCurrentPk(innerList.filter(inner => inner['exhibition']['floor_ko'] === floor)[0]['pk']);
+    };
+
+    const pkExists = pk => {
+        return addList.some(function (e1) {
+            return e1.pk === pk;
+        });
+    };
+
+    const onDownBtnClicked = () => {
+        if (pkExists(currentpk)) {
+            alert('이미 존재하는 전시관입니다.')
+            return;
+        }
+
+        let temp = {
+            name: currentInner,
+            pk: currentpk,
+        };
+
+        setAddList(addList.concat(temp));
+        setaddcnt(addcnt + 1);
+    };
+
+    const removeaddlist = pk => {
+        setAddList(addList.filter(inn => inn.pk !== pk));
+    };
+
+    const addEvent = () => {
+        if (eventName === "") {
+            alert('모든 항목을 입력해주세요');
+            return;
+        }
+
+        let formdata = new FormData();
+
+        formdata.append('name', eventName);
+        formdata.append('type', 2);
+        formdata.append('image', imgFile);
+        formdata.append('start_dt', new Date().toISOString().slice(0, 10));
+        formdata.append('end_dt', new Date().toISOString().slice(0, 10));
+
+        // console.log(formdata);
+        ROOT_API.event_add('JWT ' + access, formdata)
+            .then((res) => {
+                console.log(res.data);
+                let event_pk = res.data['pk'];
+
+                for (let i = 0; i < addList.length; i++) {
+                    let inn = addList[i];
+                    ROOT_API.event_mission_add('JWT ' + access, inn.pk, event_pk)
+                        .then((res) => {
+                            console.log('미션' + String(inn.pk) + '추가완료');
+                        })
+                }
+                alert('등록이 완료되었습니다.')
+                window.location.href = '/event';
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('모든 항목을 입력하여 주세요.')
+            })
+    }
 
     return (
         <body className={style.body}>
@@ -91,7 +165,7 @@ function EventMissionAdd(){
                         <h1 className={`${style.h1} ${style.tit}`}>미션 이벤트 등록</h1>
                         <div className={style.Headgroup}>
                             <Button variant="secondary" onClick={() => window.location.href = '/event'}>취소</Button>
-                            <Button variant="primary" onClick={() => console.log('')}>등록</Button>
+                            <Button variant="primary" onClick={() => addEvent()}>등록</Button>
                         </div>
                     </div>
                     <div className={`${style.rowgroup} ${style.clearfix}`}>
@@ -114,7 +188,7 @@ function EventMissionAdd(){
                                 <dl className={style.inputgroup}>
                                     <dt>이벤트 이름</dt>
                                     <dd className="fix-width">
-                                        <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value) } placeholder="이벤트 이름을 입력하세요."/>
+                                        <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} placeholder="이벤트 이름을 입력하세요." />
                                     </dd>
                                 </dl>
                             </div>
@@ -127,16 +201,16 @@ function EventMissionAdd(){
                                             <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={Floor} >
                                                 {ExhibitionList.map((exhibition, idx) => {
                                                     return (
-                                                        <Dropdown.Item onClick={() => {setFloor(exhibition['floor_ko'])}}>{exhibition['floor_ko']}</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => { setFloor(exhibition['floor_ko']); onchangeFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                                     )
                                                 })}
                                             </DropdownButton>
                                         </div>
                                         <div className={`${style.select} ${style.select_exhi}`}>
-                                            <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={currentInner} style={{width: "calc(100%-125px)"}}>
-                                                {innerList.map((item, idx) => {
+                                            <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={currentInner} style={{ width: "calc(100%-125px)" }}>
+                                                {currentList.map((item, idx) => {
                                                     return (
-                                                        <Dropdown.Item onClick={() => {setcurrentInner(item['name'])}}>{item['name']}</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => { setcurrentInner(item['name']); setCurrentPk(item['pk']) }}>{item['name']}</Dropdown.Item>
                                                     )
                                                 })}
                                             </DropdownButton>
@@ -145,26 +219,30 @@ function EventMissionAdd(){
                                 </d1>
                             </div>
                             <div className={`${style.downicon} ${style.textcenter}`}>
-                                <span><i className="fas fa-angle-down"></i></span>
+                                <span onClick={() => onDownBtnClicked()}><i className="fas fa-angle-down"></i></span>
                             </div>
                             <div>
                                 <ul className={style.ListExhibition}>
-                                    <li className={style.edit}>
-                                        <div className={style.info}>
-                                            <span className={style.num}>1</span>
-                                            <span className={style.txt}>고래와 바다이야기</span>
-                                        </div>
-                                        <ul className={style.perform}>
-                                            <li>
-                                                <a href="#" title="삭제하기">삭제<span className={style.delbtn}><i className="fas fa-times"></i></span></a>
+                                    {addList.map((item, idx) => {
+                                        return (
+                                            <li className={style.edit}>
+                                                <div className={style.info}>
+                                                    <span className={style.num}>{idx + 1}</span>
+                                                    <span className={style.txt}>{item.name}</span>
+                                                </div>
+                                                <ul className={style.perform}>
+                                                    <li>
+                                                        <a href="#" title="삭제하기" onClick={() => removeaddlist(item.pk)}>삭제<span className={style.delbtn}><i className="fas fa-times"></i></span></a>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                        </ul>
-                                    </li>
+                                        )
+                                    })}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </body>

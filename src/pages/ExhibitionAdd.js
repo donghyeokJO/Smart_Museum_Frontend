@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import Button from 'react-bootstrap/Button'
-import ImageMarker, {Marker} from 'react-image-marker';
+import ImageMarker, { Marker } from 'react-image-marker';
 
 import style from './css/admin/ExhibitionAdd.module.css';
 import img from './css/admin/img/sub/emptyimg.jpg';
@@ -107,7 +107,7 @@ function ExhibitionAdd() {
                     let museum_id = res.data['pk']
                     for (let i = 0; i < inner.length; i++) {
                         let inn = inner[i];
-                        ROOT_API.exhibition_add(inn.name, inn.id, access, museum_id)
+                        ROOT_API.exhibition_add(inn.name, inn.id, access, museum_id, String(inn.x).substr(0, 10), String(inn.y).substr(0, 10))
                             .then((res) => {
                                 console.log('내부 전시관 ' + String(i) + ' 추가완료');
                             })
@@ -162,13 +162,13 @@ function ExhibitionAdd() {
                     </div>
                     <div className={`${style.rowgroup} ${style.clearfix}`}>
                         <div className={`${style.Form} ${style.Form1}`}>
-                            {imgpath === img ? 
-                            <div className={style.thumb}><img src={imgpath}></img></div> : 
-                            <>
-                            <Button  disabled={!markers.length > 0} onClick={() => setMarkers((prev) => prev.slice(0, -1))}>표시 제거</Button>
-                            <ImageMarker className = {style.thumb} src={imgpath} markers={markers} onAddMarker={(marker: Marker) => {setMarkers([...markers, marker]); settmpX(marker.left); settmpY(marker.top)}} />
-                            </>
-                            }                          
+                            {imgpath === img ?
+                                <div className={style.thumb}><img src={imgpath}></img></div> :
+                                <>
+                                    <Button disabled={!markers.length > 0} onClick={() => setMarkers((prev) => prev.slice(0, -1))}>표시 제거</Button>
+                                    <ImageMarker className={style.thumb} src={imgpath} markers={markers} onAddMarker={(marker) => { setMarkers([...markers, marker]); settmpX(marker.left); settmpY(marker.top) }} />
+                                </>
+                            }
                             <div>
                                 <h4 className={style.h4}>도면업로드</h4>
                                 <div className={style.filebox}>
@@ -216,13 +216,13 @@ function ExhibitionAdd() {
                                     <dl className={style.inputgroup}>
                                         <dt>X축</dt>
                                         <dd>
-                                            <input type="num" placeholder="예) 3, 147" value={tmpX} onChange={(e) => settmpX(e.target.value)} readOnly/>
+                                            <input type="num" placeholder="예) 3, 147" value={tmpX} onChange={(e) => settmpX(e.target.value)} readOnly />
                                         </dd>
                                     </dl>
                                     <dl className={style.inputgroup}>
                                         <dt>Y축</dt>
                                         <dd>
-                                            <input type="num" placeholder="예) 450, 320" value={tmpY} onChange={(e) => settmpY(e.target.value)} readOnly/>
+                                            <input type="num" placeholder="예) 450, 320" value={tmpY} onChange={(e) => settmpY(e.target.value)} readOnly />
                                         </dd>
                                     </dl>
                                 </div>
