@@ -69,18 +69,17 @@ function Event() {
                         </div>
                     </div>
                     <ul id={style.tabul}>
-                        {/* <li className={style.on}>전체</li> */}
                         <li className={event === "전체" ? style.on : null} onClick={() => { setEvent('전체'); currentEvent("전체") }}>전체</li>
-                        <li className={event === "Mission" ? style.on : null} onClick={() => { setEvent('Mission'); currentEvent("Mission") }}>미션이벤트</li>
-                        <li className={event === "Normal" ? style.on : null} onClick={() => { setEvent('Normal'); currentEvent("Normal") }}>이벤트</li>
+                        <li className={event === "Mission" ? style.on : null} onClick={() => { setEvent('Mission'); currentEvent(2) }}>미션이벤트</li>
+                        <li className={event === "Normal" ? style.on : null} onClick={() => { setEvent('Normal'); currentEvent(1) }}>이벤트</li>
                     </ul>
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
                             {items.map((item) => {
-                                let cls = item['type'] === "2" ? `${style.division} ${style.mission}` : `${style.division} ${style.normal}`;
-                                let evt_txt = item['type'] === "2" ? "미션 이벤트" : "이벤트";
+                                let cls = item['type'] === 2 ? `${style.division} ${style.mission}` : `${style.division} ${style.normal}`;
+                                let evt_txt = item['type'] === 2 ? "미션 이벤트" : "이벤트";
                                 let img_src = baseURL + item['image'];
-                                let url = item['type'] === "2" ? "/event-mission-detail?id=" + item['pk'] : "/event-detail?id=" + item['pk'];
+                                let url = item['type'] === 2 ? "/event-mission-detail?id=" + item['pk'] : "/event-detail?id=" + item['pk'];
                                 return (
                                     <div className={style.imgcont}>
                                         <a href={url}>

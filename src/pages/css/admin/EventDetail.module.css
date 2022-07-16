@@ -774,3 +774,37 @@
         font-size: 17px
     }
 }
+
+/*Page : Event_detail*/
+.Event_detail .rowgroup {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.Event_detail .Form {
+    height: 700px;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.Event_detail .Form1 .thumb {
+    height: 100%;
+}
+
+.Event_detail .input1.textarea dd {
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+@media all and (max-width:768px) {
+    .Event_detail .Form1 .thumb {
+        height: 270px
+    }
+
+    .Event_detail .Form {
+        height: auto
+    }
+}

@@ -1,0 +1,690 @@
+.body {
+    font-family: 'Nanumsquare';
+    font-weight: 400;
+    letter-spacing: -1px;
+    max-width: 1920px;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto
+}
+
+.rowgroup {
+    padding: 30px;
+}
+
+.rowgroup>div {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-bottom: 35px
+}
+
+.rowgroup:last-child>div {
+    margin-bottom: 0
+}
+
+.textcenter {
+    text-align: center
+}
+
+.textleft {
+    text-align: left
+}
+
+.textright {
+    text-align: right
+}
+
+.Dashcontainer {
+    width: calc(100% - 300px);
+    float: right;
+    min-height: 100%;
+    height: 100%;
+    background: #F4FAFF
+}
+
+.DashsubNav {
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #D6D6D6;
+    height: 70px;
+    padding: 25px 70px;
+    box-sizing: border-box;
+}
+
+.DashsubNav .place {
+    color: #5c5c5c;
+    font-size: 17px;
+    float: left;
+}
+
+.DashsubNav .place svg {
+    margin-right: 15px
+}
+
+.DashsubNav .place span svg {
+    margin: 0 15px
+}
+
+.DashsubNav .user {
+    float: right
+}
+
+.DashsubNav .user li {
+    float: left;
+    margin-left: 60px;
+    color: #515151;
+    font-size: 14px;
+}
+
+.DashsubNav .user li:first-child {
+    margin-left: 0;
+    color: #000;
+    font-weight: 500;
+}
+
+.DashsubNav .user li svg {
+    color: #838383
+}
+
+.content {
+    padding: 35px 50px;
+    background: #F4FAFF;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.tit {
+    float: left
+}
+
+.h1 {
+    font-size: 28px;
+    color: #19264c;
+    font-weight: 500
+}
+
+.h2 {
+    font-size: 20px;
+    color: #19264c;
+    font-weight: 500;
+    margin-bottom: 20px
+}
+
+@media all and (max-width: 1200px) {
+    .Dashcontainer {
+        width: 100%;
+        float: none;
+        position: unset;
+        height: calc(100vh -81px)
+    }
+
+    .Dashcontainer .content {
+        padding: 25px;
+    }
+
+    .Dashcontainer .DashsubNav {
+        display: none;
+    }
+
+    /*모바일 #subNav*/
+    .DashsubNav {
+        background: #15182a;
+        height: 50px;
+        padding: 15px 30px;
+        border-bottom: 0
+    }
+
+    .DashsubNav .user li:first-child {
+        color: #fff;
+        font-size: 17px
+    }
+
+    .DashsubNav .user li a {
+        color: #fff;
+        font-size: 17px
+    }
+}
+
+@media all and (max-width:768px) {
+    .DrawingList .cont {
+        float: none;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        height: auto
+    }
+
+    .DrawingList .thumb {
+        height: 200px
+    }
+
+    .DrawingList .listwrap {
+        max-height: 200px
+    }
+}
+
+.pageHead .tit .badge {
+    padding: 8px 25px;
+    /* padding: 30px; */
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px
+}
+
+.pageHead .tit .first-badge {
+    background: #18BC95
+}
+
+.pageHead .tit .second-badge {
+    background: #00a0fd
+}
+
+.pageHead .tit .under-badge {
+    background: #7F34B9
+}
+
+.pageHead::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.pageHead {
+    padding: 20px 0px 10px 0px;
+}
+
+.pageHead .Headgroup {
+    float: right;
+}
+
+.pageHead .Headgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.pageHead .Headgroup button {
+    float: left;
+    /* margin-left: 15px */
+}
+
+.pageHead .Headgroup button:first-child {
+    margin-left: 0;
+}
+
+
+.etcBtn * {
+    box-sizing: border-box;
+}
+
+.etcBtn {
+    width: auto;
+    position: relative;
+    float: right;
+    margin-top: 7px
+}
+
+.etcBtn .morebtn {
+    display: block;
+    width: 25px;
+    height: 5px;
+    background: url(./img/sub/more-btn.png) no-repeat;
+    background-size: cover;
+    padding: 0;
+    position: relative
+}
+
+.etcBtn .morebtn:hover {
+    background: url(./img/sub/more-btn.png) no-repeat
+}
+
+.etcBtn .etcGroup {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 110px;
+    z-index: 10;
+    display: none
+}
+
+.etcBtn .etcGroup.on {
+    display: block
+}
+
+.etcBtn .etcGroup li {
+    cursor: pointer;
+    padding: 15px 0;
+    font-size: 17px;
+    color: #071c88;
+    background: #f2f4fa;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.etcBtn .etcGroup li:hover {
+    background: #c8d6ff;
+}
+
+/*Page : ManageDrawing_write*/
+.WRITEFORM .Form>div {
+    margin-bottom: 20px
+}
+
+.WRITEFORM .Form1 {
+    float: left;
+    width: 49%;
+}
+
+.ManageDrawing_write .Form1 .thumb {
+    line-height: 370px
+}
+
+.WRITEFORM .Form1 .thumb {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #d8d8d8;
+    height: 370px;
+    position: relative;
+    overflow: hidden;
+}
+
+.WRITEFORM .Form1 .thumb img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* top: 50%; */
+    /* transform: translateY(-50%);/ */
+}
+
+.WRITEFORM .Form .foot-btn-group {
+    margin-bottom: 0
+}
+
+.inputgroup {
+    max-width: 50%;
+    margin-bottom: 10px
+}
+
+.inputgroup:last-child {
+    margin-bottom: 0
+}
+
+.inputgroup::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.inputgroup dt {
+    float: left;
+    width: 35%;
+    font-size: 17px;
+    color: #161616;
+    line-height: 38px;
+    font-weight: 500;
+}
+
+.inputgroup dd {
+    float: right;
+    width: 65%;
+}
+
+.inputgroup dd input[type=text],
+.inputgroup dd input[type=num] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 15px;
+    height: 38px;
+    font-size: 14px;
+    font-family: 'Nanumsquare';
+    color: #161616;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}
+
+.inputgroup p {
+    color: #000;
+    font-size: 16px;
+    line-height: 2
+}
+
+.input2 {
+    margin-bottom: 10px
+}
+
+.input2::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.input2 dl {
+    float: left;
+    width: 49%;
+}
+
+.input2 dl:last-child {
+    float: right
+}
+
+.input3::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.input3 .title {
+    font-size: 17px;
+    font-weight: 500;
+    color: #161616;
+    float: left;
+    width: 30%;
+}
+
+.input3 .title span {
+    font-size: 14px;
+    color: #fa372d;
+    display: block;
+}
+
+.input3 dl {
+    float: left;
+    width: 32%;
+}
+
+.input3 dl:last-child {
+    float: right
+}
+
+.WRITEFORM .Form2 {
+    float: right;
+    width: 49%;
+}
+
+.emptyimg {
+    /* background: url(../admin/../admin/img/sub/emptyimg.jpg) no-repeat; */
+    background-size: auto 100%;
+    background-position: center;
+}
+
+.h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #161616;
+    margin-bottom: 20px
+}
+
+.h4 {
+    font-size: 20px;
+    color: #2C458D;
+    font-weight: 500;
+    margin-bottom: 10px
+}
+
+.filebox {
+    margin-bottom: 10px
+}
+
+.filebox::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.filebox .uploadname {
+    display: block;
+    height: 38x;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    width: calc(100% - 100px);
+    color: #999999;
+    border-radius: 3px;
+    box-sizing: border-box;
+    float: left;
+    background: #f1f1f1;
+    font-family: 'Nanumsquare';
+}
+
+.filebox label {
+    display: block;
+    padding: 10px 15px;
+    color: #fff;
+    background: #0c85fa;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+    font-weight: 500;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0
+}
+
+.caution {
+    color: #5B5B5B;
+}
+
+.input1 {
+    margin-bottom: 10px
+}
+
+.input1 .inputgroup {
+    max-width: unset;
+    width: 100%;
+}
+
+.input1 .inputgroup .select {
+    float: left
+}
+
+.input1.textarea dt {
+    width: 100%;
+    float: none
+}
+
+.input1.textarea dd {
+    width: 100%;
+    float: none
+}
+
+.input1.textarea dd textarea {
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-family: 'Nanumsquare';
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    font-size: 17px
+}
+
+/*Page : ManageInfo_write*/
+.ManageInfo_write .Form1 .thumb {
+    height: 600px
+}
+
+@media all and (max-width:768px) {
+    .ManageInfo_write .Form1 .thumb {
+        height: 270px
+    }
+}
+
+@media all and (max-width:1450px) {
+    .input-group {
+        max-width: unset;
+    }
+
+    .input2 dl {
+        float: none;
+        width: 100%;
+    }
+
+    .input2 dl:last-child {
+        float: none;
+    }
+
+    .input3 {
+        margin-bottom: 15px
+    }
+
+    .input3 .title {
+        float: none;
+        width: 100%;
+    }
+
+    .input3 dl {
+        float: none;
+        width: 100%;
+    }
+
+    .input3 dl:last-child {
+        float: none;
+    }
+}
+
+@media all and (max-width:768px) {
+    .WRITEFORM .Form1 {
+        float: none;
+        width: 100%;
+        padding-bottom: 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .WRITEFORM .Form2 {
+        float: none;
+        width: 100%;
+        padding-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .WRITEFORM .Form1 .thumb {
+        height: 270px
+    }
+}
+
+/*Page : Event*/
+.Event .tab-cont {
+    min-height: 654px
+}
+
+.Event .img-cont .text .division {
+    position: unset;
+    font-size: 16px;
+    line-height: 32px;
+    height: auto;
+    margin-top: -5px;
+    margin-right: 10px;
+    background: #FA372D;
+    display: block;
+    float: left;
+    border-radius: 20px;
+}
+
+.Event .img-cont .text .division.mission {
+    background: #FF7F0A
+}
+
+.Event .img-cont .text .detail .title {
+    max-width: 65%
+}
+
+@media all and (max-width:1650px) {
+    .Event .img-cont .text .division {
+        position: absolute;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, .5);
+    }
+
+    .Event .img-cont .text .detail .title {
+        max-width: 85%
+    }
+}
+
+/*Page : Event_write*/
+.Event_write .rowgroup {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.Event_write .Form {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+.Event_write .Form1 .thumb {
+    height: 540px;
+}
+
+@media all and (max-width:768px) {
+    .Event_write .Form1 .thumb {
+        height: 270px
+    }
+
+    .Event_write .input1.textarea dd textarea {
+        height: 270px
+    }
+}
+
+.pickdate::after {
+    display: block;
+    content: '';
+    clear: both
+}
+
+.pickdate .datewrap {
+    width: calc(50% - 13px);
+    position: relative
+}
+
+.pickdate .datewrap input {
+    position: relative;
+    z-index: 1;
+    background: none
+}
+
+.pickdate .datewrap span {
+    display: block;
+    position: absolute;
+    background: #F2F4FA;
+    right: 0;
+    top: 0;
+    line-height: 38px;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.pickdate .datewrap span svg {
+    color: #071c88;
+    margin-right: 0
+}
+
+.pickdate>.datewrap,
+.pickdate>p {
+    float: left;
+}
+
+.pickdate>p {
+    line-height: 40px;
+    margin: 0 10px
+}

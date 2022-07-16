@@ -243,6 +243,14 @@ export const ROOT_API = {
                 'content-type': 'multipart/form-data'
             }
         }),
+
+    event_modify: (token, event_pk, formdata) =>
+        api.put(url.event + event_pk + '/', formdata, {
+            headers: {
+                'Authorization': token,
+                'content-type': 'multipart/form-data'
+            }
+        }),
 }
 
 
