@@ -81,7 +81,7 @@ function EventModify() {
         formdata.append('explanation', detail);
         formdata.append('start_dt', startDate.toISOString().slice(0, 10));
         formdata.append('end_dt', endDate.toISOString().slice(0, 10));
-        formdata.append('inner_exhibition', '')
+        formdata.append('inner_exhibition', '');
 
         if (imgFile !== null) {
             console.log('s');
@@ -118,7 +118,7 @@ function EventModify() {
                     <div className={style.pageHead}>
                         <h1 className={`${style.h1} ${style.tit}`}>새 이벤트 등록</h1>
                         <div className={style.Headgroup}>
-                            <Button variant="secondary" onClick={() => window.location.href = '/event'}>취소</Button>
+                            <Button variant="secondary" onClick={() => window.location.href = '/event-detail?id=' + id}>취소</Button>
                             <Button variant="primary" onClick={() => modifyEvent()}>등록</Button>
                         </div>
                     </div>
@@ -174,7 +174,7 @@ function EventModify() {
                     </div>
                 </div>
             </div>
-        </body>
+        </body >
     )
 
 }
