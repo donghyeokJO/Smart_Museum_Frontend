@@ -72,6 +72,23 @@ export const ROOT_API = {
                 }
             }),
 
+    account_list_page: (token, page) =>
+        api.get(page !== null ? url.account + 'list/' + '?page=' + page : url.account + 'list/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }
+        ),
+
+    account_delete: (token, pk) =>
+        api.delete(url.account + pk + '/', {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
+
     museum_add: (user_id, formdata, token) =>
         api.post(url.museum + user_id + '/', formdata, {
             headers: {

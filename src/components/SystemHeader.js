@@ -5,7 +5,7 @@ import style from '../pages/css/system/SystemHeader.module.css';
 import { ROOT_API } from "../utils/axios";
 
 class SystemHeader extends React.Component {
-// const SystemHeader = ({active}) => {
+    // const SystemHeader = ({active}) => {
     state = {
         New: '',
     };
@@ -16,13 +16,12 @@ class SystemHeader extends React.Component {
         ROOT_API.account_list('JWT ' + access)
             .then((res) => {
                 let cnt = 0;
-                for(let i = 0; i<res.data.length; i++){
-                    if (res.data[i]['payment_state'] !== 3){
+                for (let i = 0; i < res.data['results'].length; i++) {
+                    if (res.data['results'][i]['payment_state'] !== 3) {
                         cnt++;
                     }
                 }
-
-                this.setState({New: cnt});
+                this.setState({ New: cnt });
             })
     }
 

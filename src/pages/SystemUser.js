@@ -14,15 +14,35 @@ import style from './css/system/SystemUser.module.css';
 function SystemUser() {
     const [UserList, setUserList] = useState([]);
     const [Active, setActive] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(5);
+    const [postsPerPage, setPostsPerPage] = useState(7);
 
     const [addShow, setaddShow] = useState(false);
     const [editShow, seteditShow] = useState(false);
 
     const [UserName, setUserName] = useState('');
     const [UserPassword, setUserPassword] = useState('');
-    const [UserLocation, setUserLocation] = useState('서울');
+    const [UserLocation, setUserLocation] = useState('');
     const [MuseumName, setMusemName] = useState('');
+
+    const [currentList, setCurrentList] = useState([]); // 보여줄 정보
+    const [totalList, setTotalList] = useState([]); // 전체 유저 정보 (검색용)
+
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+
+    const access = localStorage.getItem('access');
+
+    const [std, setstd] = useState('all'); // 검색 기준
+    const [keyword, setKeyword] = useState(''); // 검색 키워드
+
+    useEffect(() => {
+        ROOT_API.account_list_page('JWT ' + access, page)
+            .then((res) => {
+                setUserList(res.data['results']); // 현재 페이지 전체 정보
+                setCurrentList(res.data['results']); // 보여줄 정보
+                setTotalList(res.data['results']); // 전체 유저 정보
+            })
+    }, []);
 
     const AddClose = () => {
         // setUserName 
@@ -42,20 +62,10 @@ function SystemUser() {
         // console.log('show!')
         setaddShow(true);
     }
-    const HandleaddClose = () => setaddShow(false);
+    const HandleaddClose = () => { setaddShow(false) };
 
     const HandleeditShow = () => seteditShow(true);
     const HandleeditClose = () => seteditShow(false);
-
-    useEffect(() => {
-        let access = localStorage.getItem('access');
-
-
-        ROOT_API.account_list('JWT ' + access)
-            .then((res) => {
-                setUserList(res.data);
-            })
-    }, []);
 
     const indexOfLast = Active * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
@@ -66,6 +76,17 @@ function SystemUser() {
         return currentUser;
     };
 
+    const search = (keyword) => {
+        switch (std) {
+            case 'all':
+                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword) || String(item['museum_name']).includes(keyword)));
+            case 'location':
+                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword)));
+            case 'name':
+                setCurrentList(totalList.filter(item => String(item['museum_name']).includes(keyword)));
+        }
+    }
+
     return (
         <>
             <div id='wrap'>
@@ -75,19 +96,20 @@ function SystemUser() {
                         <h5>회원정보</h5>
                         <div className={style.Systemfilter}>
                             <div>
-                                <select>
-                                    <option>모두</option>
-                                    <option>결제상태</option>
-                                    <option>지역</option>
+                                <select onChange={(e) => setstd(e.target.value)}>
+                                    <option value='all'>모두</option>
+                                    <option value='name'>박물관 이름</option>
+                                    <option value='payment'>결제상태</option>
+                                    <option value='location'>지역</option>
                                 </select>
                             </div>
                             <div className={style.Systemsearch}>
-                                <input className={style.SystemserachTerm} placeholder="검색어를 입력해주세요." />
+                                <input className={style.SystemserachTerm} value={keyword} onChange={(e) => { setKeyword(e.target.value); search(e.target.value) }} placeholder="검색어를 입력해주세요." />
                             </div>
                             <div className={style.management}>
                                 <Button className={style.btn01} onClick={() => HandleaddShow()}>회원추가</Button>
-                                <Button className={style.btn02} data-toggle="modal" data-target="#memberEdit">수정</Button>
-                                <Button className={style.btn03} data-toggle="modal" data-target="#memberDel">삭제</Button>
+                                {/* <Button className={style.btn02} data-toggle="modal" data-target="#memberEdit">수정</Button>
+                                <Button className={style.btn03} data-toggle="modal" data-target="#memberDel">삭제</Button> */}
                             </div>
                         </div>
                         <div className={style.tableWrap}>
@@ -99,17 +121,18 @@ function SystemUser() {
                                             <li>지역</li>
                                             <li>박물관 이름</li>
                                             <li>결제상태</li>
+                                            <li>비고</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <SystemUserPost posts={currentUserList(UserList)}></SystemUserPost>
+                                <SystemUserPost posts={currentList}></SystemUserPost>
                             </div>
                         </div>
 
                         <Pagination
                             postsPerPage={postsPerPage}
                             totalPosts={UserList.length}
-                            paginate={setActive}
+                            link='/system?page='
                         ></Pagination>
 
                     </section>
@@ -131,10 +154,7 @@ function SystemUser() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>지역</Form.Label>
-                                <Form.Select value={UserLocation} onChange={e => setUserLocation(e.target.value)}>
-                                    <option value="서울">서울</option>
-                                    <option value="부산">부산</option>
-                                </Form.Select>
+                                <Form.Control type="text" value={UserLocation} onChange={e => setUserLocation(e.target.value)} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>박물관이름</Form.Label>

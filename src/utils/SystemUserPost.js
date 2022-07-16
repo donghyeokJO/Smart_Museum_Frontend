@@ -1,5 +1,8 @@
 import React from 'react';
 import { ROOT_API } from './axios';
+import { Button } from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
 
 import style from '../pages/css/system/SystemUser.module.css';
 
@@ -28,6 +31,19 @@ function AcceptUser(post) {
 }
 
 
+function deleteUser(post) {
+    var user_pk = post['pk'];
+    var access = 'JWT ' + localStorage.getItem('access');
+
+    ROOT_API.account_delete(access, user_pk)
+        .then((res) => {
+            console.log(res.data);
+            alert('삭제 되었습니다.');
+            window.location.reload();
+        });
+}
+
+
 const SystemUserPost = ({ posts }) => {
     return (
         <>
@@ -35,12 +51,16 @@ const SystemUserPost = ({ posts }) => {
                 <div className={style.SystembasicTable}>
                     <div>
                         <ul>
-                            <li className={style.inputRow}><input type="checkbox"/></li>
+                            <li className={style.inputRow}><input type="checkbox" /></li>
                             <li>{post['username']}</li>
                             <li>{post['museum_location']}</li>
                             <li>{post['museum_name']}</li>
                             <li>
                                 {post['payment_state'] === 3 ? '승인완료' : <button type="button" onClick={() => AcceptUser(post)} >승인</button>}
+                            </li>
+                            <li>
+                                <Button className={style.btn02} data-toggle="modal" data-target="#memberEdit">수정</Button>
+                                <Button className={style.btn03} onClick={() => deleteUser(post)}>삭제</Button>
                             </li>
                         </ul>
                     </div>

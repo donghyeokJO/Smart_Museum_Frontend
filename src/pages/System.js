@@ -14,33 +14,41 @@ import style from './css/system/System.module.css'
 
 function System() {
 
-    const [UserList, setUserList] = useState([]);
+    const [UserList, setUserList] = useState([]); // 현재 페이지 전체 정보
     const [UserCount, setUserCount] = useState(0);
-    const [Active, setActive] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(5);
+    const [postsPerPage, setPostsPerPage] = useState(7);
+
+    const [currentList, setCurrentList] = useState([]); // 보여줄 정보
+    const [totalList, setTotalList] = useState([]); // 전체 유저 정보 (검색용)
+
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+
+    const access = localStorage.getItem('access');
+
+    const [std, setstd] = useState('all'); // 검색 기준
+    const [keyword, setKeyword] = useState(''); // 검색 키워드
 
     useEffect(() => {
-        let access = localStorage.getItem('access');
-
-
-        ROOT_API.account_list('JWT ' + access)
+        ROOT_API.account_list_page('JWT ' + access, page)
             .then((res) => {
-                // console.log(res.data);
-                // console.log(res.data.length);
-                setUserList(res.data);
-                setUserCount(res.data.length);
-                // console.log(UserCount)
+                setUserList(res.data['results']); // 현재 페이지 전체 정보
+                setUserCount(res.data['results'].length);
+                setCurrentList(res.data['results']); // 보여줄 정보
+                setTotalList(res.data['results']); // 전체 유저 정보
             })
     }, []);
 
-    const indexOfLast = Active * postsPerPage;
-    const indexOfFirst = indexOfLast - postsPerPage;
-
-    const currentUserList = (posts) => {
-        let currentUser = 0;
-        currentUser = posts.slice(indexOfFirst, indexOfLast);
-        return currentUser;
-    };
+    const search = (keyword) => {
+        switch (std) {
+            case 'all':
+                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword) || String(item['museum_name']).includes(keyword)));
+            case 'location':
+                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword)));
+            case 'name':
+                setCurrentList(totalList.filter(item => String(item['museum_name']).includes(keyword)));
+        }
+    }
 
     return (
         <div id='wrap'>
@@ -50,14 +58,15 @@ function System() {
                     <h5>서비스신청</h5>
                     <div className={style.Systemfilter}>
                         <div>
-                            <select>
-                                <option>모두</option>
-                                <option>결제상태</option>
-                                <option>지역</option>
+                            <select onChange={(e) => setstd(e.target.value)}>
+                                <option value='all'>모두</option>
+                                <option value='name'>박물관 이름</option>
+                                <option value='payment'>결제상태</option>
+                                <option value='location'>지역</option>
                             </select>
                         </div>
                         <div className={style.Systemsearch}>
-                            <input className={style.SystemserachTerm} placeholder="검색어를 입력해주세요." />
+                            <input className={style.SystemserachTerm} value={keyword} onChange={(e) => { setKeyword(e.target.value); search(e.target.value) }} placeholder="검색어를 입력해주세요." />
                         </div>
                     </div>
                     <div className={style.tableWrap}>
@@ -72,30 +81,15 @@ function System() {
                                     </ul>
                                 </div>
                             </div>
-                            <SystemPost posts={currentUserList(UserList)}></SystemPost>
-                            {/* {Useritems} */}
+                            <SystemPost posts={currentList}></SystemPost>
                         </div>
                     </div>
-                    {/* <nav className={style.Systemnavi}>
-                        <Pagination>{items}</Pagination>
-                    </nav> */}
 
                     <Pagination
                         postsPerPage={postsPerPage}
                         totalPosts={UserList.length}
-                        paginate={setActive}
+                        link='/system?page='
                     ></Pagination>
-
-                    {/* <nav className={style.Systemnavi}>
-                        <Pagination>{items}</Pagination> */}
-                    {/* <ul className="pagination">
-                            <li className="page-item"><a className="page-link" href="#">&lt;&lt;</a></li>
-                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                            <li className="page-item"><a className="page-link" href="#">&gt;&gt;</a></li>
-                        </ul> */}
-                    {/* </nav> */}
                 </section>
             </div>
         </div>

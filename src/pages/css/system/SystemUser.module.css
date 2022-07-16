@@ -36,7 +36,7 @@
 .SystembasicTable div ul li {
     line-height: 30px;
     display: table-cell;
-    width: calc(100% / 4);
+    width: calc(100% / 5);
     padding: 16px 12px;
     text-align: center;
 }
@@ -51,6 +51,24 @@
     color: #fff;
     border-radius: 20px;
     line-height: inherit;
+}
+
+.SystembasicTable div ul li .btn02 {
+    padding: 5px 20px;
+    background: #4e4e4e;
+    color: #fff;
+    border-radius: 20px;
+    line-height: inherit;
+    border-color: none;
+}
+
+.SystembasicTable div ul li .btn03 {
+    padding: 5px 20px;
+    background: #991a03d7;
+    color: #fff;
+    border-radius: 20px;
+    line-height: inherit;
+    border-color: none;
 }
 
 .SystembasicTable div .inputRow {
@@ -127,11 +145,13 @@
     text-align: center;
 }
 
-.Systemfilter .management{float: right;}
+.Systemfilter .management {
+    float: right;
+}
 
-.management > button{
-    display: inline-block; 
-    padding: 14px 35px; 
+.management>button {
+    display: inline-block;
+    padding: 14px 35px;
     border-radius: 12px;
     margin-bottom: 0;
     margin-left: 3px;
@@ -154,18 +174,58 @@
     /* background-color: #337ab7; */
     /* border-color: #2e6da4;  */
 }
-.management .btn01{background: #27344B; color: #fff;}
-.management .btn02{background: #4e4e4e; color: #fff;}
-.management .btn03{background: #2D7DC8; color: #fff;}
+
+.management .btn01 {
+    background: #27344B;
+    color: #fff;
+}
+
+.management .btn02 {
+    background: #4e4e4e;
+    color: #fff;
+}
+
+.management .btn03 {
+    background: #2D7DC8;
+    color: #fff;
+}
 
 /*modal*/
-.modal input[type="text"]{width: 100%; padding: 16px 12px;}
-.modal select{width: 100%; border: 1px solid #ccc; height: 34px; border-radius: 4px; padding-left: 12px;}
-.modal input:focus{outline: none; box-shadow: none;}
-.modal label{display: block;}
-.modalheader .close{position: absolute; top: 20px; right: 20px;}
-.modalheader .close span{color: #121212;}
-.modal-title{font-size: 24px;}
+.modal input[type="text"] {
+    width: 100%;
+    padding: 16px 12px;
+}
+
+.modal select {
+    width: 100%;
+    border: 1px solid #ccc;
+    height: 34px;
+    border-radius: 4px;
+    padding-left: 12px;
+}
+
+.modal input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.modal label {
+    display: block;
+}
+
+.modalheader .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.modalheader .close span {
+    color: #121212;
+}
+
+.modal-title {
+    font-size: 24px;
+}
 
 
 @media all and (max-width:500px) {
