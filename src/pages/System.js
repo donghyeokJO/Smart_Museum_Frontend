@@ -16,7 +16,7 @@ function System() {
 
     const [UserList, setUserList] = useState([]); // 현재 페이지 전체 정보
     const [UserCount, setUserCount] = useState(0);
-    const [postsPerPage, setPostsPerPage] = useState(7);
+    const [postsPerPage, setPostsPerPage] = useState(10);
 
     const [currentList, setCurrentList] = useState([]); // 보여줄 정보
     const [totalList, setTotalList] = useState([]); // 전체 유저 정보 (검색용)
@@ -33,20 +33,32 @@ function System() {
         ROOT_API.account_list_page('JWT ' + access, page)
             .then((res) => {
                 setUserList(res.data['results']); // 현재 페이지 전체 정보
-                setUserCount(res.data['results'].length);
                 setCurrentList(res.data['results']); // 보여줄 정보
-                setTotalList(res.data['results']); // 전체 유저 정보
+            })
+    }, []);
+
+    useEffect(() => {
+        ROOT_API.account_list2('JWT ' + access)
+            .then((res) => {
+                setTotalList(res.data);
             })
     }, []);
 
     const search = (keyword) => {
+        console.log(keyword);
         switch (std) {
             case 'all':
-                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword) || String(item['museum_name']).includes(keyword)));
+                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword) || String(item['museum_name']).includes(keyword) || String(item['payment_state_string']).includes(keyword)));
+                return
             case 'location':
                 setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword)));
+                return
             case 'name':
                 setCurrentList(totalList.filter(item => String(item['museum_name']).includes(keyword)));
+                return
+            case 'payment':
+                setCurrentList(totalList.filter(item => String(item['payment_state_string']).includes(keyword)));
+                return;
         }
     }
 
@@ -87,7 +99,7 @@ function System() {
 
                     <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={UserList.length}
+                        totalPosts={totalList.length}
                         link='/system?page='
                     ></Pagination>
                 </section>

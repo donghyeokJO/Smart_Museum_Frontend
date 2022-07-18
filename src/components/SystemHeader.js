@@ -13,11 +13,11 @@ class SystemHeader extends React.Component {
     componentDidMount() {
         let access = localStorage.getItem('access');
 
-        ROOT_API.account_list('JWT ' + access)
+        ROOT_API.account_list2('JWT ' + access)
             .then((res) => {
                 let cnt = 0;
-                for (let i = 0; i < res.data['results'].length; i++) {
-                    if (res.data['results'][i]['payment_state'] !== 3) {
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i]['payment_state'] !== 3) {
                         cnt++;
                     }
                 }

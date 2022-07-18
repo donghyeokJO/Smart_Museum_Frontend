@@ -39,7 +39,7 @@ const SystemPost = ({ posts }) => {
                             <li>{post['museum_location']}</li>
                             <li>{post['museum_name']}</li>
                             <li>
-                                {post['payment_state'] === 3 ? '승인완료' : <button type="button" onClick={() => AcceptUser(post)} >승인</button>}
+                                {post['payment_state'] === 3 ? post['payment_state_string'] : <button type="button" onClick={() => AcceptUser(post)} >승인</button>}
                             </li>
                         </ul>
                     </div>

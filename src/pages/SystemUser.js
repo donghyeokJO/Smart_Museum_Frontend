@@ -14,7 +14,7 @@ import style from './css/system/SystemUser.module.css';
 function SystemUser() {
     const [UserList, setUserList] = useState([]);
     const [Active, setActive] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(7);
+    const [postsPerPage, setPostsPerPage] = useState(10);
 
     const [addShow, setaddShow] = useState(false);
     const [editShow, seteditShow] = useState(false);
@@ -40,19 +40,24 @@ function SystemUser() {
             .then((res) => {
                 setUserList(res.data['results']); // 현재 페이지 전체 정보
                 setCurrentList(res.data['results']); // 보여줄 정보
-                setTotalList(res.data['results']); // 전체 유저 정보
             })
     }, []);
 
+    useEffect(() => {
+        ROOT_API.account_list2('JWT ' + access)
+            .then((res) => {
+                setTotalList(res.data);
+                console.log(res.data);
+            })
+    }, []);
+
+
     const AddClose = () => {
         // setUserName 
-        console.log(UserName);
-        console.log(UserPassword);
-        console.log(UserLocation);
-        console.log(MuseumName);
         ROOT_API.account(UserName, UserPassword, UserLocation, MuseumName)
             .then((res) => {
-                alert('추가 되었습니다.')
+                alert('추가 되었습니다.');
+                window.location.reload();
             })
 
         setaddShow(false);
@@ -67,23 +72,21 @@ function SystemUser() {
     const HandleeditShow = () => seteditShow(true);
     const HandleeditClose = () => seteditShow(false);
 
-    const indexOfLast = Active * postsPerPage;
-    const indexOfFirst = indexOfLast - postsPerPage;
-
-    const currentUserList = (posts) => {
-        let currentUser = 0;
-        currentUser = posts.slice(indexOfFirst, indexOfLast);
-        return currentUser;
-    };
-
     const search = (keyword) => {
+        console.log(keyword);
         switch (std) {
             case 'all':
-                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword) || String(item['museum_name']).includes(keyword)));
+                setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword) || String(item['museum_name']).includes(keyword) || String(item['payment_state_string']).includes(keyword)));
+                return
             case 'location':
                 setCurrentList(totalList.filter(item => String(item['museum_location']).includes(keyword)));
+                return
             case 'name':
                 setCurrentList(totalList.filter(item => String(item['museum_name']).includes(keyword)));
+                return
+            case 'payment':
+                setCurrentList(totalList.filter(item => String(item['payment_state_string']).includes(keyword)));
+                return;
         }
     }
 
@@ -131,7 +134,7 @@ function SystemUser() {
 
                         <Pagination
                             postsPerPage={postsPerPage}
-                            totalPosts={UserList.length}
+                            totalPosts={totalList.length}
                             link='/system?page='
                         ></Pagination>
 

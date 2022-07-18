@@ -72,6 +72,14 @@ export const ROOT_API = {
                 }
             }),
 
+    account_list2: (token) =>
+    api.get(url.account + 'list2/',
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
     account_list_page: (token, page) =>
         api.get(page !== null ? url.account + 'list/' + '?page=' + page : url.account + 'list/',
             {
