@@ -109,6 +109,17 @@ function EventMissionAdd() {
         setAddList(addList.filter(inn => inn.pk !== pk));
     };
 
+    const get_inner_exhibition = () => {
+        var inner_exhibition = [];
+
+        for (let i = 0; i < addList.length; i++){
+            let inn = addList[i];
+            inner_exhibition.push(i === 0 ? '?inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk))
+        }
+
+        return inner_exhibition;
+    }
+
     const addEvent = () => {
         if (eventName === "") {
             alert('모든 항목을 입력해주세요');
@@ -123,19 +134,11 @@ function EventMissionAdd() {
         formdata.append('start_dt', new Date().toISOString().slice(0, 10));
         formdata.append('end_dt', new Date().toISOString().slice(0, 10));
 
-        // console.log(formdata);
-        ROOT_API.event_add('JWT ' + access, formdata)
-            .then((res) => {
-                console.log(res.data);
-                let event_pk = res.data['pk'];
+        let inner_exhibition = get_inner_exhibition().join("");
+        // console.log(inner_exhibition)
 
-                for (let i = 0; i < addList.length; i++) {
-                    let inn = addList[i];
-                    ROOT_API.event_mission_add('JWT ' + access, inn.pk, event_pk)
-                        .then((res) => {
-                            console.log('미션' + String(inn.pk) + '추가완료');
-                        })
-                }
+        ROOT_API.event_mission_add('JWT ' + access, formdata, inner_exhibition)
+            .then((res) => {
                 alert('등록이 완료되었습니다.')
                 window.location.href = '/event';
             })

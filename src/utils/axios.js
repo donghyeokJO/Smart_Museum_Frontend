@@ -135,7 +135,7 @@ export const ROOT_API = {
         }),
 
     exhibition_pagination: (token, user_id, page, floor) =>
-        api.get(url.inner_exhibition_user + user_id + '/' + (floor !== null ? '?floor=' + floor : '') + (page !== null && floor !== null ? '&page=' + page : page !== null && floor === null ? '?page=' + page : ''), {
+        api.get(url.inner_exhibition_user + user_id + '/' + (floor !== null ? '?floor_en=' + floor : '') + (page !== null && floor !== null ? '&page=' + page : page !== null && floor === null ? '?page=' + page : ''), {
             headers: {
                 "Authorization": token,
             }
@@ -216,6 +216,14 @@ export const ROOT_API = {
             }
         }),
 
+    event_pagination: (token, page, type) => 
+        api.get(url.event + '/list' + (type !== null ? '?event_type=' + type : '') + (page !== null && type !== null ? '&page=' + page : page !== null && type === null ? '?page=' + page : ''), 
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
     event_get_by_id: (token, pk) =>
         api.get(url.event + pk + '/',
             {
@@ -242,10 +250,8 @@ export const ROOT_API = {
             }
         }),
 
-    event_mission_add: (token, inner_exhibition_pk, event_pk) =>
-        api.post(url.event + 'mission/' + inner_exhibition_pk + '/', {
-            pk: event_pk
-        }, {
+    event_mission_add: (token, formdata, inner_exhibition) =>
+        api.post(url.event + 'mission/' + inner_exhibition,  formdata, {
             headers: {
                 'Authorization': token,
                 'content-type': 'multipart/form-data'
@@ -259,43 +265,11 @@ export const ROOT_API = {
                 'content-type': 'multipart/form-data'
             }
         }),
-}
-
-
-
-
-// 기존
-export async function imageUpload(image) {
-    let ranStr = Math.random().toString(36).substr(2, 11);
-    let data = new FormData();
-    data.append("file", image, ranStr);
-    let config = {
-        method: "post",
-        url: `${baseURL}/storage/upload`,
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-        data: data,
-    };
-    return await axios(config)
-        .then((res) => {
-            return res.data;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
-export async function request(data) {
-    return await axios({
-        method: "post",
-        url: `${baseURL}/api/`,
-        data: {
-            query: data,
-        },
-    })
-        .then((res) => {
-            return res.data;
-        })
-        .catch((err) => console.log(err));
+    
+    event_delete: (token, event_pk) =>
+        api.delete(url.event + event_pk + '/', {
+            headers: {
+                "Authorization": token,
+            }
+        }),
 }

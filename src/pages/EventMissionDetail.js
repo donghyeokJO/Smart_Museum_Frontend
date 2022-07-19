@@ -20,6 +20,7 @@ function EventMissionDetail() {
     const id = params.get("id");
 
     const [inner, setinner] = useState([]);
+    const [current, setCurrent] = useState([]);
 
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
@@ -37,10 +38,11 @@ function EventMissionDetail() {
                 console.log(res.data);
                 setevent(res.data);
                 setinner(res.data['inner_exhibition']);
+                setCurrent(res.data['inner_exhibition']);
             })
     }, []);
 
-    const [floor, setfloor] = useState('');
+    const [floor, setfloor] = useState('전체');
     const [floorpk, setfloorpk] = useState('');
     const [ExhibitionList, setExhibitionList] = useState([]);
 
@@ -49,12 +51,22 @@ function EventMissionDetail() {
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
-                setfloor(res.data[0]['floor_ko']);
+                // setfloor(res.data[0]['floor_ko']);
             })
             .catch((err) => {
                 console.log(err);
             });
     }, []);
+
+    const onChangeFloor = floor => {
+        // console.log(floor);
+        if (floor === "전체") {
+            setCurrent(inner);
+            return
+        }
+
+        setCurrent(inner.filter(item => item['exhibition']['floor_ko'] === floor));
+    }
 
 
 
@@ -100,11 +112,12 @@ function EventMissionDetail() {
                                     <dt>구분</dt>
                                     <dd class={style.clearfix}>
                                         <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={floor} >
+                                            <Dropdown.Item onClick={() => { setfloor("전체"); onChangeFloor("전체") }}>전체</Dropdown.Item>
                                             {ExhibitionList.map((exhibition) => {
                                                 let pk = exhibition['pk'];
                                                 // console.log(exhibition);
                                                 return (
-                                                    <Dropdown.Item onClick={() => { setfloor(exhibition['floor_ko']); setfloorpk(exhibition['pk']) }}>{exhibition['floor_ko']}</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => { setfloor(exhibition['floor_ko']); onChangeFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                                 )
                                             })}
                                         </DropdownButton>
@@ -113,11 +126,11 @@ function EventMissionDetail() {
                             </div>
                             <div>
                                 <ul class={style.ListExhibition}>
-                                    {inner.map(inn => {
+                                    {current.map((inn, idx) => {
                                         return (
                                             <li class={style.edit}>
                                                 <div class={style.info}>
-                                                    <span class={style.num}>{inn['order']}</span>
+                                                    <span class={style.num}>{idx+1}</span>
                                                     <span class={style.txt}>{inn['name']}</span>
                                                 </div>
                                             </li>

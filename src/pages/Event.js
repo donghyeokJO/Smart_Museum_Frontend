@@ -3,7 +3,9 @@ import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import { baseURL } from "../config";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import EventPost from "../utils/EventPost";
+import Pagination from "../utils/pagination";
 
 import style from './css/admin/Event.module.css';
 
@@ -16,6 +18,13 @@ function Event() {
     const [eventList, seteventList] = useState([]);
     const [items, setitems] = useState([]);
 
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+    const type = params.get("type");
+
+    const [postsPerPage, setPostsPerPage] = useState(6);
+    const [TotalLength, setTotalLength] = useState(0);
+
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
@@ -27,23 +36,14 @@ function Event() {
     }, []);
 
     useEffect(() => {
-        ROOT_API.event_get('JWT ' + access)
+        ROOT_API.event_pagination('JWT ' + access, page, type)
             .then((res) => {
-                console.log(res.data);
-                seteventList(res.data);
-                setitems(res.data);
+                // console.log(res.data);
+                seteventList(res.data['results']);
+                setitems(res.data['results']);
+                setTotalLength(res.data['count'])
             })
     }, []);
-
-    const currentEvent = event => {
-        if (event === "전체") {
-            setitems(eventList);
-            return
-        }
-
-        // setitems(originalitems);
-        setitems(eventList.filter(item => item['type'] === event));
-    }
 
     return (
         <body className={style.body}>
@@ -64,49 +64,26 @@ function Event() {
                     <div className={style.pageHead}>
                         <h1 className={`${style.h1} ${style.tit}`}>이벤트</h1>
                         <div className={style.Headgroup}>
-                            <Button variant="primary" onClick={() => window.location.href = '/event-mission-add'}>미션이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
-                            <Button variant="primary" onClick={() => window.location.href = '/event-add'}>새 이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
+                            <Button variant="primary" onClick={() => window.location.href = '/event-mission-add'}>미션이벤트 등록<i className="fas fa-plus"></i></Button>{' '}
+                            <Button variant="success" onClick={() => window.location.href = '/event-add'}>새 이벤트 등록&nbsp;&nbsp;<i className="fas fa-plus"></i></Button>{' '}
                         </div>
                     </div>
                     <ul id={style.tabul}>
-                        <li className={event === "전체" ? style.on : null} onClick={() => { setEvent('전체'); currentEvent("전체") }}>전체</li>
-                        <li className={event === "Mission" ? style.on : null} onClick={() => { setEvent('Mission'); currentEvent(2) }}>미션이벤트</li>
-                        <li className={event === "Normal" ? style.on : null} onClick={() => { setEvent('Normal'); currentEvent(1) }}>이벤트</li>
+                        <li className={type === null ? style.on : null} onClick={() => {window.location.href = '/event' }}>전체</li>
+                        <li className={type === "2" ? style.on : null} onClick={() => {window.location.href = '/event?type=2'   }}>미션이벤트</li>
+                        <li className={type === "1" ? style.on : null} onClick={() => {  window.location.href = '/event?type=1' }}>이벤트</li>
                     </ul>
                     <div className={`${style.tabcont} ${style.clearfix}`}>
                         <div className={`${style.all} ${style.clearfix}`}>
-                            {items.map((item) => {
-                                let cls = item['type'] === 2 ? `${style.division} ${style.mission}` : `${style.division} ${style.normal}`;
-                                let evt_txt = item['type'] === 2 ? "미션 이벤트" : "이벤트";
-                                let img_src = baseURL + item['image'];
-                                let url = item['type'] === 2 ? "/event-mission-detail?id=" + item['pk'] : "/event-detail?id=" + item['pk'];
-                                return (
-                                    <div className={style.imgcont}>
-                                        <a href={url}>
-                                            <div className={style.thumb}>
-                                                <img src={img_src} alt={item['name']} />
-                                            </div>
-                                            <div className={style.text}>
-                                                <div className={style.detail}>
-                                                    <span className={cls}>{evt_txt}</span>
-                                                    <div className={style.title}>
-                                                        <span className={style.txt}>{item['name']}</span>
-                                                    </div>
-                                                    <div className={style.etcBtn}>
-                                                        <a href="#" className={style.morebtn}></a>
-                                                        <ul className={style.etcGroup}>
-                                                            <li>삭제</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                )
-                            })}
+                            <EventPost Events={items}></EventPost>
                         </div>
                     </div>
                     {/* pagination */}
+                    <Pagination
+                        postsPerPage={postsPerPage}
+                        totalPosts={TotalLength}
+                        link={type !== null ? '/event?type=' + type + '&page=' : '/event?page='}
+                    ></Pagination>
                 </div>
             </div>
         </body>
