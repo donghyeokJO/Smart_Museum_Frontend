@@ -36,6 +36,7 @@ function InnerExhibitionAdd() {
             .then((res) => {
                 setExhibitionList(res.data);
                 setfloor(res.data[0]['floor_ko']);
+                setfloorpk(res.data[0]['pk'])
             })
             .catch((err) => {
                 console.log(err);

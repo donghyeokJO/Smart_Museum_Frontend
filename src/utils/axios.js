@@ -258,6 +258,21 @@ export const ROOT_API = {
             }
         }),
 
+    event_mission_modify: (token, event_pk, formdata, inner_exhibition) =>
+        api.put(url.event + 'mission/' + event_pk + '/' + inner_exhibition, formdata, {
+            headers: {
+                'Authorization': token,
+                'content-type': 'multipart/form-data'
+            }
+        }),
+
+    event_mission_inner_delete: (token, event_pk) =>
+        api.delete(url.event + event_pk + '/all/', {
+            headers: {
+                'Authorization': token,
+            }
+        }),
+
     event_modify: (token, event_pk, formdata) =>
         api.put(url.event + event_pk + '/', formdata, {
             headers: {

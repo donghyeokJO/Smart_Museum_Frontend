@@ -16,10 +16,12 @@ import InnerExhibitionAdd from "./pages/InnerExhibitionAdd";
 import InnerExhibitionModify from "./pages/InnerExhibitionModify";
 import Event from './pages/Event';
 import EventAdd from './pages/EventAdd';
-import EventMissionAdd from "./pages/EventMissionAdd";
-import EventMissionDetail from "./pages/EventMissionDetail";
 import EventDetail from "./pages/EventDetail";
 import EventModify from "./pages/EventModify";
+import EventMissionAdd from "./pages/EventMissionAdd";
+import EventMissionDetail from "./pages/EventMissionDetail";
+import EventMissionModify from "./pages/EventMissionModify";
+
 
 import Service from './pages/Service'
 import ServiceSelect from "./pages/ServiceSelect";
@@ -79,10 +81,12 @@ class App extends React.Component {
             <PrivateRoute path='/inner-exhibition-modify' component={InnerExhibitionModify} />
             <PrivateRoute path='/event' component={Event} />
             <PrivateRoute path='/event-add' component={EventAdd} />
-            <PrivateRoute path='/event-mission-add' component={EventMissionAdd} />
-            <PrivateRoute path='/event-mission-detail' component={EventMissionDetail} />
             <PrivateRoute path='/event-detail' component={EventDetail} />
             <PrivateRoute path='/event-modify' component={EventModify} />
+            <PrivateRoute path='/event-mission-add' component={EventMissionAdd} />
+            <PrivateRoute path='/event-mission-detail' component={EventMissionDetail} />
+            <PrivateRoute path='/event-mission-modify' component={EventMissionModify}/>
+            
 
             <PrivateRoute path='/service' component={Service} />
             <PrivateRoute path='/service-select' component={ServiceSelect} />

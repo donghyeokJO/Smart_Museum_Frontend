@@ -89,7 +89,7 @@ function EventMissionDetail() {
                     <div class={style.pageHead}>
                         <h1 class={`${style.tit} ${style.h1}`}>미션 이벤트 상세</h1>
                         <div class={style.Headgroup}>
-                            <Button variant="primary" onClick={() => window.location.href = '#'}>업데이트</Button>{' '}
+                            <Button variant="primary" onClick={() => window.location.href = '/event-mission-modify?id=' + event['pk']}>업데이트</Button>{' '}
                         </div>
                     </div>
                     <div class={`${style.rowgroup} ${style.clearfix}`}>
