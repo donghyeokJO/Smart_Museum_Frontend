@@ -135,7 +135,7 @@ function SystemUser() {
                         <Pagination
                             postsPerPage={postsPerPage}
                             totalPosts={totalList.length}
-                            link='/system?page='
+                            link='/system-user?page='
                         ></Pagination>
 
                     </section>

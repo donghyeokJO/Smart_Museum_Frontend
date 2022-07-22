@@ -51,7 +51,7 @@ const SystemUserPost = ({ posts }) => {
                 <div className={style.SystembasicTable}>
                     <div>
                         <ul>
-                            <li className={style.inputRow}><input type="checkbox" /></li>
+                            {/* <li className={style.inputRow}><input type="checkbox" /></li> */}
                             <li>{post['username']}</li>
                             <li>{post['museum_location']}</li>
                             <li>{post['museum_name']}</li>
