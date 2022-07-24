@@ -17,7 +17,7 @@ const deleteInnerExhibition = pk => {
         .then((res) => {
 
             alert('삭제 되었습니다.')
-            window.location.href = '/event';
+            window.location.href = '/inner-exhibition';
 
         })
 
