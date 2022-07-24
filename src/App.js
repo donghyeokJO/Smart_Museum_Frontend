@@ -27,6 +27,7 @@ import Service from './pages/Service'
 import ServiceSelect from "./pages/ServiceSelect";
 import System from "./pages/System";
 import SystemUser from "./pages/SystemUser";
+import SystemUserModify from "./pages/SystemUserModify";
 
 import PrivateRoute from "./utils/private_route";
 import AdminRoute from "./utils/AdminRoute";
@@ -85,13 +86,14 @@ class App extends React.Component {
             <PrivateRoute path='/event-modify' component={EventModify} />
             <PrivateRoute path='/event-mission-add' component={EventMissionAdd} />
             <PrivateRoute path='/event-mission-detail' component={EventMissionDetail} />
-            <PrivateRoute path='/event-mission-modify' component={EventMissionModify}/>
-            
+            <PrivateRoute path='/event-mission-modify' component={EventMissionModify} />
+
 
             <PrivateRoute path='/service' component={Service} />
             <PrivateRoute path='/service-select' component={ServiceSelect} />
             <AdminRoute path='/system' component={System} />
             <AdminRoute path='/system-user' component={SystemUser} />
+            <AdminRoute path='/system-user-modify' component={SystemUserModify} />
           </Switch>
         </BrowserRouter>
       </>

@@ -59,7 +59,7 @@ const SystemUserPost = ({ posts }) => {
                                 {post['payment_state'] === 3 ? post['payment_state_string'] : <button type="button" onClick={() => AcceptUser(post)} >승인</button>}
                             </li>
                             <li>
-                                <Button className={style.btn02} data-toggle="modal" data-target="#memberEdit">수정</Button>
+                                <Button className={style.btn02} onClick={() => window.location.href = '/system-user-modify?id=' + post['pk']}>수정</Button>
                                 <Button className={style.btn03} onClick={() => deleteUser(post)}>삭제</Button>
                             </li>
                         </ul>

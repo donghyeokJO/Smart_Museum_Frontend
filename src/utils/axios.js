@@ -50,6 +50,19 @@ export const ROOT_API = {
             'museum_name': museum_name,
         }),
 
+    // user 수정
+    account_put: (token, username, museum_location, museum_name, user_pk) =>
+        api.put(url.account + user_pk + '/', {
+            'username': username,
+            'museum_location': museum_location,
+            'museum_name': museum_name,
+        },
+            {
+                headers: {
+                    'Authorization': token,
+                }
+            }),
+
     // service
     account_service: (user_pk, payment_state, service_plan, museum_name, museum_location, token) =>
         api.put(url.account + user_pk + '/', {
@@ -73,12 +86,12 @@ export const ROOT_API = {
             }),
 
     account_list2: (token) =>
-    api.get(url.account + 'list2/',
-        {
-            headers: {
-                "Authorization": token,
-            }
-        }),
+        api.get(url.account + 'list2/',
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }),
 
     account_list_page: (token, page) =>
         api.get(page !== null ? url.account + 'list/' + '?page=' + page : url.account + 'list/',
@@ -216,13 +229,13 @@ export const ROOT_API = {
             }
         }),
 
-    event_pagination: (token, page, type) => 
-        api.get(url.event + '/list' + (type !== null ? '?event_type=' + type : '') + (page !== null && type !== null ? '&page=' + page : page !== null && type === null ? '?page=' + page : ''), 
-        {
-            headers: {
-                "Authorization": token,
-            }
-        }),
+    event_pagination: (token, page, type) =>
+        api.get(url.event + '/list' + (type !== null ? '?event_type=' + type : '') + (page !== null && type !== null ? '&page=' + page : page !== null && type === null ? '?page=' + page : ''),
+            {
+                headers: {
+                    "Authorization": token,
+                }
+            }),
 
     event_get_by_id: (token, pk) =>
         api.get(url.event + pk + '/',
@@ -251,7 +264,7 @@ export const ROOT_API = {
         }),
 
     event_mission_add: (token, formdata, inner_exhibition) =>
-        api.post(url.event + 'mission/' + inner_exhibition,  formdata, {
+        api.post(url.event + 'mission/' + inner_exhibition, formdata, {
             headers: {
                 'Authorization': token,
                 'content-type': 'multipart/form-data'
@@ -280,7 +293,7 @@ export const ROOT_API = {
                 'content-type': 'multipart/form-data'
             }
         }),
-    
+
     event_delete: (token, event_pk) =>
         api.delete(url.event + event_pk + '/', {
             headers: {

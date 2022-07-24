@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Chart } from "react-google-charts";
 import Calendar from 'react-calendar';
 import { baseURL } from "../config";
+import ImageMarker from 'react-image-marker';
 
 import 'react-calendar/dist/Calendar.css';
 import style from './css/admin/Dashboard.module.css';
@@ -34,6 +35,8 @@ function Dashboard() {
 
     const root_img_path = ['/img/root_01.png', '/img/root_02.png', '/img/root_03.png'];
 
+    const [markers, setMarkers] = useState([]);
+
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
             .then((res) => {
@@ -51,10 +54,16 @@ function Dashboard() {
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
-                // console.log(res.data)
+                console.log(res.data)
                 setFloor(res.data[0]['floor_ko']);
-                // setimgSrc(baseURL + res.data[0]['drawing_image']);
-                setimgSrc(root_img_path[0]);
+                setimgSrc(baseURL + res.data[0]['drawing_image']);
+                // setMarkers(res.data.map(item => {
+                //     let temp = {
+                //         left: item['x'],
+                //         top: item['y']
+                //     }
+                // }))
+                // setimgSrc(root_img_path[0]);
             })
             .catch((err) => {
                 console.log(err);
@@ -247,7 +256,8 @@ function Dashboard() {
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={Floor} style={{ float: 'right' }}>
                                     {ExhibitionList.map((exhibition, idx) => {
                                         return (
-                                            <Dropdown.Item onClick={() => { setimgSrc(root_img_path[idx]); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
+                                            // <Dropdown.Item onClick={() => { setimgSrc(root_img_path[idx]); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                         )
                                     })}
                                 </DropdownButton>

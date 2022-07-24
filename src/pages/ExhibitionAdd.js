@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import Button from 'react-bootstrap/Button'
-import ImageMarker, { Marker } from 'react-image-marker';
+import ImageMarker from 'react-image-marker';
 
 import style from './css/admin/ExhibitionAdd.module.css';
 import img from './css/admin/img/sub/emptyimg.jpg';
@@ -166,7 +166,7 @@ function ExhibitionAdd() {
                                 <div className={style.thumb}><img src={imgpath}></img></div> :
                                 <>
                                     <Button disabled={!markers.length > 0} onClick={() => setMarkers((prev) => prev.slice(0, -1))}>표시 제거</Button>
-                                    <ImageMarker className={style.thumb} src={imgpath} markers={markers} onAddMarker={(marker) => { setMarkers([...markers, marker]); settmpX(marker.left); settmpY(marker.top) }} />
+                                    <ImageMarker className={style.thumb} src={imgpath} markers={markers} onAddMarker={(marker) => { setMarkers([...markers, marker]); settmpX(marker.left); settmpY(marker.top); console.log(markers) }} />
                                 </>
                             }
                             <div>
