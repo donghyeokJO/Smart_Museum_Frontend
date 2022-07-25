@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
@@ -8,6 +8,7 @@ import { Chart } from "react-google-charts";
 import Calendar from 'react-calendar';
 import { baseURL } from "../config";
 import ImageMarker from 'react-image-marker';
+import Lineto, {Line} from 'react-lineto';
 
 import 'react-calendar/dist/Calendar.css';
 import style from './css/admin/Dashboard.module.css';
@@ -51,24 +52,57 @@ function Dashboard() {
 
     useEffect(() => {
         console.log('ss');
+        let marks = [];
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
                 console.log(res.data)
                 setFloor(res.data[0]['floor_ko']);
                 setimgSrc(baseURL + res.data[0]['drawing_image']);
-                // setMarkers(res.data.map(item => {
-                //     let temp = {
-                //         left: item['x'],
-                //         top: item['y']
-                //     }
-                // }))
-                // setimgSrc(root_img_path[0]);
+                res.data[0]['inner_exhibition'].map(item => {
+                    let temp = {
+                        left: item['x_coordinate'],
+                        top: item['y_coordinate']
+                    }
+                    if (temp.left !== null && temp.left !== "") {
+                        marks = [...marks, temp];
+                    }
+                })
+                setMarkers(marks)
             })
             .catch((err) => {
                 console.log(err);
             });
     }, []);
+
+    const changeMarker = idx => {
+        let marks = [];
+        ExhibitionList[idx]['inner_exhibition'].map(item => {
+            let temp = {
+                left: item['x_coordinate'],
+                top: item['y_coordinate']
+            }
+            if (temp.left !== null && temp.left !== "") {
+                marks = [...marks, temp];
+            }
+        })
+        setMarkers(marks);
+    };
+
+    const markerStyle = {
+        width: "25px", 
+        height: "25px",
+        backgroundColor: "brown",
+        borderRadius: "50%",
+        color: "white",
+        textAlign: "center",
+    }
+
+    const CustomMarker = (props) => {
+        return (
+            <div className={"marker" + props.itemNumber} style={markerStyle}>{props.itemNumber + 1}</div>
+        )
+    };
 
     const data = [[
         ["시간", "관람객수"],
@@ -257,25 +291,25 @@ function Dashboard() {
                                     {ExhibitionList.map((exhibition, idx) => {
                                         return (
                                             // <Dropdown.Item onClick={() => { setimgSrc(root_img_path[idx]); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
-                                            <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']); changeMarker(idx) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                         )
                                     })}
                                 </DropdownButton>
                             </div>
-                            <div className={style.contbody}>
+                           
+                            {/* <div className={style.contbody}>
                                 <div><img src={imgSrc} /></div>
-                            </div>
+                            </div> */}
+                            <ImageMarker className={style.contbody} src={imgSrc} markers={markers} alt="전시관 도면" markerComponent={CustomMarker}/>
+                            <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/>
+                            
                         </div>
                         <div className={style.cont02}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
-                                {/* <div id="datepicker"></div> */}
                                 <h2 className={style.h2}>날짜 선택</h2>
-                                {/* <div className={style.contbody}> */}
                                 <div>
                                     <Calendar onChange={changeDate} value={dateval} nextLabel=">" prevLabel="<" />
                                 </div>
-                                {/* </div> */}
-
                             </div>
                         </div>
                     </div>
@@ -337,14 +371,6 @@ function Dashboard() {
                         <div className={style.cont05}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <h2 className={style.tit}>Today</h2>
-                                {/* <div className="select">
-                                    <a href="#">전체</a>
-                                    <ul>
-                                        <li>전체</li>
-                                        <li>연령별</li>
-                                        <li>성별</li>
-                                    </ul>
-                                </div> */}
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title="필터 선택" style={{ float: 'right' }}>
                                     <Dropdown.Item onClick={() => setchartfilter('number')}>전체</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setchartfilter('age')}>연령별</Dropdown.Item>
