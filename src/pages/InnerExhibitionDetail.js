@@ -21,8 +21,7 @@ function InnerExhibitionDetail({ match }) {
     const params = new URLSearchParams(window.location.search);
 
     const id = params.get("id");
-
-    // console.log(id);
+    const date = params.get("date");
 
     const [item, setitem] = useState({})
 
@@ -30,7 +29,16 @@ function InnerExhibitionDetail({ match }) {
     const access = localStorage.getItem('access');
 
     const [floor, setfloor] = useState('');
+    const [beacon, setbeacon] = useState([]);
+    const [recent, setRecent] = useState('');
 
+    const [dateval, setdateval] = useState(date === "null" || date === null ? new Date() : new Date(date));
+    const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1 )+ '-' + String(dateval.getDate()) : date);
+    
+    const [showdata, setshowdata] = useState(new Array(25));
+    const [dateidx, setdateidx] = useState(0);
+
+    const [today, settoday] = useState([]);
 
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
@@ -48,89 +56,35 @@ function InnerExhibitionDetail({ match }) {
                 console.log(res.data);
                 setitem(res.data);
                 setfloor(res.data['exhibition']['floor_ko']);
+                setRecent(res.data['beacon'][0]['recent_reception']);
+                let temp = []
+                res.data['beacon'].map(bea => {
+                    setbeacon(temp.push(bea.uuid))
+                })
+                setbeacon(temp);
             })
 
     }, []);
 
-    const [dateval, setdateval] = useState(new Date());
-    const [datestr, setdatestr] = useState(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
-    const [showdata, setshowdata] = useState([]);
-    const [dateidx, setdateidx] = useState(0);
-
-    const data = [[
-        ["시간", "관람객수"],
-        [9, 10],
-        [10, 50],
-        [11, 70],
-        [12, 90],
-        [13, 5],
-        [14, 70],
-        [15, 128],
-        [16, 135],
-        [17, 105],
-        [18, 12]
-    ], [
-        ["시간", "관람객수"],
-        [9, 80],
-        [10, 70],
-        [11, 100],
-        [12, 90],
-        [13, 40],
-        [14, 200],
-        [15, 18],
-        [16, 13],
-        [17, 10],
-        [18, 120]
-    ], [
-        ["시간", "관람객수"],
-        [9, 100],
-        [10, 120],
-        [11, 60],
-        [12, 90],
-        [13, 50],
-        [14, 7],
-        [15, 28],
-        [16, 35],
-        [17, 5],
-        [18, 20]
-    ]];
-
     useEffect(() => {
-        setshowdata(data[dateidx]);
+        ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
+            .then(res =>{
+                console.log(res.data);
+                settoday(res.data);
+            })
+
+        ROOT_API.time_inner('JWT ' + access, id, datestr)
+            .then(res => {
+                console.log(res.data);
+                let temparr = new Array(25);
+                temparr[0] = new Array('시간', '관람객수');
+                Object.keys(res.data).forEach(function(k){
+                    let temp = new Array(Number(k), res.data[k]);
+                    temparr[Number(k) + 1] = temp;
+                    setshowdata(temparr);
+                })
+            })
     }, []);
-
-    const [tabledata, settabledata] = useState([]);
-
-    const table = [[
-        [1, "참여의 장", "10대", "3,880명"],
-        [2, "동영상관", "10대", "3,580명"],
-        [3, "수족관", "10대", "3,380명"],
-        [4, "고래와 바다이야기", "10대", "3,180명"],
-        [5, "수산식품이용가공", "10대", "2,980명"]
-    ], [
-        [1, "수족관", "10대", "4,380명"],
-        [2, "고래와 바다이야기", "10대", "4,180명"],
-        [3, "참여의 장", "10대", "2,880명"],
-        [4, "동영상관", "10대", "2,580명"],
-        [5, "수산식품이용가공", "10대", "1,980명"]
-    ], [
-        [1, "참여의 장", "10대", "2,880명"],
-        [2, "수족관", "10대", "2,380명"],
-        [3, "수산식품이용가공", "10대", "1,980명"],
-        [4, "동영상관", "10대", "1,580명"],
-        [5, "고래와 바다이야기", "10대", "1,180명"],
-    ]
-    ]
-
-    useEffect(() => {
-        settabledata(table[dateidx]);
-    }, []);
-
-    const [visitor, setvisitor] = useState(600);
-    const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
-    const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
-    const [chartfilter, setchartfilter] = useState('number');
 
     const NumberChart = () => {
         return (
@@ -138,27 +92,20 @@ function InnerExhibitionDetail({ match }) {
                 <p>관람객</p>
                 <div className={style.iconWrap}>
                     <i></i>
-                    <span>{visitor}<em>명</em></span>
+                    <span>{today['audience']}<em>명</em></span>
                 </div>
             </div>
         )
     }
 
     const Agechart = () => {
-        let max = Math.floor(visitor / 5);
-        let val1 = getRandom(1, max);
-        let val2 = getRandom(1, max);
-        let val3 = getRandom(1, max);
-        let val4 = getRandom(1, max);
-        let val5 = visitor - (val1 + val2 + val3 + val4);
-
         const data = [
             ["연령대", "방문객"],
-            ["10대", val5],
-            ["20대", val4],
-            ["30대", val3],
-            ["40대", val2],
-            ["50대 이상", val1]
+            ["10대", today['age']['10']],
+            ["20대", today['age']['20']],
+            ["30대", today['age']['30']],
+            ["40대", today['age']['40']],
+            ["50대 이상", today['age']['50 >= ']]
         ];
 
         return (
@@ -172,14 +119,10 @@ function InnerExhibitionDetail({ match }) {
     }
 
     const Sexchart = () => {
-        let max = Math.floor(visitor / 2);
-        let val1 = getRandom(1, max);
-        let val2 = visitor - val1
-
         const data = [
             ["성별", "방문객"],
-            ["남성", val2],
-            ["여성", val1],
+            ["남성", today['sex']['MALE']],
+            ["여성", today['sex']['FEMALE']],
         ];
 
 
@@ -193,16 +136,31 @@ function InnerExhibitionDetail({ match }) {
         );
     }
 
+    const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
+    const [chartfilter, setchartfilter] = useState('number');
+
 
     const changeDate = (date) => {
         setdateval(date);
-        setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
-        setshowdata(dateidx === 2 ? data[0] : data[dateidx + 1]);
-        settabledata(dateidx === 2 ? table[0] : table[dateidx + 1]);
-        setvisitor(getRandom(600, 700));
+        let datestr = String(date.getFullYear()) + '-' + (date.getMonth() <= 10 ? '0' + String(date.getMonth() + 1) : '' + String(date.getMonth()) + 1 )+ '-' + String(date.getDate())
+        setdatestr(datestr);
 
-        setdateidx(dateidx === 2 ? 0 : dateidx + 1);
+        ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
+            .then(res =>{
+                settoday(res.data);
+            })
 
+        ROOT_API.time_inner('JWT ' + access, id, datestr)
+            .then(res => {
+                console.log(res.data);
+                let temparr = new Array(25);
+                temparr[0] = new Array('시간', '관람객수');
+                Object.keys(res.data).forEach(function(k){
+                    let temp = new Array(Number(k), res.data[k]);
+                    temparr[Number(k) + 1] = temp;
+                    setshowdata(temparr);
+                })
+            })
     }
 
     const options = {
@@ -310,11 +268,11 @@ function InnerExhibitionDetail({ match }) {
                                     <div>
                                         <h5>ID</h5>
                                         {/* <p>{item['beacon']}</p> */}
-                                        <p>123456</p>
+                                        <p>{beacon.join(',')}</p>
                                     </div>
                                     <div>
                                         <h5>최근 수신</h5>
-                                        <p>2022. 07. 05 13 : 15 : 24</p>
+                                        <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p>
                                     </div>
                                 </div>
                             </div>

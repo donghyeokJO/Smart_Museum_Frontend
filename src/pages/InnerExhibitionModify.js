@@ -21,8 +21,7 @@ function InnerExhibitionModify({ match }) {
     const params = new URLSearchParams(window.location.search);
 
     const id = params.get("id");
-
-    // console.log(id);
+    const date = params.get("date");
 
     const [item, setitem] = useState({})
 
@@ -30,14 +29,23 @@ function InnerExhibitionModify({ match }) {
     const access = localStorage.getItem('access');
 
     const [floor, setfloor] = useState('');
+    const [beacon, setbeacon] = useState([]);
+    const [recent, setRecent] = useState('');
+
+    const [dateval, setdateval] = useState(date === "null" || date === null ? new Date() : new Date(date));
+    const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1 )+ '-' + String(dateval.getDate()) : date);
+    
+    const [showdata, setshowdata] = useState(new Array(25));
+    const [dateidx, setdateidx] = useState(0);
+
+    const [today, settoday] = useState([]);
+    const [tabledata, settabledata] = useState([]);
+
     const [inName, setinName] = useState('');
+    const [fileName, setFileName] = useState('');
     const [imgpath, setimgpath] = useState('');
-    const [fileName, setFileName] = useState();
-    const [imgFile, setimgFile] = useState(null);
-
-
-    const [beacon, setBeacon] = useState('');
     const [detail, setdetail] = useState('');
+    const [imgFile, setimgFile] = useState(null);
 
 
     useEffect(() => {
@@ -60,30 +68,65 @@ function InnerExhibitionModify({ match }) {
                 setimgpath(baseURL + res.data['image']);
                 setdetail(res.data['explanation']);
             })
-
     }, []);
 
-    const [dateval, setdateval] = useState(new Date());
-    const [datestr, setdatestr] = useState(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
+    useEffect(() => {
+        ROOT_API.inner_exhibition_get('JWT ' + access, id)
+            .then((res) => {
+                console.log(res.data);
+                setitem(res.data);
+                setfloor(res.data['exhibition']['floor_ko']);
+                res.data['beacon'].map(item => {
+                    setbeacon([...beacon, item['uuid']]);
+                    setRecent(item['recent_reception']);
+                })
+            })
+    }, []);
 
+    useEffect(() => {
+        ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
+            .then(res =>{
+                console.log(res.data);
+                settoday(res.data);
+            })
+
+        ROOT_API.time_inner('JWT ' + access, id, datestr)
+            .then(res => {
+                console.log(res.data);
+                let temparr = new Array(25);
+                temparr[0] = new Array('시간', '관람객수');
+                Object.keys(res.data).forEach(function(k){
+                    let temp = new Array(Number(k), res.data[k]);
+                    temparr[Number(k) + 1] = temp;
+                    setshowdata(temparr);
+                })
+            })
+    }, []);
+
+   
     const changeDate = (date) => {
         setdateval(date);
-        setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()))
-    };
+        let datestr = String(date.getFullYear()) + '-' + (date.getMonth() <= 10 ? '0' + String(date.getMonth() + 1) : '' + String(date.getMonth()) + 1 )+ '-' + String(date.getDate())
+        setdatestr(datestr);
 
-    const data = [
-        ["시간", "관람객수"],
-        [9, 10],
-        [10, 50],
-        [11, 70],
-        [12, 90],
-        [13, 5],
-        [14, 70],
-        [15, 128],
-        [16, 135],
-        [17, 105],
-        [18, 12]
-    ];
+        ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
+            .then(res =>{
+                settoday(res.data);
+            })
+
+        ROOT_API.time_inner('JWT ' + access, id, datestr)
+            .then(res => {
+                console.log(res.data);
+                let temparr = new Array(25);
+                temparr[0] = new Array('시간', '관람객수');
+                Object.keys(res.data).forEach(function(k){
+                    let temp = new Array(Number(k), res.data[k]);
+                    temparr[Number(k) + 1] = temp;
+                    setshowdata(temparr);
+                })
+            })
+    }
+
 
     const options = {
         width: '100%',
@@ -121,12 +164,13 @@ function InnerExhibitionModify({ match }) {
     const ModifyExhibition = () => {
         // console.log(detail);
         let formdata = new FormData();
-
+        
+        // console.log(imgFile)
         formdata.append('name', inName);
         formdata.append('order', item['order']);
         formdata.append('explanation', detail);
         if (imgFile !== null) {
-            formdata.append('image', imgFile);
+            formdata.append('image', imgFile);   
         }
 
         ROOT_API.inner_exhibition_put('JWT ' + access, formdata, id)
@@ -141,6 +185,61 @@ function InnerExhibitionModify({ match }) {
                 // alert('모든 항목을 입력하여 주세요.')
             })
     }
+
+    const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
+    const [chartfilter, setchartfilter] = useState('number');
+
+    const NumberChart = () => {
+        // console.log(showdata);
+        return (
+            <div className={style.todayAll}>
+                <p>관람객</p>
+                <div className={style.iconWrap}>
+                    <i></i>
+                    <span>{today['audience']}<em>명</em></span>
+                </div>
+            </div>
+        )
+    }
+
+    const Agechart = () => {
+        const data = [
+            ["연령대", "방문객"],
+            ["10대", today['age']['10']],
+            ["20대", today['age']['20']],
+            ["30대", today['age']['30']],
+            ["40대", today['age']['40']],
+            ["50대 이상", today['age']['50 >= ']]
+        ];
+
+        return (
+            <Chart
+                chartType="PieChart"
+                data={data}
+                width={"100%"}
+                height={"320px"}
+            />
+        );
+    }
+
+    const Sexchart = () => {
+        const data = [
+            ["성별", "방문객"],
+            ["남성", today['sex']['MALE']],
+            ["여성", today['sex']['FEMALE']],
+        ];
+
+
+        return (
+            <Chart
+                chartType="PieChart"
+                data={data}
+                width={"100%"}
+                height={"320px"}
+            />
+        );
+    }
+
 
     return (
         <body className={style.body}>
@@ -191,24 +290,14 @@ function InnerExhibitionModify({ match }) {
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <h2 className={`${style.tit} ${style.h2}`}>Today</h2>
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title="필터 선택" style={{ float: 'right' }}>
-                                    <Dropdown.Item href="#/action-1">전체</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">연령별</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">성별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setchartfilter('number')}>전체</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setchartfilter('age')}>연령별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setchartfilter('sex')}>성별</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>
-                                <div className={style.todayAll}>
-                                    <p>관람객</p>
-                                    <div className={style.iconWrap}>
-                                        <i></i>
-                                        <span>19<em>명</em></span>
-                                    </div>
-                                </div>
-                                <div className={style.todayAge} style={{ display: 'none' }}>
-                                    <div id="piechart" style={{ width: '100%', height: 'auto' }}></div>
-                                </div>
-                                <div className={style.todayGender} style={{ display: 'none' }}>
-                                    <div id="piechart2" style={{ width: '100%', height: 'auto' }}></div>
+                                <div className={style.contbody}>
+                                    {chartfilter === "number" ? NumberChart() : chartfilter === "age" ? Agechart() : Sexchart()}
                                 </div>
                             </div>
                         </div>
@@ -245,7 +334,7 @@ function InnerExhibitionModify({ match }) {
                             <div className={style.contbody}>
                                 <Chart
                                     chartType="LineChart"
-                                    data={data}
+                                    data={showdata}
                                     options={options}
                                 // legendToggle
                                 />
@@ -261,11 +350,11 @@ function InnerExhibitionModify({ match }) {
                                     <div>
                                         <h5>ID</h5>
                                         {/* <p>{item['beacon']}</p> */}
-                                        <p>123456</p>
+                                        <p>{beacon}</p>
                                     </div>
                                     <div>
                                         <h5>최근 수신</h5>
-                                        <p>2022. 07. 05 13 : 15 : 24</p>
+                                        <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p>
                                     </div>
                                 </div>
                             </div>

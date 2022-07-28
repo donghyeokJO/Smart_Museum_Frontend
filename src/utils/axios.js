@@ -17,7 +17,9 @@ const url = {
     exhibition: 'museum/exhibition/',
     inner_exhibition: 'inner_exhibition/',
     inner_exhibition_user: 'museum/inner_exhibition/user/',
-    event: 'event/'
+    event: 'event/',
+    beacon: 'beacon/',
+    history: 'history/',
 }
 
 export const ROOT_API = {
@@ -296,6 +298,54 @@ export const ROOT_API = {
 
     event_delete: (token, event_pk) =>
         api.delete(url.event + event_pk + '/', {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+    
+    beacon_add: (token, inner_exhibition_pk, uuid) =>
+        api.post(url.beacon + inner_exhibition_pk + '/' ,{
+            'uuid': uuid, 
+        }, {
+            headers: {
+                'Authorization': token,
+        }}),
+
+    today_exhibiton: (token, exhibition_pk, date_str) =>
+        api.get(url.history + 'exhibition/' + exhibition_pk + '/day/?date=' + date_str,
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),     
+    
+    popularity: (token, exhibition_pk) =>
+        api.get(url.history + 'exhibition/' + exhibition_pk + '/popularity/',
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
+    time : (token, exhibition_pk, date_str) =>
+        api.get(url.history + 'exhibition/' + exhibition_pk + '/time/?date=' + date_str,
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
+    today_exhibiton_inner: (token, exhibition_pk, date_str) =>
+        api.get(url.history + 'inner_exhibition/' + exhibition_pk + '/day/?date=' + date_str,
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),     
+    
+    time_inner : (token, exhibition_pk, date_str) =>
+        api.get(url.history + 'inner_exhibition/' + exhibition_pk + '/time/?date=' + date_str,
+        {
             headers: {
                 "Authorization": token,
             }

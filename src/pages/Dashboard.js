@@ -21,22 +21,26 @@ function Dashboard() {
     const [MuseumName, setMuseumName] = useState('');
     const [imgSrc, setimgSrc] = useState('');
     const [Floor, setFloor] = useState('');
+    const [floorpk, setFloorpk] = useState('');
 
-    const [dateval, setdateval] = useState(new Date());
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
+
+    const [dateval, setdateval] = useState(date === "null" || date === null ? new Date() : new Date(date));
     // const [datestr, setdatestr] = useState(dateval.format('YYYY-MM-DD'));
-    const [datestr, setdatestr] = useState(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
+    const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1 )+ '-' + String(dateval.getDate()) : date);
     // console.log(dateval.format('YYYY-MM-DD'));
 
     const [ExhibitionList, setExhibitionList] = useState([]);
-    const [showdata, setshowdata] = useState([]);
+    const [showdata, setshowdata] = useState(new Array(25));
     const [dateidx, setdateidx] = useState(0);
 
     const user_id = localStorage.getItem('user_id');
     const access = localStorage.getItem('access');
 
-    const root_img_path = ['/img/root_01.png', '/img/root_02.png', '/img/root_03.png'];
-
     const [markers, setMarkers] = useState([]);
+    const [today, settoday] = useState([]);
+    const [tabledata, settabledata] = useState([]);
 
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
@@ -58,6 +62,7 @@ function Dashboard() {
                 setExhibitionList(res.data);
                 console.log(res.data)
                 setFloor(res.data[0]['floor_ko']);
+                setFloorpk(res.data[0]['pk']);
                 setimgSrc(baseURL + res.data[0]['drawing_image']);
                 res.data[0]['inner_exhibition'].map(item => {
                     let temp = {
@@ -68,12 +73,45 @@ function Dashboard() {
                         marks = [...marks, temp];
                     }
                 })
-                setMarkers(marks)
+                setMarkers(marks);
+                ROOT_API.today_exhibiton('JWT ' + access, res.data[0]['pk'], datestr)
+                .then(res =>{
+                    console.log(res.data);
+                    settoday(res.data);
+                })
+
+                ROOT_API.popularity('JWT ' + access, res.data[0]['pk'])
+                .then(res => {
+                    console.log(res.data);
+                    settabledata(res.data);
+                })
+
+                ROOT_API.time('JWT ' + access, res.data[0]['pk'], datestr)
+                    .then(res => {
+                        console.log(res.data);
+                        let temparr = new Array(25);
+                        temparr[0] = new Array('시간', '관람객수');
+                        Object.keys(res.data).forEach(function(k){
+                            let temp = new Array(Number(k), res.data[k]);
+                            temparr[Number(k) + 1] = temp;
+                            setshowdata(temparr);
+                        })
+                    })
             })
             .catch((err) => {
                 console.log(err);
             });
     }, []);
+
+    useEffect(() => {
+        function handleResize() {
+            console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+            window.location.href =  '/dashboard?date=' + datestr;
+        }
+        window.addEventListener('resize', handleResize)
+    });
+
+    
 
     const changeMarker = idx => {
         let marks = [];
@@ -88,6 +126,32 @@ function Dashboard() {
         })
         setMarkers(marks);
     };
+
+    const changeFloorpk = pk => {
+        ROOT_API.today_exhibiton('JWT ' + access, pk, datestr)
+        .then(res =>{
+            console.log(res.data);
+            settoday(res.data);
+        })
+
+        ROOT_API.popularity('JWT ' + access, pk)
+        .then(res => {
+            console.log(res.data);
+            settabledata(res.data);
+        })
+        
+        ROOT_API.time('JWT ' + access, pk, datestr)
+            .then(res => {
+                console.log(res.data);
+                let temparr = new Array(25);
+                temparr[0] = new Array('시간', '관람객수');
+                Object.keys(res.data).forEach(function(k){
+                    let temp = new Array(Number(k), res.data[k]);
+                    temparr[Number(k) + 1] = temp;
+                    setshowdata(temparr);
+                })
+            })
+    }
 
     const markerStyle = {
         width: "25px", 
@@ -104,108 +168,30 @@ function Dashboard() {
         )
     };
 
-    const data = [[
-        ["시간", "관람객수"],
-        [9, 10],
-        [10, 50],
-        [11, 70],
-        [12, 90],
-        [13, 5],
-        [14, 70],
-        [15, 128],
-        [16, 135],
-        [17, 105],
-        [18, 12]
-    ], [
-        ["시간", "관람객수"],
-        [9, 80],
-        [10, 70],
-        [11, 100],
-        [12, 90],
-        [13, 40],
-        [14, 200],
-        [15, 18],
-        [16, 13],
-        [17, 10],
-        [18, 120]
-    ], [
-        ["시간", "관람객수"],
-        [9, 100],
-        [10, 120],
-        [11, 60],
-        [12, 90],
-        [13, 50],
-        [14, 7],
-        [15, 28],
-        [16, 35],
-        [17, 5],
-        [18, 20]
-    ]];
-
-    useEffect(() => {
-        setshowdata(data[dateidx]);
-    }, []);
-
-    const [tabledata, settabledata] = useState([]);
-
-    const table = [[
-        [1, "참여의 장", "10대", "3,880명"],
-        [2, "동영상관", "10대", "3,580명"],
-        [3, "수족관", "10대", "3,380명"],
-        [4, "고래와 바다이야기", "10대", "3,180명"],
-        [5, "수산식품이용가공", "10대", "2,980명"]
-    ], [
-        [1, "수족관", "10대", "4,380명"],
-        [2, "고래와 바다이야기", "10대", "4,180명"],
-        [3, "참여의 장", "10대", "2,880명"],
-        [4, "동영상관", "10대", "2,580명"],
-        [5, "수산식품이용가공", "10대", "1,980명"]
-    ], [
-        [1, "참여의 장", "10대", "2,880명"],
-        [2, "수족관", "10대", "2,380명"],
-        [3, "수산식품이용가공", "10대", "1,980명"],
-        [4, "동영상관", "10대", "1,580명"],
-        [5, "고래와 바다이야기", "10대", "1,180명"],
-    ]
-    ]
-
-    useEffect(() => {
-        settabledata(table[dateidx]);
-    }, []);
-
-    const [visitor, setvisitor] = useState(600);
-    const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
     const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
     const [chartfilter, setchartfilter] = useState('number');
 
     const NumberChart = () => {
+        // console.log(showdata);
         return (
             <div className={style.todayAll}>
                 <p>관람객</p>
                 <div className={style.iconWrap}>
                     <i></i>
-                    <span>{visitor}<em>명</em></span>
+                    <span>{today['audience']}<em>명</em></span>
                 </div>
             </div>
         )
     }
 
     const Agechart = () => {
-        let max = Math.floor(visitor / 5);
-        let val1 = getRandom(1, max);
-        let val2 = getRandom(1, max);
-        let val3 = getRandom(1, max);
-        let val4 = getRandom(1, max);
-        let val5 = visitor - (val1 + val2 + val3 + val4);
-
         const data = [
             ["연령대", "방문객"],
-            ["10대", val5],
-            ["20대", val4],
-            ["30대", val3],
-            ["40대", val2],
-            ["50대 이상", val1]
+            ["10대", today['age']['10']],
+            ["20대", today['age']['20']],
+            ["30대", today['age']['30']],
+            ["40대", today['age']['40']],
+            ["50대 이상", today['age']['50 >= ']]
         ];
 
         return (
@@ -219,14 +205,10 @@ function Dashboard() {
     }
 
     const Sexchart = () => {
-        let max = Math.floor(visitor / 2);
-        let val1 = getRandom(1, max);
-        let val2 = visitor - val1
-
         const data = [
             ["성별", "방문객"],
-            ["남성", val2],
-            ["여성", val1],
+            ["남성", today['sex']['MALE']],
+            ["여성", today['sex']['FEMALE']],
         ];
 
 
@@ -243,13 +225,25 @@ function Dashboard() {
 
     const changeDate = (date) => {
         setdateval(date);
-        setdatestr(String(dateval.getFullYear()) + '-' + String(dateval.getMonth() + 1) + '-' + String(dateval.getDate()));
-        setshowdata(dateidx === 2 ? data[0] : data[dateidx + 1]);
-        settabledata(dateidx === 2 ? table[0] : table[dateidx + 1]);
-        setvisitor(getRandom(600, 700));
+        let datestr = String(date.getFullYear()) + '-' + (date.getMonth() <= 10 ? '0' + String(date.getMonth() + 1) : '' + String(date.getMonth()) + 1 )+ '-' + String(date.getDate())
+        setdatestr(datestr);
 
-        setdateidx(dateidx === 2 ? 0 : dateidx + 1);
+        ROOT_API.today_exhibiton('JWT ' + access, floorpk, datestr)
+            .then(res =>{
+                settoday(res.data);
+            })
 
+        ROOT_API.time('JWT ' + access, floorpk, datestr)
+            .then(res => {
+                console.log(res.data);
+                let temparr = new Array(25);
+                temparr[0] = new Array('시간', '관람객수');
+                Object.keys(res.data).forEach(function(k){
+                    let temp = new Array(Number(k), res.data[k]);
+                    temparr[Number(k) + 1] = temp;
+                    setshowdata(temparr);
+                })
+            })
     }
 
     const options = {
@@ -268,6 +262,15 @@ function Dashboard() {
         },
         legend: { position: "none" },
     };
+
+    const age_group = {
+        '10': '10대',
+        '20': '20대',
+        '30': '30대',
+        '40': '40대',
+        '50': '50대',
+        '50 >= ' : '50대 이상',
+    }
 
     return (
         <body className={style.body}>
@@ -291,15 +294,12 @@ function Dashboard() {
                                     {ExhibitionList.map((exhibition, idx) => {
                                         return (
                                             // <Dropdown.Item onClick={() => { setimgSrc(root_img_path[idx]); setFloor(exhibition['floor_ko']) }}>{exhibition['floor_ko']}</Dropdown.Item>
-                                            <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']); changeMarker(idx) }}>{exhibition['floor_ko']}</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => { setimgSrc(baseURL + exhibition['drawing_image']); setFloor(exhibition['floor_ko']); changeMarker(idx); setFloorpk(exhibition['pk']); changeFloorpk(exhibition['pk']) }}>{exhibition['floor_ko']}</Dropdown.Item>
                                         )
                                     })}
                                 </DropdownButton>
                             </div>
                            
-                            {/* <div className={style.contbody}>
-                                <div><img src={imgSrc} /></div>
-                            </div> */}
                             <ImageMarker className={style.contbody} src={imgSrc} markers={markers} alt="전시관 도면" markerComponent={CustomMarker}/>
                             <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/>
                             
@@ -336,13 +336,13 @@ function Dashboard() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {tabledata.map((table) => {
+                                            {tabledata.slice(0,5).map((table) => {
                                                 return (
                                                     <tr>
-                                                        <td>{table[0]}</td>
-                                                        <td>{table[1]}</td>
-                                                        <td>{table[2]}</td>
-                                                        <td>{table[3]}</td>
+                                                        <td>{table['rank']}</td>
+                                                        <td>{table['name']}</td>
+                                                        <td>{age_group[table['age_group']]}</td>
+                                                        <td>{table['count']}</td>
                                                     </tr>
                                                 )
                                             })}
@@ -362,7 +362,6 @@ function Dashboard() {
                                     chartType="LineChart"
                                     data={showdata}
                                     options={options}
-                                // legendToggle
                                 />
                                 <div id="linechart_material"></div>
                             </div>

@@ -93,10 +93,15 @@ function InnerExhibitionAdd() {
         ROOT_API.inner_exhibition_add('JWT ' + access, formdata, floorpk)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log('전시관 추가');
-                    console.log('내부 전시관 추가 시작');
                     // console.log(res.data)
-                    window.location.href = '/inner-exhibition';
+                    let pk = res.data['pk'];
+                    ROOT_API.beacon_add('JWT ' + access, pk, beacon)
+                        .then((res) => {
+                            if (res.status === 200){
+                                alert('추가 되었습니다.');
+                                window.location.href = '/inner-exhibition';
+                            }
+                        })
                 }
             })
             .catch((err) => {
@@ -176,14 +181,14 @@ function InnerExhibitionAdd() {
                                     </dd>
                                 </dl>
                             </div>
-                            {/* <div className={style.input1}>
+                            <div className={style.input1}>
                                 <dl className={style.inputgroup}>
                                     <dt>비컨 ID</dt>
                                     <dd className="fix-width">
-                                        <input type="text" placeholder="비컨ID를 입력하세요." value={beacon} onChange={(e) => setBeacon(e.target.value)} />
+                                        <input type="text" placeholder="비컨ID를 입력하세요. (여러 개일 경우 콤마(,)로 구분하여 입력)" value={beacon} onChange={(e) => setBeacon(e.target.value)} />
                                     </dd>
                                 </dl>
-                            </div> */}
+                            </div>
                             <div className={`${style.input1} ${style.textarea}`}>
                                 <dl className={style.inputgroup}>
                                     <dt>상세 설명</dt>
