@@ -21,6 +21,7 @@ import EventModify from "./pages/EventModify";
 import EventMissionAdd from "./pages/EventMissionAdd";
 import EventMissionDetail from "./pages/EventMissionDetail";
 import EventMissionModify from "./pages/EventMissionModify";
+import test from "./pages/test";
 
 
 import Service from './pages/Service'
@@ -71,6 +72,7 @@ class App extends React.Component {
             <Route exact path='/login' component={LoginPage} />
             <Route exact path='/join' component={JoinPage} />
             <PrivateRoute path='/mypage' component={MyPage} />
+            <Route exact path ='/test/' component={test}/>
 
             <PrivateRoute path='/dashboard' component={Dashboard} />
             <PrivateRoute path='/exhibition' component={ExhibitionNew} />

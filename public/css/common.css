@@ -85,7 +85,7 @@ a:hover,a:focus{
   text-decoration:none;
   outline:0;
 }
-//legend,caption,.hide{
+legend,caption,.hide{
   visibility:hidden;
   overflow:hidden;
   width:0;
