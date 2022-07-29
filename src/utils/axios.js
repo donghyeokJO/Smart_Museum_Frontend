@@ -311,6 +311,13 @@ export const ROOT_API = {
                 'Authorization': token,
         }}),
 
+    beacon_del: (token, inner_exhibition_pk) =>
+        api.delete(url.beacon + inner_exhibition_pk + '/' ,
+        {
+            headers: {
+                'Authorization': token,
+        }}),
+
     today_exhibiton: (token, exhibition_pk, date_str) =>
         api.get(url.history + 'exhibition/' + exhibition_pk + '/day/?date=' + date_str,
         {
@@ -345,6 +352,14 @@ export const ROOT_API = {
     
     time_inner : (token, exhibition_pk, date_str) =>
         api.get(url.history + 'inner_exhibition/' + exhibition_pk + '/time/?date=' + date_str,
+        {
+            headers: {
+                "Authorization": token,
+            }
+        }),
+
+    footprint: (token, exhibition_pk, date_str) => 
+        api.get(url.history + 'exhibition/' + exhibition_pk + '/foot_print/?date=' + date_str,
         {
             headers: {
                 "Authorization": token,

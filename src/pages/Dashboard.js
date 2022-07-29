@@ -96,6 +96,11 @@ function Dashboard() {
                             temparr[Number(k) + 1] = temp;
                             setshowdata(temparr);
                         })
+                })
+
+                ROOT_API.footprint('JWT ' + access, res.data[0]['pk'], datestr)
+                    .then(res => {
+                        console.log(res.data);
                     })
             })
             .catch((err) => {
@@ -301,7 +306,7 @@ function Dashboard() {
                             </div>
                            
                             <ImageMarker className={style.contbody} src={imgSrc} markers={markers} alt="전시관 도면" markerComponent={CustomMarker}/>
-                            <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/>
+                            {/* <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/> */}
                             
                         </div>
                         <div className={style.cont02}>

@@ -56,12 +56,12 @@ function InnerExhibitionDetail({ match }) {
                 console.log(res.data);
                 setitem(res.data);
                 setfloor(res.data['exhibition']['floor_ko']);
-                setRecent(res.data['beacon'][0]['recent_reception']);
+                setRecent(res.data['beacon'].length >= 1 ? res.data['beacon'][0]['recent_reception'] : null);
                 let temp = []
                 res.data['beacon'].map(bea => {
                     setbeacon(temp.push(bea.uuid))
                 })
-                setbeacon(temp);
+                setbeacon(temp.join(','));
             })
 
     }, []);
@@ -267,8 +267,7 @@ function InnerExhibitionDetail({ match }) {
                                 <div className={style.beacon}>
                                     <div>
                                         <h5>ID</h5>
-                                        {/* <p>{item['beacon']}</p> */}
-                                        <p>{beacon.join(',')}</p>
+                                        <p>{beacon}</p>
                                     </div>
                                     <div>
                                         <h5>최근 수신</h5>

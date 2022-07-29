@@ -76,10 +76,12 @@ function InnerExhibitionModify({ match }) {
                 console.log(res.data);
                 setitem(res.data);
                 setfloor(res.data['exhibition']['floor_ko']);
-                res.data['beacon'].map(item => {
-                    setbeacon([...beacon, item['uuid']]);
-                    setRecent(item['recent_reception']);
+                setRecent(res.data['beacon'].length >= 1 ? res.data['beacon'][0]['recent_reception'] : null);
+                let temp = []
+                res.data['beacon'].map(bea => {
+                    setbeacon(temp.push(bea.uuid))
                 })
+                setbeacon(temp.join(','));
             })
     }, []);
 
@@ -176,8 +178,17 @@ function InnerExhibitionModify({ match }) {
         ROOT_API.inner_exhibition_put('JWT ' + access, formdata, id)
             .then((res) => {
                 if (res.status === 200) {
-                    // console.log(res.data)
-                    window.location.href = '/inner-exhibition-detail?id=' + id;
+                    ROOT_API.beacon_del('JWT ' + access, id)
+                        .then(res => {
+                            ROOT_API.beacon_add('JWT ' + access, id, beacon)
+                                .then(res => {
+                                    alert('수정되었습니다.');
+                                    window.location.href = '/inner-exhibition-detail?id=' + id;
+                                })
+                                .catch(err => {
+                                    alert('이미 존재하는 비컨 uuid입니다.')
+                                })
+                        })
                 }
             })
             .catch((err) => {
@@ -347,11 +358,16 @@ function InnerExhibitionModify({ match }) {
                             </div>
                             <div className={style.contbody}>
                                 <div className={style.beacon}>
-                                    <div>
+                                    {/* <div>
                                         <h5>ID</h5>
-                                        {/* <p>{item['beacon']}</p> */}
                                         <p>{beacon}</p>
-                                    </div>
+                                    </div> */}
+                                    <d1 className={style.inputgroup}>
+                                        <dt>ID</dt>
+                                        <dd>
+                                            <input type="text" value={beacon} onChange={(e) => setbeacon(e.target.value)} />
+                                        </dd>
+                                    </d1>
                                     <div>
                                         <h5>최근 수신</h5>
                                         <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p>
