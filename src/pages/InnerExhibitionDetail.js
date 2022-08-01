@@ -142,7 +142,7 @@ function InnerExhibitionDetail({ match }) {
 
     const changeDate = (date) => {
         setdateval(date);
-        let datestr = String(date.getFullYear()) + '-' + (date.getMonth() < 10 ? '0' + String(date.getMonth() + 1) : '' + String(date.getMonth()) + 1 )+ '-' + String(date.getDate())
+        let datestr = String(date.getFullYear()) + '-' + String(date.getMonth() + 1)+ '-' + String(date.getDate())
         setdatestr(datestr);
 
         ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
