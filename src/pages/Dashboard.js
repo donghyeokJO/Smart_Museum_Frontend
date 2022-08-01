@@ -230,7 +230,7 @@ function Dashboard() {
 
     const changeDate = (date) => {
         setdateval(date);
-        let datestr = String(date.getFullYear()) + '-' + (date.getMonth() <= 10 ? '0' + String(date.getMonth() + 1) : '' + String(date.getMonth()) + 1 )+ '-' + String(date.getDate())
+        let datestr = String(date.getFullYear()) + '-' + (date.getMonth() < 10 ? '0' + String(date.getMonth() + 1) : '' + String(date.getMonth()) + 1 )+ '-' + String(date.getDate())
         setdatestr(datestr);
 
         ROOT_API.today_exhibiton('JWT ' + access, floorpk, datestr)
