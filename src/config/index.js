@@ -6,7 +6,7 @@
 const baseURL =
     window.location.origin === "http://localhost:3000"
         // ? "http://127.0.0.1:8000"
-        ? "https://locslab.com"
-        : "https://locslab.com";
+        ? "https://smartseas.kr"
+        : "https://smartseas.kr";
 
 export { baseURL };
