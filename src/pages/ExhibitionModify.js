@@ -4,6 +4,7 @@ import DashBoardHeader from "../components/DashBoardHeader";
 import { ROOT_API } from "../utils/axios";
 import Button from 'react-bootstrap/Button';
 import { baseURL } from "../config";
+import ImageMarker from 'react-image-marker';
 
 import style from './css/admin/ExhibitionAdd.module.css'
 import img from './css/admin/img/sub/emptyimg.jpg';
@@ -14,12 +15,18 @@ function ExhibitionModify() {
     const [fileName, setFileName] = useState('');
     const [imgFile, setimgFile] = useState(null);
 
+    const [tmpName, settmpName] = useState('');
+    const [tmpNum, settmpNum] = useState('');
+    const [tmpX, settmpX] = useState('');
+    const [tmpY, settmpY] = useState('');
+
     const [inner, setinner] = useState([]);
 
     const [floorko, setfloorko] = useState('');
     const [flooren, setflooren] = useState('');
 
     const [Exhibition, setExhibition] = useState([]);
+    const [markers, setMarkers] = useState([]);
 
     const onchangeFile = async (e) => {
         const file = e.target.files[0];
@@ -33,7 +40,36 @@ function ExhibitionModify() {
         rendor.onload = () => {
             setimgpath(rendor.result)
         }
+
+        setMarkers([]);
     };
+
+    const addinner = () => {
+
+        if (tmpNum === "" || tmpName === "") {
+            alert('모든 항목을 입력해주세요');
+            return;
+        }
+
+        if (isNaN(tmpNum)) {
+            alert('번호는 숫자여야 합니다.');
+            return;
+        }
+
+        let temp = {
+            order: tmpNum,
+            name: tmpName,
+            x: tmpX,
+            y: tmpY
+        };
+
+        setinner(inner.concat(temp));
+
+        settmpName('');
+        settmpNum('');
+        settmpX('');
+        settmpY('');
+    }
 
     const access = 'JWT ' + localStorage.getItem('access');
     const user_id = localStorage.getItem('user_id');
@@ -51,6 +87,7 @@ function ExhibitionModify() {
     }, []);
 
     useEffect(() => {
+        let marks = [];
         ROOT_API.exhibition_get(access, pk)
             .then((res) => {
                 // console.log(res.data)
@@ -58,6 +95,16 @@ function ExhibitionModify() {
                 setimgpath(baseURL + res.data['drawing_image']);
                 setfloorko(res.data['floor_ko']);
                 setflooren(res.data['floor_en']);
+                res.data['inner_exhibition'].map(item => {
+                    let temp = {
+                        left: item['x_coordinate'],
+                        top: item['y_coordinate']
+                    }
+                    if (temp.left !== null && temp.left !== "") {
+                        marks = [...marks, temp];
+                    }
+                })
+                setMarkers(marks);
             })
     }, []);
 
@@ -98,6 +145,21 @@ function ExhibitionModify() {
             })
     }
 
+    const removeinner = key => {
+        setinner(inner.filter(inn => inn.order !== key));
+    }
+
+    const modifyinner = key => {
+        let inn = inner.filter(inn => inn.order === key)[0];
+        // console.log(inn)
+        settmpName(inn.name);
+        settmpNum(inn.order);
+        settmpX(inn.x);
+        settmpY(inn.y);
+
+        setinner(inner.filter(inn => inn.order !== key));
+    }
+
     return (
         <body className={style.body}>
             <DashBoardHeader exhibition={true} ex1={true}></DashBoardHeader>
@@ -126,9 +188,16 @@ function ExhibitionModify() {
                     <div className={`${style.rowgroup} ${style.clearfix}`}>
                         <div className={`${style.Form} ${style.Form1}`}>
                             {/* <div className={`${style.thumb} ${style.emptyimg}`}> */}
-                            <div className={style.thumb}>
+                            {/* <div className={style.thumb}>
                                 <img src={imgpath}></img>
-                            </div>
+                            </div> */}
+                            {imgpath === img ?
+                                <div className={style.thumb}><img src={imgpath}></img></div> :
+                                <>
+                                    <Button disabled={!markers.length > 0} onClick={() => setMarkers((prev) => prev.slice(0, -1))}>표시 제거</Button>
+                                    <ImageMarker className={style.thumb} src={imgpath} markers={markers} onAddMarker={(marker) => { setMarkers([...markers, marker]); settmpX(marker.left); settmpY(marker.top); console.log(markers) }} />
+                                </>
+                            }
                             <div>
                                 <h4 className={style.h4}>도면업로드</h4>
                                 <div className={style.filebox}>
@@ -156,15 +225,54 @@ function ExhibitionModify() {
                         </div>
                         <div className={`${style.Form} ${style.Form2}`}>
                             <div>
+                                <h3 className={style.h3}>내부 전시관 등록</h3>
+                                <div className={style.input2}>
+                                    <dl className={style.inputgroup}>
+                                        <dt>전시관 이름</dt>
+                                        <dd>
+                                            <input type="text" placeholder="전시관 이름을 입력하세요." value={tmpName} onChange={(e) => settmpName(e.target.value)} />
+                                        </dd>
+                                    </dl>
+                                    <dl className={style.inputgroup}>
+                                        <dt>번호/순서</dt>
+                                        <dd>
+                                            <input type="num" placeholder="번호/순서를 입력하세요." value={tmpNum} onChange={(e) => settmpNum(e.target.value)} />
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div className={style.input3}>
+                                    <p className={style.title}>전시관 포인트 좌표<span>(도면 위를 클릭해 주세요.)</span></p>
+                                    <dl className={style.inputgroup}>
+                                        <dt>X축</dt>
+                                        <dd>
+                                            <input type="num" placeholder="예) 3, 147" value={tmpX} onChange={(e) => settmpX(e.target.value)} readOnly />
+                                        </dd>
+                                    </dl>
+                                    <dl className={style.inputgroup}>
+                                        <dt>Y축</dt>
+                                        <dd>
+                                            <input type="num" placeholder="예) 450, 320" value={tmpY} onChange={(e) => settmpY(e.target.value)} readOnly />
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div className={style.textcenter}>
+                                    <Button variant="success" onClick={addinner}>등록하기</Button>
+                                </div>
+                            </div>
+                            <div>
                                 <h4 className={style.h4}>내부 전시관 등록현황</h4>
                                 <ul className={style.ListExhibition}>
                                     {inner.sort((a, b) => a.order > b.order ? 1 : -1).map(inn => {
                                         return (
-                                            <li className={style.edit} key={inn.id}>
+                                            <li className={style.edit} key={inn.order}>
                                                 <div className={style.info}>
                                                     <span className={style.num}>{inn.order}</span>
                                                     <span className={style.txt}>{inn.name}</span>
                                                 </div>
+                                                <ul className={style.perform}>
+                                                    <li><a href="#" title="수정하기" onClick={() => modifyinner(inn.order)}>수정<span className={style.editbtn}><i className="fas fa-pen" style={{ color: "#fff" }}></i></span></a></li>
+                                                    <li><a href="#" title="삭제하기" onClick={() => removeinner(inn.order)}>삭제<span className={style.delbtn}><i className="fas fa-times"></i></span></a></li>
+                                                </ul>
                                             </li>
                                         )
                                     })}
