@@ -56,11 +56,11 @@ const SystemUserPost = ({ posts }) => {
                             <li>{post['museum_location']}</li>
                             <li>{post['museum_name']}</li>
                             <li>
-                                {post['payment_state'] === 3 ? post['payment_state_string'] : <button type="button" onClick={() => AcceptUser(post)} >승인</button>}
+                                {post['username'] === 'admin' ?  '관리자'  : post['payment_state'] === 3  ? post['payment_state_string'] : <button type="button" onClick={() => AcceptUser(post)} >승인</button>}
                             </li>
                             <li>
-                                <Button className={style.btn02} onClick={() => window.location.href = '/system-user-modify?id=' + post['pk']}>수정</Button>
-                                <Button className={style.btn03} onClick={() => deleteUser(post)}>삭제</Button>
+                                {post['username'] === 'admin' ? '' : <Button className={style.btn02} onClick={() => window.location.href = '/system-user-modify?id=' + post['pk']}>수정</Button>}
+                                {post['username'] === 'admin' ? '' : <Button className={style.btn03} onClick={() => deleteUser(post)}>삭제</Button>}
                             </li>
                         </ul>
                     </div>
