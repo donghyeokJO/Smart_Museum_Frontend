@@ -1,6 +1,7 @@
 .react-calendar {
     width: 103%;
     max-width: 103%;
+    height: 360px;
     background-color: #fff;
     color: #222;
     border-radius: 8px;

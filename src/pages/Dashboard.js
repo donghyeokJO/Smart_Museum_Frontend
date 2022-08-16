@@ -190,6 +190,17 @@ function Dashboard() {
     }
 
     const Agechart = () => {
+        if (today['age']['10'] === 0 && today['age']['20'] === 0 && today['age']['30'] === 0 && today['age']['40'] === 0 && today['age']['50 >= '] === 0 ){
+            return (
+                <div className={style.todayAll}>
+                    <p>관람객이 없습니다.</p>
+                    <div className={style.iconWrap}>
+                        <i></i>
+                        {/* <span>{today['audience']}<em>명</em></span> */}
+                    </div>
+                </div>
+            )
+        }
         const data = [
             ["연령대", "방문객"],
             ["10대", today['age']['10']],
@@ -210,12 +221,23 @@ function Dashboard() {
     }
 
     const Sexchart = () => {
+        if (today['sex']['MALE'] === 0 && today['sex']['FEMALE'] === 0){
+            return (
+                <div className={style.todayAll}>
+                    <p>관람객이 없습니다.</p>
+                    <div className={style.iconWrap}>
+                        <i></i>
+                        {/* <span>{today['audience']}<em>명</em></span> */}
+                    </div>
+                </div>
+            )
+        }
+
         const data = [
             ["성별", "방문객"],
             ["남성", today['sex']['MALE']],
             ["여성", today['sex']['FEMALE']],
         ];
-
 
         return (
             <Chart

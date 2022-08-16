@@ -186,7 +186,14 @@ function InnerExhibitionModify({ match }) {
                                     window.location.href = '/inner-exhibition-detail?id=' + id;
                                 })
                                 .catch(err => {
+                                    console.log(beacon)
+                                    if (beacon === "") {
+                                        alert('수정되었습니다.');
+                                        window.location.href = '/inner-exhibition-detail?id=' + id;
+                                    }
+                                    else{
                                     alert('이미 존재하는 비컨 uuid입니다.')
+                                    }
                                 })
                         })
                 }
@@ -288,7 +295,7 @@ function InnerExhibitionModify({ match }) {
                                 <label for="file" >파일찾기</label>
                                 <input type="file" id="file" onChange={onchangeFile} />
                             </div>
-                            <p class="caution">jpg, png, gif 확장자 파일만 업로드 가능합니다.</p>
+                            <p class="caution">jpg, png, gif 확장자 파일만 업로드 가능합니다. (가로:세로 1.4~1.5:1)</p>
                         </div>
                         <div className={style.cont02}>
                             <div className={`${style.conthead} ${style.clearfix}`}>

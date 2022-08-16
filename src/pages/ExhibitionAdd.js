@@ -156,7 +156,7 @@ function ExhibitionAdd() {
                     <div className={style.pageHead}>
                         <h1 className={`${style.tit} ${style.h1}`}>새 도면 등록</h1>
                         <div className={style.Headgroup}>
-                            <Button variant="secondary">취소</Button>
+                            <Button variant="secondary" onClick={() => window.location.href = '/exhibition'}>취소</Button>
                             <Button variant="primary" onClick={() => addExhibition()}>등록</Button>
                         </div>
                     </div>
@@ -176,7 +176,7 @@ function ExhibitionAdd() {
                                     <label for="file" >파일찾기</label>
                                     <input type="file" id="file" onChange={onchangeFile} />
                                 </div>
-                                <p className={style.caution}>jpg, png, gif 확장자 파일만 업로드 가능합니다.</p>
+                                <p className={style.caution}>jpg, png, gif 확장자 파일만 업로드 가능합니다. <br/>최적의 해상도를 위해, 가로:세로 비율을 1.4~1.5:1 로 설정해주세요.</p>
                             </div>
                             <div>
                                 <h3 className={style.h3}>전시관 정보 입력</h3>

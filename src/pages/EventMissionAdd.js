@@ -183,7 +183,7 @@ function EventMissionAdd() {
                                     <label for="file" >파일찾기</label>
                                     <input type="file" id="file" onChange={onchangeFile} />
                                 </div>
-                                <p className={style.caution}>jpg, png, gif 확장자 파일만 업로드 가능합니다.</p>
+                                <p className={style.caution}>jpg, png, gif 확장자 파일만 업로드 가능합니다. <br/>최적의 해상도를 위해, 가로:세로 비율을 1.4~1.5:1 로 설정해주세요.</p>
                             </div>
                         </div>
                         <div className={`${style.Form2} ${style.Form}`}>
