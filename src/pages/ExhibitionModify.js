@@ -137,7 +137,14 @@ function ExhibitionModify() {
         ROOT_API.exhibition_put(access, formdata, pk)
             .then((res) => {
                 if (res.status === 200) {
-                    window.location.href = '/exhibition';
+                    for (let i = 0; i < inner.length; i++) {
+                        let inn = inner[i];
+                        ROOT_API.exhibition_add(inn.name, inn.order, access, pk, String(inn.x).substr(0, 10), String(inn.y).substr(0, 10))
+                            .then((res) => {
+                                console.log('내부 전시관 ' + String(i) + ' 추가완료');
+                            })
+                    }
+                    window.location.href = '/exhibition';  
                 }
             })
             .catch((err) => {

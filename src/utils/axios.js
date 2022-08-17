@@ -223,6 +223,13 @@ export const ROOT_API = {
                     "Authorization": token,
                 }
             }),
+    
+    inner_exhibition_del_all: (token, pk) =>
+        api.delete(url.exhibition + pk +'/inner_exhibition/', {
+            headers : {
+                "Authorization": token,
+            }
+        }),
 
     event_get: (token) =>
         api.get(url.event, {

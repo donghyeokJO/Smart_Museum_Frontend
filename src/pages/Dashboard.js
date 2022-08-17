@@ -22,10 +22,11 @@ function Dashboard() {
     const [imgSrc, setimgSrc] = useState('');
     const [Floor, setFloor] = useState('');
     const [floorpk, setFloorpk] = useState('');
-
+    
     const params = new URLSearchParams(window.location.search);
     const date = params.get("date");
-
+    const infloor = params.get('floor');
+    
     const [dateval, setdateval] = useState(date === "null" || date === null ? new Date() : new Date(date));
     // const [datestr, setdatestr] = useState(dateval.format('YYYY-MM-DD'));
     const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1 )+ '-' + String(dateval.getDate()) : date);
@@ -41,6 +42,7 @@ function Dashboard() {
     const [markers, setMarkers] = useState([]);
     const [today, settoday] = useState([]);
     const [tabledata, settabledata] = useState([]);
+    const [footprint, setfootprint] = useState([]);
 
     useEffect(() => {
         ROOT_API.user_info(user_id, 'JWT ' + access)
@@ -55,52 +57,100 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        console.log('ss');
+        console.log(infloor);
         let marks = [];
         ROOT_API.museum_list('JWT ' + access, user_id)
             .then((res) => {
                 setExhibitionList(res.data);
-                console.log(res.data)
-                setFloor(res.data[0]['floor_ko']);
-                setFloorpk(res.data[0]['pk']);
-                setimgSrc(baseURL + res.data[0]['drawing_image']);
-                res.data[0]['inner_exhibition'].map(item => {
-                    let temp = {
-                        left: item['x_coordinate'],
-                        top: item['y_coordinate']
-                    }
-                    if (temp.left !== null && temp.left !== "") {
-                        marks = [...marks, temp];
-                    }
-                })
-                setMarkers(marks);
-                ROOT_API.today_exhibiton('JWT ' + access, res.data[0]['pk'], datestr)
-                .then(res =>{
-                    console.log(res.data);
-                    settoday(res.data);
-                })
 
-                ROOT_API.popularity('JWT ' + access, res.data[0]['pk'])
-                .then(res => {
-                    console.log(res.data);
-                    settabledata(res.data);
-                })
-
-                ROOT_API.time('JWT ' + access, res.data[0]['pk'], datestr)
-                    .then(res => {
+                if(infloor === null){
+                    setFloor(res.data[0]['floor_ko']);
+                    setFloorpk(res.data[0]['pk']);
+                    sessionStorage.setItem('floor', res.data[0]['pk']);
+                    setimgSrc(baseURL + res.data[0]['drawing_image']);
+                    res.data[0]['inner_exhibition'].map(item => {
+                        let temp = {
+                            left: item['x_coordinate'],
+                            top: item['y_coordinate']
+                        }
+                        if (temp.left !== null && temp.left !== "") {
+                            marks = [...marks, temp];
+                        }
+                    })
+                    setMarkers(marks);
+                    ROOT_API.today_exhibiton('JWT ' + access, res.data[0]['pk'], datestr)
+                    .then(res =>{
                         console.log(res.data);
-                        let temparr = new Array(25);
-                        temparr[0] = new Array('시간', '관람객수');
-                        Object.keys(res.data).forEach(function(k){
-                            let temp = new Array(Number(k), res.data[k]);
-                            temparr[Number(k) + 1] = temp;
-                            setshowdata(temparr);
-                        })
-                })
+                        settoday(res.data);
+                    })
 
-                ROOT_API.footprint('JWT ' + access, res.data[0]['pk'], datestr)
+                    ROOT_API.popularity('JWT ' + access, res.data[0]['pk'])
                     .then(res => {
+                        // console.log(res.data);
+                        settabledata(res.data);
+                    })
+
+                    ROOT_API.time('JWT ' + access, res.data[0]['pk'], datestr)
+                        .then(res => {
+                            // console.log(res.data);
+                            let temparr = new Array(25);
+                            temparr[0] = new Array('시간', '관람객수');
+                            Object.keys(res.data).forEach(function(k){
+                                let temp = new Array(Number(k), res.data[k]);
+                                temparr[Number(k) + 1] = temp;
+                                setshowdata(temparr);
+                            })
+                    })
+                }
+                
+                else {
+                    console.log(infloor);
+                    let thisfloor = res.data.filter(item => item['pk'] === Number(infloor))[0];
+                    setFloor(thisfloor['floor_ko']);
+                    setFloorpk(thisfloor['pk']);
+                    sessionStorage.setItem('floor', thisfloor['pk']);
+                    setimgSrc(baseURL + thisfloor['drawing_image']);
+                    thisfloor['inner_exhibition'].map(item => {
+                        let temp = {
+                            left: item['x_coordinate'],
+                            top: item['y_coordinate']
+                        }
+                        if (temp.left !== null && temp.left !== "") {
+                            marks = [...marks, temp];
+                        }
+                    })
+                    setMarkers(marks);
+                    ROOT_API.today_exhibiton('JWT ' + access, thisfloor['pk'], datestr)
+                    .then(res =>{
                         console.log(res.data);
+                        settoday(res.data);
+                    })
+
+                    ROOT_API.popularity('JWT ' + access, thisfloor['pk'])
+                    .then(res => {
+                        // console.log(res.data);
+                        settabledata(res.data);
+                    })
+
+                    ROOT_API.time('JWT ' + access, thisfloor['pk'], datestr)
+                        .then(res => {
+                            // console.log(res.data);
+                            let temparr = new Array(25);
+                            temparr[0] = new Array('시간', '관람객수');
+                            Object.keys(res.data).forEach(function(k){
+                                let temp = new Array(Number(k), res.data[k]);
+                                temparr[Number(k) + 1] = temp;
+                                setshowdata(temparr);
+                            })
+                    })
+                }
+                
+                
+                
+                ROOT_API.footprint('JWT ' + access, sessionStorage.getItem('floor') === "" ? res.data[0]['pk'] : sessionStorage.getItem('floor'), datestr)
+                    .then(res => {
+                        // console.log(res.data);
+                        setfootprint(res.data);
                     })
             })
             .catch((err) => {
@@ -111,7 +161,7 @@ function Dashboard() {
     useEffect(() => {
         function handleResize() {
             console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
-            window.location.href =  '/dashboard?date=' + datestr;
+            window.location.href =  '/dashboard?date=' + datestr + '&floor=' + sessionStorage.getItem('floor');
         }
         window.addEventListener('resize', handleResize)
     });
@@ -133,21 +183,24 @@ function Dashboard() {
     };
 
     const changeFloorpk = pk => {
+        setFloorpk(pk);
+        sessionStorage.setItem('floor', pk);
+
         ROOT_API.today_exhibiton('JWT ' + access, pk, datestr)
         .then(res =>{
-            console.log(res.data);
+            // console.log(res.data);
             settoday(res.data);
         })
 
         ROOT_API.popularity('JWT ' + access, pk)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             settabledata(res.data);
         })
         
         ROOT_API.time('JWT ' + access, pk, datestr)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 let temparr = new Array(25);
                 temparr[0] = new Array('시간', '관람객수');
                 Object.keys(res.data).forEach(function(k){
@@ -155,6 +208,12 @@ function Dashboard() {
                     temparr[Number(k) + 1] = temp;
                     setshowdata(temparr);
                 })
+            })
+
+        ROOT_API.footprint('JWT ' + access, pk, datestr)
+            .then(res => {
+                // console.log(res.data);
+                setfootprint(res.data);
             })
     }
 
@@ -169,7 +228,7 @@ function Dashboard() {
 
     const CustomMarker = (props) => {
         return (
-            <div className={"marker" + props.itemNumber} style={markerStyle}>{props.itemNumber + 1}</div>
+            <div className={"marker" + (props.itemNumber + 1)} style={markerStyle}>{props.itemNumber + 1}</div>
         )
     };
 
@@ -246,7 +305,6 @@ function Dashboard() {
                     <p>관람객이 없습니다.</p>
                     <div className={style.iconWrap}>
                         <i></i>
-                        {/* <span>{today['audience']}<em>명</em></span> */}
                     </div>
                 </div>
             )
@@ -281,7 +339,7 @@ function Dashboard() {
 
         ROOT_API.time('JWT ' + access, floorpk, datestr)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 let temparr = new Array(25);
                 temparr[0] = new Array('시간', '관람객수');
                 Object.keys(res.data).forEach(function(k){
@@ -289,6 +347,12 @@ function Dashboard() {
                     temparr[Number(k) + 1] = temp;
                     setshowdata(temparr);
                 })
+            })
+        
+        ROOT_API.footprint('JWT ' + access, floorpk, datestr)
+            .then(res => {
+                // console.log(res.data);
+                setfootprint(res.data);
             })
     }
 
@@ -347,6 +411,17 @@ function Dashboard() {
                             </div>
                            
                             <ImageMarker className={style.contbody} src={imgSrc} markers={markers} alt="전시관 도면" markerComponent={CustomMarker}/>
+                            {   
+                                footprint.map((foot, idx) => {
+                                    if (idx !== footprint.length - 1){
+                                        let fromfoot = 'marker' + foot['inner_exhibitions']['order'];
+                                        let tofoot = 'marker' + footprint[idx+1]['inner_exhibitions']['order'];
+                                        return (
+                                            <Lineto from={fromfoot} to={tofoot} borderWidth={10-foot['rank']-1} style={{position: "relative"}}/>
+                                        )
+                                    }
+                                })
+                            }
                             {/* <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/> */}
                             
                         </div>
