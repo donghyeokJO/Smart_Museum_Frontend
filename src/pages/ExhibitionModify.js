@@ -21,6 +21,7 @@ function ExhibitionModify() {
     const [tmpY, settmpY] = useState('');
 
     const [inner, setinner] = useState([]);
+    const [originalinner, setoriginalinner] = useState([]);
 
     const [floorko, setfloorko] = useState('');
     const [flooren, setflooren] = useState('');
@@ -44,8 +45,7 @@ function ExhibitionModify() {
         setMarkers([]);
     };
 
-    const addinner = () => {
-
+    const addinner = () => {        
         if (tmpNum === "" || tmpName === "") {
             alert('모든 항목을 입력해주세요');
             return;
@@ -83,6 +83,7 @@ function ExhibitionModify() {
             .then((res) => {
                 // console.log(res.data);
                 setinner(res.data);
+                setoriginalinner(res.data);
             })
     }, []);
 
@@ -152,10 +153,6 @@ function ExhibitionModify() {
             })
     }
 
-    const removeinner = key => {
-        setinner(inner.filter(inn => inn.order !== key));
-    }
-
     const modifyinner = key => {
         let inn = inner.filter(inn => inn.order === key)[0];
         // console.log(inn)
@@ -194,10 +191,6 @@ function ExhibitionModify() {
                     </div>
                     <div className={`${style.rowgroup} ${style.clearfix}`}>
                         <div className={`${style.Form} ${style.Form1}`}>
-                            {/* <div className={`${style.thumb} ${style.emptyimg}`}> */}
-                            {/* <div className={style.thumb}>
-                                <img src={imgpath}></img>
-                            </div> */}
                             {imgpath === img ?
                                 <div className={style.thumb}><img src={imgpath}></img></div> :
                                 <>
@@ -232,7 +225,7 @@ function ExhibitionModify() {
                         </div>
                         <div className={`${style.Form} ${style.Form2}`}>
                             <div>
-                                <h3 className={style.h3}>내부 전시관 등록</h3>
+                                <h3 className={style.h3}>내부 전시관 수정</h3>
                                 <div className={style.input2}>
                                     <dl className={style.inputgroup}>
                                         <dt>전시관 이름</dt>
@@ -263,7 +256,7 @@ function ExhibitionModify() {
                                     </dl>
                                 </div>
                                 <div className={style.textcenter}>
-                                    <Button variant="success" onClick={addinner}>등록하기</Button>
+                                    <Button variant="success" onClick={addinner}>저장하기</Button>
                                 </div>
                             </div>
                             <div>
@@ -278,7 +271,6 @@ function ExhibitionModify() {
                                                 </div>
                                                 <ul className={style.perform}>
                                                     <li><a href="#" title="수정하기" onClick={() => modifyinner(inn.order)}>수정<span className={style.editbtn}><i className="fas fa-pen" style={{ color: "#fff" }}></i></span></a></li>
-                                                    <li><a href="#" title="삭제하기" onClick={() => removeinner(inn.order)}>삭제<span className={style.delbtn}><i className="fas fa-times"></i></span></a></li>
                                                 </ul>
                                             </li>
                                         )

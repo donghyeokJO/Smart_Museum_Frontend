@@ -417,13 +417,13 @@ function Dashboard() {
                                         let fromfoot = 'marker' + foot['inner_exhibitions']['order'];
                                         let tofoot = 'marker' + footprint[idx+1]['inner_exhibitions']['order'];
                                         return (
-                                            <Lineto from={fromfoot} to={tofoot} borderWidth={10-foot['rank']-1} style={{position: "relative"}}/>
+                                            <Lineto from={fromfoot} to={tofoot} borderWidth={8-Number(foot['rank'])-1} style={{position: "relative"}}/>
                                         )
                                     }
                                 })
                             }
                             {/* <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/> */}
-                            
+                        테스트 테스트 테스트  
                         </div>
                         <div className={style.cont02}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
