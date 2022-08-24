@@ -9,17 +9,24 @@ import style from '../pages/css/admin/InnerExhibition.module.css';
 
 
 const deleteInnerExhibition = pk => {
-    console.log(pk);
-    const user_id = localStorage.getItem('user_id');
-    const access = localStorage.getItem('access');
+    if (window.confirm("정말 삭제합니까?")){
+        console.log(pk);
+        const user_id = localStorage.getItem('user_id');
+        const access = localStorage.getItem('access');
 
-    ROOT_API.inner_exhibition_del('JWT ' + access, pk)
-        .then((res) => {
+        ROOT_API.inner_exhibition_del('JWT ' + access, pk)
+            .then((res) => {
 
-            alert('삭제 되었습니다.')
-            window.location.href = '/inner-exhibition';
+                alert('삭제 되었습니다.')
+                window.location.href = '/inner-exhibition';
 
-        })
+            })
+    }
+
+    else{
+        return
+    }
+    
 
 }
 

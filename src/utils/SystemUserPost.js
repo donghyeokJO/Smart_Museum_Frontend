@@ -32,15 +32,21 @@ function AcceptUser(post) {
 
 
 function deleteUser(post) {
-    var user_pk = post['pk'];
-    var access = 'JWT ' + localStorage.getItem('access');
+    if (window.confirm("정말 삭제합니까?")){
+        var user_pk = post['pk'];
+        var access = 'JWT ' + localStorage.getItem('access');
 
-    ROOT_API.account_delete(access, user_pk)
-        .then((res) => {
-            console.log(res.data);
-            alert('삭제 되었습니다.');
-            window.location.reload();
-        });
+        ROOT_API.account_delete(access, user_pk)
+            .then((res) => {
+                console.log(res.data);
+                alert('삭제 되었습니다.');
+                window.location.reload();
+            });
+    }
+    else {
+        return
+    }
+    
 }
 
 

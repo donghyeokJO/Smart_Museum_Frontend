@@ -5,15 +5,22 @@ import { baseURL } from '../config';
 import style from '../pages/css/admin/Event.module.css';
 
 const deleteEvent = pk => {
-    console.log(pk);
-    const user_id = localStorage.getItem('user_id');
-    const access = localStorage.getItem('access');
+    if (window.confirm("정말 삭제합니까?")){
+        console.log(pk);
+        const user_id = localStorage.getItem('user_id');
+        const access = localStorage.getItem('access');
 
-    ROOT_API.event_delete('JWT ' + access, pk)
-        .then((res) => {
-            alert('삭제 되었습니다.')
-            window.location.reload();
-        })
+        ROOT_API.event_delete('JWT ' + access, pk)
+            .then((res) => {
+                alert('삭제 되었습니다.')
+                window.location.reload();
+            })
+        }
+
+    else {
+        return
+    }
+    
 }
 
 const EventPost = ({Events}) => {
