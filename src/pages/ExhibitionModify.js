@@ -19,6 +19,7 @@ function ExhibitionModify() {
     const [tmpNum, settmpNum] = useState('');
     const [tmpX, settmpX] = useState('');
     const [tmpY, settmpY] = useState('');
+    const [tmpPk, settmpPk] = useState('');
 
     const [inner, setinner] = useState([]);
     const [originalinner, setoriginalinner] = useState([]);
@@ -60,7 +61,8 @@ function ExhibitionModify() {
             order: tmpNum,
             name: tmpName,
             x: tmpX,
-            y: tmpY
+            y: tmpY,
+            pk: tmpPk,
         };
 
         setinner(inner.concat(temp));
@@ -138,12 +140,29 @@ function ExhibitionModify() {
         ROOT_API.exhibition_put(access, formdata, pk)
             .then((res) => {
                 if (res.status === 200) {
+                    console.log(inner);
                     for (let i = 0; i < inner.length; i++) {
                         let inn = inner[i];
-                        ROOT_API.exhibition_add(inn.name, inn.order, access, pk, String(inn.x).substr(0, 10), String(inn.y).substr(0, 10))
+                        console.log(inn);
+                        let formdata = new FormData();
+                        
+                        formdata.append('name', inn.name);
+                        formdata.append('order', inn.order);
+                        let x = inn.x === undefined ? inn.x_coordinate : inn.x;
+                        let y = inn.y === undefined ? inn.y_coordinate : inn.y;
+                        console.log(x);
+                        console.log(y);
+                        formdata.append('x_coordinate', String(x).substr(0, 10));
+                        formdata.append('y_coordinate', String(y).substr(0, 10));
+
+                        ROOT_API.inner_exhibition_put(access, formdata, inn.pk)
                             .then((res) => {
-                                console.log('내부 전시관 ' + String(i) + ' 추가완료');
+                                console.log('내부 전시관 ' + String(i) + ' 수정완료')
                             })
+                        // ROOT_API.exhibition_add(inn.name, inn.order, access, pk, String(inn.x).substr(0, 10), String(inn.y).substr(0, 10))
+                        //     .then((res) => {
+                        //         console.log('내부 전시관 ' + String(i) + ' 추가완료');
+                        //     })
                     }
                     window.location.href = '/exhibition';  
                 }
@@ -160,6 +179,7 @@ function ExhibitionModify() {
         settmpNum(inn.order);
         settmpX(inn.x);
         settmpY(inn.y);
+        settmpPk(inn.pk);
 
         setinner(inner.filter(inn => inn.order !== key));
     }
