@@ -234,6 +234,7 @@ function Dashboard() {
 
     const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
     const [chartfilter, setchartfilter] = useState('number');
+    const [charttitle, setcharttitle] = useState('필터 선택');
 
     const NumberChart = () => {
         // console.log(showdata);
@@ -278,12 +279,17 @@ function Dashboard() {
             ["50대 이상", today['age']['50 >= ']]
         ];
 
+        const options = {
+            chartArea: {width: 400, height: 300}
+        }
+
         return (
             <Chart
                 chartType="PieChart"
                 data={data}
                 width={"100%"}
                 height={"320px"}
+                options={options}
             />
         );
     }
@@ -316,12 +322,18 @@ function Dashboard() {
             ["여성", today['sex']['FEMALE']],
         ];
 
+        const options = {
+            chartArea: {width: 400, height: 300}
+        }
+
+
         return (
             <Chart
                 chartType="PieChart"
                 data={data}
                 width={"100%"}
                 height={"320px"}
+                options={options}
             />
         );
     }
@@ -353,6 +365,8 @@ function Dashboard() {
             .then(res => {
                 // console.log(res.data);
                 setfootprint(res.data);
+            }).catch(() => {
+                setfootprint([]);
             })
     }
 
@@ -423,7 +437,30 @@ function Dashboard() {
                                 })
                             }
                             {/* <Lineto from="marker0" to="marker1" delay={10} borderWidth={5} style={{position: "relative"}}/> */}
-                        {/* 테스트 테스트 테스트   */}
+                        {
+                            footprint.map((foot, idx) => {
+                            if (idx !== footprint.length - 1){
+                                let fromfoot = foot['inner_exhibitions']['name']
+                                let tofoot = footprint[idx+1]['inner_exhibitions']['name']
+                                if (idx == 0) {
+                                    return (
+                                        fromfoot + '->' + tofoot + '->'
+                                    )
+                                }
+                                else if (idx !== footprint.length - 2) {
+                                    return (
+                                        tofoot + '->'
+                                    )
+                                }
+                            }
+                            else {
+                                let f = foot['inner_exhibitions']['name']
+                                return (
+                                    f
+                                )
+                            }
+                        })
+                        }
                         </div>
                         <div className={style.cont02}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
@@ -491,10 +528,10 @@ function Dashboard() {
                         <div className={style.cont05}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <h2 className={style.tit}>Today</h2>
-                                <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title="필터 선택" style={{ float: 'right' }}>
-                                    <Dropdown.Item onClick={() => setchartfilter('number')}>전체</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setchartfilter('age')}>연령별</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setchartfilter('sex')}>성별</Dropdown.Item>
+                                <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={charttitle} style={{ float: 'right' }}>
+                                    <Dropdown.Item onClick={() => {setchartfilter('number');setcharttitle('전체')}}>전체</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {setchartfilter('age');setcharttitle('연령별')}}>연령별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {setchartfilter('sex');setcharttitle('성별')}}>성별</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>

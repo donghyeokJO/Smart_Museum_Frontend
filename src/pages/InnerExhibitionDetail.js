@@ -30,7 +30,7 @@ function InnerExhibitionDetail({ match }) {
 
     const [floor, setfloor] = useState('');
     const [beacon, setbeacon] = useState([]);
-    const [recent, setRecent] = useState('');
+    const [recent, setRecent] = useState([]);
 
     const [dateval, setdateval] = useState(date === "null" || date === null ? new Date() : new Date(date));
     const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1 )+ '-' + String(dateval.getDate()) : date);
@@ -56,7 +56,8 @@ function InnerExhibitionDetail({ match }) {
                 console.log(res.data);
                 setitem(res.data);
                 setfloor(res.data['exhibition']['floor_ko']);
-                setRecent(res.data['beacon'].length >= 1 ? res.data['beacon'][0]['recent_reception'] : null);
+                setRecent(res.data['beacon']);
+                // setRecent(res.data['beacon'].length >= 1 ? res.data['beacon'][0]['recent_reception'] : null);
                 let temp = []
                 res.data['beacon'].map(bea => {
                     setbeacon(temp.push(bea.uuid))
@@ -182,6 +183,7 @@ function InnerExhibitionDetail({ match }) {
 
     const colors = ['#5634AD', '#06C273', '#F0D101', '#FA372D', '#0C85FA'];
     const [chartfilter, setchartfilter] = useState('number');
+    const [charttitle, setcharttitle] = useState('필터 선택');
 
 
     const changeDate = (date) => {
@@ -192,6 +194,8 @@ function InnerExhibitionDetail({ match }) {
         ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
             .then(res =>{
                 settoday(res.data);
+            }).catch(() => {
+                settoday([]);
             })
 
         ROOT_API.time_inner('JWT ' + access, id, datestr)
@@ -265,10 +269,10 @@ function InnerExhibitionDetail({ match }) {
                         <div className={style.cont05}>
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <h2 className={`${style.tit} ${style.h2}`}>Today</h2>
-                                <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title="필터 선택" style={{ float: 'right' }}>
-                                    <Dropdown.Item onClick={() => setchartfilter('number')}>전체</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setchartfilter('age')}>연령별</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setchartfilter('sex')}>성별</Dropdown.Item>
+                                <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={charttitle} style={{ float: 'right' }}>
+                                    <Dropdown.Item onClick={() => {setchartfilter('number');setcharttitle('전체')}}>전체</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {setchartfilter('age');setcharttitle('연령별')}}>연령별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {setchartfilter('sex');setcharttitle('성별')}}>성별</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>
@@ -315,7 +319,15 @@ function InnerExhibitionDetail({ match }) {
                                     </div>
                                     <div>
                                         <h5>최근 수신</h5>
-                                        <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p>
+                                        {/* <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p> */}
+                                        <p>
+                                            {recent.map((b) => {
+                                                var temp = b['recent_reception'];
+                                                return (
+                                                    temp !== null ? temp.substring(0, 10) + ' ' + temp.substring(11, 19) + ',' : '정보 없음,'
+                                                )
+                                            })}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
