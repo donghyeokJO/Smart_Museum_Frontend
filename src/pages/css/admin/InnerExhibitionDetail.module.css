@@ -283,7 +283,7 @@
     color: #555;
     font-weight: 600;
     font-size: 24px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .ManageInfo_detail .cont06 .beacon p {

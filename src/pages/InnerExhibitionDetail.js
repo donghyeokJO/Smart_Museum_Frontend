@@ -315,19 +315,21 @@ function InnerExhibitionDetail({ match }) {
                                 <div className={style.beacon}>
                                     <div>
                                         <h5>ID</h5>
-                                        <p>{beacon}</p>
+                                        {/* <h5>ID</h5> */}
+                                        {/* <p>{beacon}</p> */}
+                                        {beacon}
                                     </div>
                                     <div>
                                         <h5>최근 수신</h5>
                                         {/* <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p> */}
-                                        <p>
+                                        {/* <p> */}
                                             {recent.map((b) => {
                                                 var temp = b['recent_reception'];
                                                 return (
                                                     temp !== null ? temp.substring(0, 10) + ' ' + temp.substring(11, 19) + ',' : '정보 없음,'
                                                 )
                                             })}
-                                        </p>
+                                        {/* </p> */}
                                     </div>
                                 </div>
                             </div>
