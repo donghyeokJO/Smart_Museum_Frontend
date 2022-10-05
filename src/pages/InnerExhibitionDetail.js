@@ -33,8 +33,8 @@ function InnerExhibitionDetail({ match }) {
     const [recent, setRecent] = useState([]);
 
     const [dateval, setdateval] = useState(date === "null" || date === null ? new Date() : new Date(date));
-    const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1 )+ '-' + String(dateval.getDate()) : date);
-    
+    const [datestr, setdatestr] = useState(date === "null" || date === null ? String(dateval.getFullYear()) + '-' + (dateval.getMonth() <= 10 ? '0' + String(dateval.getMonth() + 1) : '' + String(dateval.getMonth()) + 1) + '-' + String(dateval.getDate()) : date);
+
     const [showdata, setshowdata] = useState(new Array(25));
     const [dateidx, setdateidx] = useState(0);
 
@@ -69,7 +69,7 @@ function InnerExhibitionDetail({ match }) {
 
     useEffect(() => {
         ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
-            .then(res =>{
+            .then(res => {
                 console.log(res.data);
                 settoday(res.data);
             })
@@ -79,7 +79,7 @@ function InnerExhibitionDetail({ match }) {
                 console.log(res.data);
                 let temparr = new Array(25);
                 temparr[0] = new Array('시간', '관람객수');
-                Object.keys(res.data).forEach(function(k){
+                Object.keys(res.data).forEach(function (k) {
                     let temp = new Array(Number(k), res.data[k]);
                     temparr[Number(k) + 1] = temp;
                     setshowdata(temparr);
@@ -100,7 +100,7 @@ function InnerExhibitionDetail({ match }) {
     }
 
     const Agechart = () => {
-        if (today.length === 0){
+        if (today.length === 0) {
             return (
                 <div className={style.todayAll}>
                     <p>관람객이 없습니다.</p>
@@ -110,7 +110,7 @@ function InnerExhibitionDetail({ match }) {
                 </div>
             )
         }
-        if (today['age']['10'] === 0 && today['age']['20'] === 0 && today['age']['30'] === 0 && today['age']['40'] === 0 && today['age']['50 >= '] === 0 ){
+        if (today['age']['10'] === 0 && today['age']['20'] === 0 && today['age']['30'] === 0 && today['age']['40'] === 0 && today['age']['50 >= '] === 0) {
             return (
                 <div className={style.todayAll}>
                     <p>관람객이 없습니다.</p>
@@ -142,7 +142,7 @@ function InnerExhibitionDetail({ match }) {
     }
 
     const Sexchart = () => {
-        if (today.length === 0){
+        if (today.length === 0) {
             return (
                 <div className={style.todayAll}>
                     <p>관람객이 없습니다.</p>
@@ -152,7 +152,7 @@ function InnerExhibitionDetail({ match }) {
                 </div>
             )
         }
-        if (today['sex']['MALE'] === 0 && today['sex']['FEMALE'] === 0){
+        if (today['sex']['MALE'] === 0 && today['sex']['FEMALE'] === 0) {
             return (
                 <div className={style.todayAll}>
                     <p>관람객이 없습니다.</p>
@@ -163,7 +163,7 @@ function InnerExhibitionDetail({ match }) {
                 </div>
             )
         }
-        
+
         const data = [
             ["성별", "방문객"],
             ["남성", today['sex']['MALE']],
@@ -188,14 +188,17 @@ function InnerExhibitionDetail({ match }) {
 
     const changeDate = (date) => {
         setdateval(date);
-        let datestr = String(date.getFullYear()) + '-' + String(date.getMonth() + 1)+ '-' + String(date.getDate())
+        let datestr = String(date.getFullYear()) + '-' + String(date.getMonth() + 1) + '-' + String(date.getDate())
         setdatestr(datestr);
 
         ROOT_API.today_exhibiton_inner('JWT ' + access, id, datestr)
-            .then(res =>{
+            .then(res => {
                 settoday(res.data);
             }).catch(() => {
-                settoday([]);
+                let today = {
+                    audience: 0
+                }
+                settoday(today);
             })
 
         ROOT_API.time_inner('JWT ' + access, id, datestr)
@@ -203,7 +206,7 @@ function InnerExhibitionDetail({ match }) {
                 console.log(res.data);
                 let temparr = new Array(25);
                 temparr[0] = new Array('시간', '관람객수');
-                Object.keys(res.data).forEach(function(k){
+                Object.keys(res.data).forEach(function (k) {
                     let temp = new Array(Number(k), res.data[k]);
                     temparr[Number(k) + 1] = temp;
                     setshowdata(temparr);
@@ -270,9 +273,9 @@ function InnerExhibitionDetail({ match }) {
                             <div className={`${style.conthead} ${style.clearfix}`}>
                                 <h2 className={`${style.tit} ${style.h2}`}>Today</h2>
                                 <DropdownButton id="dropdown-variants-Secondary" key="Secondary" variant="secondary" title={charttitle} style={{ float: 'right' }}>
-                                    <Dropdown.Item onClick={() => {setchartfilter('number');setcharttitle('전체')}}>전체</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => {setchartfilter('age');setcharttitle('연령별')}}>연령별</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => {setchartfilter('sex');setcharttitle('성별')}}>성별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setchartfilter('number'); setcharttitle('전체') }}>전체</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setchartfilter('age'); setcharttitle('연령별') }}>연령별</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setchartfilter('sex'); setcharttitle('성별') }}>성별</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                             <div className={style.contbody}>
@@ -323,12 +326,12 @@ function InnerExhibitionDetail({ match }) {
                                         <h5>최근 수신</h5>
                                         {/* <p>{recent !== null ? recent.substring(0,10) + ' ' + recent.substring(11,19) : ''}</p> */}
                                         {/* <p> */}
-                                            {recent.map((b) => {
-                                                var temp = b['recent_reception'];
-                                                return (
-                                                    temp !== null ? temp.substring(0, 10) + ' ' + temp.substring(11, 19) + ',' : '정보 없음,'
-                                                )
-                                            })}
+                                        {recent.map((b) => {
+                                            var temp = b['recent_reception'];
+                                            return (
+                                                temp !== null ? temp.substring(0, 10) + ' ' + temp.substring(11, 19) + ',' : '정보 없음,'
+                                            )
+                                        })}
                                         {/* </p> */}
                                     </div>
                                 </div>

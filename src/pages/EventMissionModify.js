@@ -127,9 +127,9 @@ function EventMissionModify() {
         // var inner_exhibition = [];
         var inner_exhibition = '';
 
-        for (let i = 0; i < addList.length; i++){
+        for (let i = 0; i < addList.length; i++) {
             let inn = addList[i];
-            let added = i === 0 ? 'inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk);
+            let added = i === 0 ? '?inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk);
             inner_exhibition = inner_exhibition + added;
             // inner_exhibition.push(i === 0 ? '?inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk))
         }
@@ -145,6 +145,8 @@ function EventMissionModify() {
 
         let formdata = new FormData();
 
+        formdata.append('start_dt', '2020-11-28T19:24:58.478641+05:30')
+        formdata.append('end_dt', '2020-11-28T19:24:58.478641+05:30')
         formdata.append('name', eventName);
         // formdata.append('inner_exhibition', '');
 
@@ -154,10 +156,11 @@ function EventMissionModify() {
         }
 
         let inner_exhibition = get_inner_exhibition();
-        
+        // console.log(formdata.get('name'));
+
         ROOT_API.event_mission_inner_delete("JWT " + access, id)
             .then((res) => {
-                console.log(inner_exhibition)
+                // console.log(inner_exhibition)
                 ROOT_API.event_mission_modify('JWT ' + access, id, formdata, inner_exhibition)
                     .then((res) => {
                         console.log(res.data);
@@ -169,7 +172,7 @@ function EventMissionModify() {
                     })
             })
 
-        
+
     }
 
     return (
