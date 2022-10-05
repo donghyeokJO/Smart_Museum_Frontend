@@ -124,14 +124,14 @@ function EventMissionModify() {
     };
 
     const get_inner_exhibition = () => {
-        var inner_exhibition = [];
-        // var inner_exhibition = '';
+        // var inner_exhibition = [];
+        var inner_exhibition = '';
 
         for (let i = 0; i < addList.length; i++){
             let inn = addList[i];
-            // let added = i === 0 ? 'inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk);
-            // inner_exhibition = inner_exhibition + added;
-            inner_exhibition.push(i === 0 ? '?inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk))
+            let added = i === 0 ? 'inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk);
+            inner_exhibition = inner_exhibition + added;
+            // inner_exhibition.push(i === 0 ? '?inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk))
         }
 
         return inner_exhibition;
