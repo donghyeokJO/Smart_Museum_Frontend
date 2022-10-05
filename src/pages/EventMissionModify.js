@@ -125,9 +125,12 @@ function EventMissionModify() {
 
     const get_inner_exhibition = () => {
         var inner_exhibition = [];
+        // var inner_exhibition = '';
 
         for (let i = 0; i < addList.length; i++){
             let inn = addList[i];
+            // let added = i === 0 ? 'inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk);
+            // inner_exhibition = inner_exhibition + added;
             inner_exhibition.push(i === 0 ? '?inner_exhibition=' + String(inn.pk) : '&inner_exhibition=' + String(inn.pk))
         }
 
@@ -143,7 +146,7 @@ function EventMissionModify() {
         let formdata = new FormData();
 
         formdata.append('name', eventName);
-        formdata.append('inner_exhibition', '');
+        // formdata.append('inner_exhibition', '');
 
         if (imgFile !== null) {
             console.log('s');
@@ -154,6 +157,7 @@ function EventMissionModify() {
         
         ROOT_API.event_mission_inner_delete("JWT " + access, id)
             .then((res) => {
+                console.log(inner_exhibition)
                 ROOT_API.event_mission_modify('JWT ' + access, id, formdata, inner_exhibition)
                     .then((res) => {
                         console.log(res.data);

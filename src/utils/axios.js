@@ -281,7 +281,7 @@ export const ROOT_API = {
         }),
 
     event_mission_modify: (token, event_pk, formdata, inner_exhibition) =>
-        api.put(url.event + 'mission/' + event_pk + '/' + inner_exhibition, formdata, {
+        api.put(url.event + 'mission/event/' + event_pk + '/' + inner_exhibition, formdata, {
             headers: {
                 'Authorization': token,
                 'content-type': 'multipart/form-data'
