@@ -180,17 +180,20 @@ function ExhibitionModify() {
                     }
                     for (let i=0; i<delinner.length;i++){
                         let inn = delinner[i];
+                        console.log(inn);
                         if (inn.pk == ''){
                             continue;
                         }
                         else{
                             ROOT_API.inner_exhibition_del(access, inn.pk)
                             .then((res)=>{
+                                console.log(res);
                                 console.log('내부 전시관 ' + String(i) + ' 삭제완료');
                             })
                         }
                     }
-                    window.location.href = '/exhibition';  
+                    window.location.reload();
+                    // window.location.href = '/exhibition-modify?id=' + pk;  
                 }
             })
             .catch((err) => {
