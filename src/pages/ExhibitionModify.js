@@ -22,6 +22,7 @@ function ExhibitionModify() {
     const [tmpPk, settmpPk] = useState('');
 
     const [inner, setinner] = useState([]);
+    const [delinner, setdelinner] = useState([]);
     const [originalinner, setoriginalinner] = useState([]);
 
     const [floorko, setfloorko] = useState('');
@@ -55,6 +56,15 @@ function ExhibitionModify() {
         if (isNaN(tmpNum)) {
             alert('번호는 숫자여야 합니다.');
             return;
+        }
+        
+        for (let i=0; i<inner.length; i++){
+            let inn = inner[i];
+            if (inn.order == tmpNum){
+                alert('번호는 겹칠 수 없습니다.');
+                setMarkers((prev) => prev.slice(0, -1))
+                return;
+            }
         }
 
         let temp = {
@@ -130,7 +140,7 @@ function ExhibitionModify() {
         formdata.append('floor_ko', floorko);
         formdata.append('floor_en', flooren);
 
-        console.log(imgFile);
+        // console.log(imgFile);
 
         if (imgFile !== null) {
             console.log('s');
@@ -154,15 +164,31 @@ function ExhibitionModify() {
                         console.log(y);
                         formdata.append('x_coordinate', String(x).substr(0, 10));
                         formdata.append('y_coordinate', String(y).substr(0, 10));
-
-                        ROOT_API.inner_exhibition_put(access, formdata, inn.pk)
+                        
+                        if (inn.pk != ''){
+                            ROOT_API.inner_exhibition_put(access, formdata, inn.pk)
                             .then((res) => {
                                 console.log('내부 전시관 ' + String(i) + ' 수정완료')
                             })
-                        // ROOT_API.exhibition_add(inn.name, inn.order, access, pk, String(inn.x).substr(0, 10), String(inn.y).substr(0, 10))
-                        //     .then((res) => {
-                        //         console.log('내부 전시관 ' + String(i) + ' 추가완료');
-                        //     })
+                        }
+                        else{
+                            ROOT_API.exhibition_add(inn.name, inn.order, access, pk, String(inn.x).substr(0, 10), String(inn.y).substr(0, 10))
+                            .then((res) => {
+                                console.log('내부 전시관 ' + String(i) + ' 추가완료');
+                            })
+                        }     
+                    }
+                    for (let i=0; i<delinner.length;i++){
+                        let inn = delinner[i];
+                        if (inn.pk == ''){
+                            continue;
+                        }
+                        else{
+                            ROOT_API.inner_exhibition_del(access, inn.pk)
+                            .then((res)=>{
+                                console.log('내부 전시관 ' + String(i) + ' 삭제완료');
+                            })
+                        }
                     }
                     window.location.href = '/exhibition';  
                 }
@@ -170,6 +196,14 @@ function ExhibitionModify() {
             .catch((err) => {
                 console.log(err);
             })
+    }
+
+    const removeinner = key => {
+        let inn = inner.filter(i => i.order == key);
+        // console.log(inn[0]);
+        setdelinner(delinner.concat(inn[0]));
+        setinner(inner.filter(inn => inn.order !== key));
+        
     }
 
     const modifyinner = key => {
@@ -291,6 +325,7 @@ function ExhibitionModify() {
                                                 </div>
                                                 <ul className={style.perform}>
                                                     <li><a href="#" title="수정하기" onClick={() => modifyinner(inn.order)}>수정<span className={style.editbtn}><i className="fas fa-pen" style={{ color: "#fff" }}></i></span></a></li>
+                                                    <li><a href="#" title="삭제하기" onClick={() => removeinner(inn.order)}>삭제<span className={style.delbtn}><i className="fas fa-times"></i></span></a></li>
                                                 </ul>
                                             </li>
                                         )
