@@ -5,6 +5,23 @@ import { baseURL } from '../config';
 
 import style from '../pages/css/admin/Exhibition.module.css';
 
+const deleteExhibition = pk => {
+    if (window.confirm("정말 삭제합니까?")){
+        console.log(pk);
+        const user_id = localStorage.getItem('user_id');
+        const access = localStorage.getItem('access');
+
+        ROOT_API.exhibition_del('JWT ' + access, pk)
+            .then((res) => {
+                alert('삭제 되었습니다.')
+                window.location.href = '/exhibition';
+            })
+    }
+    else{
+        return
+    }
+}
+
 const ExhibitionPost = ({ exhibitions }) => {
     const [show1, setshow1] = useState(false);
     const [show2, setshow2] = useState(false);
@@ -26,6 +43,7 @@ const ExhibitionPost = ({ exhibitions }) => {
                                 <a href="#" className={style.morebtn}></a>
                                 <ul className={cls}>
                                     <li onClick={() => window.location.href = "/exhibition-modify?id=" + pk}>수정</li>
+                                    <li onClick={() => deleteExhibition(pk)}>삭제</li>
                                 </ul>
                             </div>
                         </div>

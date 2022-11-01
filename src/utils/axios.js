@@ -169,6 +169,14 @@ export const ROOT_API = {
                 "Authorization": token,
             }
         }),
+    
+    exhibition_del: (token, pk) => 
+        api.delete(url.exhibition + pk + '/', {
+            headers: {
+                'Authorization': token,
+            }
+        }),
+    
 
     exhibition_put: (token, formdata, pk) =>
         api.put(url.exhibition + pk + '/', formdata, {
